@@ -2,9 +2,9 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Low Random',
-	'pi_version'		=> '2.0',
+	'pi_version'		=> '2.1',
 	'pi_author'			=> 'Lodewijk Schutte ~ Low',
-	'pi_author_url'		=> 'http://loweblog.com/freelance/article/ee-low-random-plugin/',
+	'pi_author_url'		=> 'http://loweblog.com/software/low-random/',
 	'pi_description'	=> 'Returns randomness',
 	'pi_usage'			=> Low_random::usage()
 );
@@ -13,9 +13,9 @@ $plugin_info = array(
 * Low Random Plugin class
 *
 * @package			low-random-ee2_addon
-* @version			2.0
+* @version			2.1
 * @author			Lodewijk Schutte ~ Low <low@loweblog.com>
-* @link				http://loweblog.com/freelance/article/ee-low-random-plugin/
+* @link				http://loweblog.com/software/low-random/
 * @license			http://creativecommons.org/licenses/by-sa/3.0/
 */
 class Low_random {
@@ -52,7 +52,7 @@ class Low_random {
 	{
 		$this->__construct();
 	}
-	
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -68,7 +68,7 @@ class Low_random {
 
 		$this->EE =& get_instance();
 	}
-
+	
 	// --------------------------------------------------------------------
 	
 	/**
@@ -85,6 +85,38 @@ class Low_random {
 		}
 		
 		$this->set = explode('|', $str);
+
+		return $this->_random_item_from_set();
+    }
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * Randomize tagdata
+	 *
+	 * @since	2.1
+	 * @param	string	$str
+	 * @return	string
+	 */
+    function items($str = '')
+    {
+		// get tagdata
+		if ($str == '')
+		{
+			$str = $this->EE->TMPL->tagdata;
+		}
+		
+		// trim if necessary
+		if ($this->EE->TMPL->fetch_param('trim', 'yes') != 'no')
+		{
+			$str = trim($str);
+		}
+		
+		// get separator
+		$sep = $this->EE->TMPL->fetch_param('separator', "\n");
+		
+		// create array from tagdata
+		$this->set = explode($sep, $str);
 
 		return $this->_random_item_from_set();
     }
@@ -308,6 +340,16 @@ class Low_random {
 		ob_start(); 
 		?>
 			{exp:low_random:item items="item1|item2|item3"}
+			
+			{exp:low_random:items}
+				item 1
+				item 2
+				item 3
+			{/exp:low_random:items}
+			
+			{exp:low_random:items separator=","}
+				item 1, item 2, item 3
+			{/exp:low_random:items}
 
 			{exp:low_random:number from="1" to="200"}
 
