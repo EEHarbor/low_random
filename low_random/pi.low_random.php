@@ -1,147 +1,85 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+/*
+=====================================================
+ This plugin was created by Lodewijk Schutte
+ - freelance@loweblog.com
+ - http://loweblog.com/freelance/
+=====================================================
+ File: pi.low_random.php
+-----------------------------------------------------
+ Purpose: Return randomness
+=====================================================
+*/
 
 $plugin_info = array(
-	'pi_name'			=> 'Low Random',
-	'pi_version'		=> '2.1',
-	'pi_author'			=> 'Lodewijk Schutte ~ Low',
-	'pi_author_url'		=> 'http://loweblog.com/software/low-random/',
-	'pi_description'	=> 'Returns randomness',
-	'pi_usage'			=> Low_random::usage()
-);
+                 'pi_name'          => 'Low Random',
+                 'pi_version'       => '1.1',
+                 'pi_author'        => 'Lodewijk Schutte',
+                 'pi_author_url'    => 'http://loweblog.com/software/low-random/',
+                 'pi_description'   => 'Returns randomness',
+                 'pi_usage'         => low_random::usage()
+               );
 
-/**
-* Low Random Plugin class
-*
-* @package			low-random-ee2_addon
-* @version			2.1
-* @author			Lodewijk Schutte ~ Low <low@loweblog.com>
-* @link				http://loweblog.com/software/low-random/
-* @license			http://creativecommons.org/licenses/by-sa/3.0/
-*/
+
 class Low_random {
 
-	/**
-	* Plugin return data
-	*
-	* @var	string
-	*/
-	var $return_data;
-
-	/**
-	* Set of items to choose from
-	*
-	* @var	array
-	*/
-	var $set = array();
-	
-	/**
-	* Debug mode
-	*
-	* @var	bool
-	*/
+	var $set	= array();
     var $debug	= FALSE;
 
-	// --------------------------------------------------------------------
+	// ----------------------------------------
+	//  Randomize given items
+	// ----------------------------------------
 
-	/**
-	* PHP4 Constructor
-	*
-	* @see	__construct()
-	*/
-	function Low_random()
-	{
-		$this->__construct();
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	* PHP5 Constructor
-	*
-	* @return	null
-	*/
-	function __construct()
-	{
-		/** -------------------------------------
-		/**  Get global instance
-		/** -------------------------------------*/
-
-		$this->EE =& get_instance();
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Randomize given items, pipe delimited
-	 *
-	 * @param	string	$str
-	 * @return	string
-	 */
-    function item($str = '')
+    function item()
     {
-		if ($str == '')
-		{
-			$str = $this->EE->TMPL->fetch_param('items', '');
-		}
-		
-		$this->set = explode('|', $str);
+		global $TMPL;
+
+		$this->set = explode('|', $TMPL->fetch_param('items'));
 
 		return $this->_random_item_from_set();
     }
+    // END
 
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Randomize tagdata
-	 *
-	 * @since	2.1
-	 * @param	string	$str
-	 * @return	string
-	 */
-    function items($str = '')
+
+	// ----------------------------------------
+	//  Randomize tagdata items
+	// ----------------------------------------
+
+    function items()
     {
+		global $TMPL;
+		
+		// Get separator, new line by default
+		$sep = $TMPL->fetch_param('separator') ? $TMPL->fetch_param('separator') : "\n";
+
 		// get tagdata
-		if ($str == '')
-		{
-			$str = $this->EE->TMPL->tagdata;
-		}
+		$data = $TMPL->tagdata;
 		
 		// trim if necessary
-		if ($this->EE->TMPL->fetch_param('trim', 'yes') != 'no')
+		if ($TMPL->fetch_param('trim') != 'no')
 		{
-			$str = trim($str);
+			$data = trim($data);
 		}
 		
-		// get separator
-		$sep = $this->EE->TMPL->fetch_param('separator', "\n");
-		
-		// create array from tagdata
-		$this->set = explode($sep, $str);
+		// Turn data into array
+		$this->set = explode($sep, $data);
 
 		return $this->_random_item_from_set();
     }
+    // END
 
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Randomize the given letter range
-	 *
-	 * @param	string	$from
-	 * @param	string	$to
-	 * @return	string
-	 */
-	function letter($from = '', $to = '')
+
+	// ----------------------------------------
+	//  Randomize the alphabet
+	// ----------------------------------------
+
+	function letter()
 	{
+		global $TMPL;
+
 		// Parameters
-		if ($from == '')
-		{
-			$from = $this->EE->TMPL->fetch_param('from', 'a');
-		}
-		
-		if ($to == '')
-		{
-			$to	= $this->EE->TMPL->fetch_param('to', 'z');
-		}
+		$from	= $TMPL->fetch_param('from');
+		$to		= $TMPL->fetch_param('to');
 
 		// no from? Set to a
 		if (!preg_match('/^[a-z]$/i', $from))
@@ -160,109 +98,81 @@ class Low_random {
 		
 		return $this->_random_item_from_set();
 	}
+	// END
 
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Random number between 2 values
-	 *
-	 * @param	string	$from
-	 * @param	string	$to
-	 * @return	string
-	 */
-	function number($from = '', $to = '')
+
+
+	// ----------------------------------------
+	//  Random number between 2 values
+	// ----------------------------------------
+
+	function number()
 	{
-		// Parameters
-		if ($from == '')
-		{
-			$from = $this->EE->TMPL->fetch_param('from', '0');
-		}
+		global $TMPL;
 		
-		if ($to == '')
-		{
-			$to	= $this->EE->TMPL->fetch_param('to', '9');
-		}
+		// Parameters
+		$from	= $TMPL->fetch_param('from');
+		$to		= $TMPL->fetch_param('to');
 		
 		// no from? Set to 0
 		if (!is_numeric($from))
 		{
-			$from = '0';
+			$from = 0;
 		}
 		
 		// no to? Set to 9
 		if (!is_numeric($to))
 		{
-			$to = '9';
+			$to = 9;
 		}
 		
 		// return random number
-		return strval(rand(intval($from), intval($to)));
+		return rand($from, $to);
 	}
-
-	// --------------------------------------------------------------------
+	// END
 	
-	/**
-	 * Get random file from file system
-	 *
-	 * @param	string	$folder
-	 * @param	string	$filter
-	 * @return	string
-	 */
-	function file($folder = '', $filter = '')
+	
+
+	// ----------------------------------------
+	//  Random file
+	// ----------------------------------------
+	
+	function file()
 	{
-		// init var
-		$error = FALSE;
-		
-		// Parameters
-		if ($folder == '')
+		global $TMPL, $DB, $PREFS;
+
+		// init some vars
+		$folder  = '';
+		$filters = array();
+
+		// get filter param
+		if ($TMPL->fetch_param('filter'))
 		{
-			$folder = $this->EE->TMPL->fetch_param('folder');
-		}
-		
-		if ($filter == '')
-		{
-			$filter = $this->EE->TMPL->fetch_param('filter', '');
+			$filters = explode('|', $TMPL->fetch_param('filter'));
 		}
 
-		// Convert filter to array
-		$filters = strlen($filter) ? explode('|', $filter) : array();
+		// get folder param
+		$folder = str_replace("&#47;","/",$TMPL->fetch_param('folder'));
 
-		// is folder a number?
+		// get folder from upload prefs?
 		if (is_numeric($folder))
 		{
-			// get server path from upload prefs
-			$this->EE->db->select('server_path');
-			$this->EE->db->from('exp_upload_prefs');
-			$this->EE->db->where('id', $folder);
-			$query = $this->EE->db->get();
-
-			// Do we have a match? get path
-			if ($query->num_rows())
+			$sql = "SELECT server_path FROM exp_upload_prefs WHERE id = '".$DB->escape_str($folder)."'";
+			$res = $DB->query($sql);
+			if ($res->num_rows)
 			{
-				$folder = $query->row('server_path');
-			}
-		}
-		
-		// Simple folder check
-		if (!strlen($folder))
-		{
-			$error = TRUE;
-		}
-		else
-		{
-			// check for trailing slash
-			if (substr($folder, -1, 1) != '/')
-			{
-				$folder .= '/';
+				$folder = $res->row['server_path'];
 			}
 		}
 
-		// Another folder check
-		if (!is_dir($folder))
+		// check for trailing slash
+		if (substr($folder, -1, 1) != "/")
 		{
-			$error = TRUE;
+			$folder .= "/";
 		}
-		else
+
+		// check folder
+		if (is_dir($folder))
 		{
 			// open dir
 			$dir = opendir($folder);
@@ -294,79 +204,67 @@ class Low_random {
 
 			// close dir
 			closedir($dir);
-		}
-		
-		// return data
-		return $error ? $this->_invalid_folder($folder) : $this->_random_item_from_set();
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Display invalid folder if debug is on
-	 *
-	 * @param	string	$folder
-	 * @return	string
-	 */
-	function _invalid_folder($folder = '')
-	{
-		// return error message if debug-mode is on
-		return $this->debug ? "{$folder} is an invalid folder" : '';
-	}
 
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Random item from set (array)
-	 *
-	 * @return	string
-	 */
+			return $this->_random_item_from_set();
+
+		}
+		else
+		{
+			// return error message if debug-mode is on
+			if ($this->debug)
+			{
+				return "{$folder} = Invalid folder!";
+			}	
+		}
+	}
+	// END
+    
+
+
+	// ----------------------------------------
+	//  Random item from set (array)
+	// ----------------------------------------
+
 	function _random_item_from_set()
 	{
 		return $this->set[array_rand($this->set)];
 	}
+	// END
 
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Usage
-	 *
-	 * Plugin Usage
-	 *
-	 * @return	string
-	 */
-	function usage()
-	{
-		ob_start(); 
-		?>
-			{exp:low_random:item items="item1|item2|item3"}
-			
-			{exp:low_random:items}
-				item 1
-				item 2
-				item 3
-			{/exp:low_random:items}
-			
-			{exp:low_random:items separator=","}
-				item 1, item 2, item 3
-			{/exp:low_random:items}
 
-			{exp:low_random:number from="1" to="200"}
+    
+// ----------------------------------------
+//  Plugin Usage
+// ----------------------------------------
 
-			{exp:low_random:letter from="A" to="F"}
+// This function describes how the plugin is used.
 
-			{exp:low_random:file folder="images" filter="masthead|.jpg"}
-		<?php
-		$buffer = ob_get_contents();
+function usage()
+{
+ob_start(); 
+?>
+{exp:low_random:item items="item1|item2|item3"}
+
+{exp:low_random:items}
+item 1
+item 2
+item 3
+{/exp:low_random:items}
+
+{exp:low_random:number from="1" to="200"}
+
+{exp:low_random:letter from="A" to="F"}
+
+{exp:low_random:file folder="images" filter="masthead|.jpg"}
+<?php
+$buffer = ob_get_contents();
   
-		ob_end_clean(); 
+ob_end_clean(); 
 
-		return $buffer;
-	}
-
-	// --------------------------------------------------------------------
+return $buffer;
+}
+// END
 
 }
 // END CLASS
-
-/* End of file pi.low_random.php */
+?>
