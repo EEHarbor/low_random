@@ -214,15 +214,13 @@ class Low_random {
 		if (is_numeric($folder))
 		{
 			// get server path from upload prefs
-			$query = ee()->db->select('server_path')
-			       ->from('upload_prefs')
-			       ->where('id', $folder)
-			       ->get();
+			ee()->load->model('file_upload_preferences_model');
+			$upload_prefs = ee()->file_upload_preferences_model->get_file_upload_preferences(1, $folder);
 
 			// Do we have a match? get path
-			if ($query->num_rows())
+			if ($upload_prefs)
 			{
-				$folder = $query->row('server_path');
+				$folder = $upload_prefs['server_path'];
 			}
 		}
 
