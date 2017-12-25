@@ -1,27 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$plugin_info = array(
-	'pi_name'        => 'Low Random',
-	'pi_version'     => '2.3.0',
-	'pi_author'      => 'Lodewijk Schutte ~ Low',
-	'pi_author_url'  => 'http://gotolow.com/addons/low-random',
-	'pi_description' => 'Returns randomness.',
-	'pi_usage'       => 'See http://gotolow.com/addons/low-random for more info.'
-);
-
-/**
- * < EE 2.6.0 backward compat
- */
-if ( ! function_exists('ee'))
-{
-	function ee()
-	{
-		static $EE;
-		if ( ! $EE) $EE = get_instance();
-		return $EE;
-	}
-}
-
 /**
  * Low Random Plugin class
  *
@@ -43,13 +21,6 @@ class Low_random {
 	 */
 	private $set = array();
 
-	/**
-	 * Debug mode
-	 *
-	 * @var	bool
-	 */
-    private $debug = FALSE;
-
 	// --------------------------------------------------------------------
 	// METHODS
 	// --------------------------------------------------------------------
@@ -60,15 +31,9 @@ class Low_random {
 	 * @param	string	$str
 	 * @return	string
 	 */
-    public function item($str = '')
+    public function item()
     {
-		if ($str == '')
-		{
-			$str = ee()->TMPL->fetch_param('items', '');
-		}
-
-		$this->set = explode('|', $str);
-
+		$this->set = explode('|', ee()->TMPL->fetch_param('items'));
 		return $this->_random_item_from_set();
     }
 
@@ -81,13 +46,10 @@ class Low_random {
 	 * @param	string	$str
 	 * @return	string
 	 */
-    public function items($str = '')
+    public function items()
     {
 		// get tagdata
-		if ($str == '')
-		{
-			$str = ee()->TMPL->tagdata;
-		}
+		$str = ee()->TMPL->tagdata;
 
 		// trim if necessary
 		if (ee()->TMPL->fetch_param('trim', 'yes') != 'no')
@@ -109,77 +71,34 @@ class Low_random {
 	/**
 	 * Randomize the given letter range
 	 *
-	 * @param	string	$from
-	 * @param	string	$to
 	 * @return	string
 	 */
-	public function letter($from = '', $to = '')
+	public function letter()
 	{
-		// Parameters
-		if ($from == '')
-		{
-			$from = ee()->TMPL->fetch_param('from', 'a');
-		}
+		return $this->_range('a', 'z');
+	}
 
-		if ($to == '')
-		{
-			$to	= ee()->TMPL->fetch_param('to', 'z');
-		}
+	/**
+	 * Random number between 2 values
+	 */
+	public function number()
+	{
+		return $this->_range(0, 9);
+	}
 
-		// no from? Set to a
-		if (!preg_match('/^[a-z]$/i', $from))
-		{
-			$from = 'a';
-		}
-
-		// no to? Set to z
-		if (!preg_match('/^[a-z]$/i', $to))
-		{
-			$to = 'z';
-		}
+	/**
+	 * Random item from range set
+	 */
+	private function _range($from = '', $to = '')
+	{
+		// Get params with given defaults
+		$from = ee()->TMPL->fetch_param('from', $from);
+		$to	= ee()->TMPL->fetch_param('to', $to);
 
 		// fill set
 		$this->set = range($from, $to);
 
 		return $this->_random_item_from_set();
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Random number between 2 values
-	 *
-	 * @param	string	$from
-	 * @param	string	$to
-	 * @return	string
-	 */
-	public function number($from = '', $to = '')
-	{
-		// Parameters
-		if ($from == '')
-		{
-			$from = ee()->TMPL->fetch_param('from', '0');
-		}
-
-		if ($to == '')
-		{
-			$to	= ee()->TMPL->fetch_param('to', '9');
-		}
-
-		// no from? Set to 0
-		if (!is_numeric($from))
-		{
-			$from = '0';
-		}
-
-		// no to? Set to 9
-		if (!is_numeric($to))
-		{
-			$to = '9';
-		}
-
-		// return random number
-		return strval(rand(intval($from), intval($to)));
 	}
 
 	// --------------------------------------------------------------------
@@ -191,21 +110,10 @@ class Low_random {
 	 * @param	string	$filter
 	 * @return	string
 	 */
-	public function file($folder = '', $filter = '')
+	public function file()
 	{
-		// init var
-		$error = FALSE;
-
-		// Parameters
-		if ($folder == '')
-		{
-			$folder = ee()->TMPL->fetch_param('folder');
-		}
-
-		if ($filter == '')
-		{
-			$filter = ee()->TMPL->fetch_param('filter', '');
-		}
+		$folder = ee()->TMPL->fetch_param('folder');
+		$filter = ee()->TMPL->fetch_param('filter');
 
 		// Convert filter to array
 		$filters = strlen($filter) ? explode('|', $filter) : array();
@@ -213,86 +121,58 @@ class Low_random {
 		// is folder a number?
 		if (is_numeric($folder))
 		{
-			// get server path from upload prefs
-			ee()->load->model('file_upload_preferences_model');
-			$upload_prefs = ee()->file_upload_preferences_model->get_file_upload_preferences(1, $folder);
+			$bob = ee('Model')
+				->get('File')
+				->with('UploadDestination')
+				->filter('UploadDestination.id', $folder);
 
-			// Do we have a match? get path
-			if ($upload_prefs)
+			foreach($filters as $needle)
 			{
-				$folder = $upload_prefs['server_path'];
+				$bob->filter('file_name', 'LIKE', '%'.$needle.'%');
+			}
+
+			foreach ($bob->all() as $file)
+			{
+				$this->set[] = rtrim($file->UploadDestination->url, '/') .'/'. $file->file_name;
+			}
+		}
+		elseif (is_dir($folder))
+		{
+			ee()->load->helper('file');
+			$this->set = $files = get_filenames($folder);
+
+			if ($filters)
+			{
+				$this->filter($filters);
 			}
 		}
 
-		// Simple folder check
-		if (!strlen($folder))
-		{
-			$error = TRUE;
-		}
-		else
-		{
-			// check for trailing slash
-			if (substr($folder, -1, 1) != '/')
-			{
-				$folder .= '/';
-			}
-		}
-
-		// Another folder check
-		if (!is_dir($folder))
-		{
-			$error = TRUE;
-		}
-		else
-		{
-			// open dir
-			$dir = opendir($folder);
-
-			// loop through folder
-			while($f = readdir($dir))
-			{
-				// no file? skip
-				if (!is_file($folder.$f)) continue;
-
-				// set addit to 0, check filters
-				$addit = 0;
-
-				// check if filter applies
-				foreach ($filters AS $filter)
-				{
-					if (strlen($filter) && substr_count($f, $filter))
-					{
-						$addit++;
-					}
-				}
-
-				// if we have a match, add file to array
-				if ($addit == count($filters))
-				{
-					$this->set[] = $f;
-				}
-			}
-
-			// close dir
-			closedir($dir);
-		}
-
-		// return data
-		return $error ? $this->_invalid_folder($folder) : $this->_random_item_from_set();
+		return $this->_random_item_from_set();
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Display invalid folder if debug is on
+	 * Filter the array of items based on the absence of filters
 	 *
 	 * @param	string	$folder
 	 * @return	string
 	 */
-	private function _invalid_folder($folder = '')
+	private function filter(array $filters)
 	{
-		// return error message if debug-mode is on
-		return $this->debug ? "{$folder} is an invalid folder" : '';
+		foreach ($this->set as $i => $val)
+		{
+			foreach ($filters as $needle)
+			{
+				if (strpos($val, $needle) === FALSE)
+				{
+					unset($this->set[$i]);
+					continue;
+				}
+			}
+		}
+
+		$this->set = array_values($this->set);
 	}
 
 	// --------------------------------------------------------------------
@@ -304,7 +184,8 @@ class Low_random {
 	 */
 	private function _random_item_from_set()
 	{
-		return $this->set[array_rand($this->set)];
+		ee()->TMPL->log_item('Low Random: getting random item from:<br>'.implode('<br>', $this->set));
+		return (string) $this->set[array_rand($this->set)];
 	}
 
 	// --------------------------------------------------------------------
