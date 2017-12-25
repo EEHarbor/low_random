@@ -185,7 +185,7 @@ class Low_random {
 	private function _random_item_from_set()
 	{
 		ee()->TMPL->log_item('Low Random: getting random item from:<br>'.implode('<br>', $this->set));
-		return (string) $this->set[array_rand($this->set)];
+		return $this->set ? (string) $this->set[array_rand($this->set)] : '';
 	}
 
 	// --------------------------------------------------------------------
