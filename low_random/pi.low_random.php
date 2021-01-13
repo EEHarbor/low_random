@@ -10,7 +10,11 @@
  * @link           http://gotolow.com/addons/low-nice-date
  * @license        http://creativecommons.org/licenses/by-sa/3.0/
  */
-class Low_random
+
+include_once "addon.setup.php";
+use Low\Random\FluxCapacitor\Base\Pi;
+
+class Low_random extends Pi
 {
 
     // --------------------------------------------------------------------
@@ -20,7 +24,7 @@ class Low_random
     /**
      * Set of items to choose from
      *
-     * @var	array
+     * @var array
      */
     private $set = array();
 
@@ -31,8 +35,8 @@ class Low_random
     /**
      * Randomize given items, pipe delimited
      *
-     * @param	string	$str
-     * @return	string
+     * @param   string  $str
+     * @return  string
      */
     public function item()
     {
@@ -45,9 +49,9 @@ class Low_random
     /**
      * Randomize tagdata
      *
-     * @since	2.1
-     * @param	string	$str
-     * @return	string
+     * @since   2.1
+     * @param   string  $str
+     * @return  string
      */
     public function items()
     {
@@ -73,7 +77,7 @@ class Low_random
     /**
      * Randomize the given letter range
      *
-     * @return	string
+     * @return  string
      */
     public function letter()
     {
@@ -95,7 +99,7 @@ class Low_random
     {
         // Get params with given defaults
         $from = ee()->TMPL->fetch_param('from', $from);
-        $to	= ee()->TMPL->fetch_param('to', $to);
+        $to = ee()->TMPL->fetch_param('to', $to);
 
         // fill set
         $this->set = range($from, $to);
@@ -108,9 +112,9 @@ class Low_random
     /**
      * Get random file from file system
      *
-     * @param	string	$folder
-     * @param	string	$filter
-     * @return	string
+     * @param   string  $folder
+     * @param   string  $filter
+     * @return  string
      */
     public function file()
     {
@@ -151,8 +155,8 @@ class Low_random
     /**
      * Filter the array of items based on the absence of filters
      *
-     * @param	string	$folder
-     * @return	string
+     * @param   string  $folder
+     * @return  string
      */
     private function filter(array $filters)
     {
@@ -173,7 +177,7 @@ class Low_random
     /**
      * Random item from set (array)
      *
-     * @return	string
+     * @return  string
      */
     private function _random_item_from_set()
     {
