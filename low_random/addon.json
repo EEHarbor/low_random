@@ -1,0 +1,14 @@
+{
+  "name": "Low Random",
+  "shortname": "low_random",
+  "version": "3.0.0",
+  "foundation_version": "",
+  "description": "Generates randomness",
+  "license": "EEHarbor",
+  "namespace": "Low\\Random",
+  "require": {
+    "php": ">=5.6.*",
+    "expressionengine/core": ">=3"
+  },
+  "resources": {}
+}
