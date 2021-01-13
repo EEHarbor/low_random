@@ -10,11 +10,11 @@
  */
 
 return array(
-	'author'      => 'Low',
-	'author_url'  => 'http://gotolow.com/',
-	'docs_url'    => 'http://gotolow.com/addons/low-random',
-	'name'        => 'Low Random',
-	'description' => 'Generates randomness',
-	'version'     => '3.0.0',
-	'namespace'   => 'Low\Random'
+    'author'      => 'Low',
+    'author_url'  => 'http://gotolow.com/',
+    'docs_url'    => 'http://gotolow.com/addons/low-random',
+    'name'        => 'Low Random',
+    'description' => 'Generates randomness',
+    'version'     => '3.0.0',
+    'namespace'   => 'Low\Random'
 );
