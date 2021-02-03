@@ -1,4 +1,6 @@
-<?php if (! defined('BASEPATH')) {
+<?php
+
+if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -10,13 +12,11 @@
  * @link           http://gotolow.com/addons/low-nice-date
  * @license        http://creativecommons.org/licenses/by-sa/3.0/
  */
-
 include_once "addon.setup.php";
 use Low\Random\FluxCapacitor\Base\Pi;
 
 class Low_random extends Pi
 {
-
     // --------------------------------------------------------------------
     // PROPERTIES
     // --------------------------------------------------------------------
@@ -41,6 +41,7 @@ class Low_random extends Pi
     public function item()
     {
         $this->set = explode('|', ee()->TMPL->fetch_param('items'));
+
         return $this->_random_item_from_set();
     }
 
@@ -132,11 +133,11 @@ class Low_random extends Pi
                 ->filter('UploadDestination.id', $folder);
 
             foreach ($filters as $needle) {
-                $bob->filter('file_name', 'LIKE', '%'.$needle.'%');
+                $bob->filter('file_name', 'LIKE', '%' . $needle . '%');
             }
 
             foreach ($bob->all() as $file) {
-                $this->set[] = rtrim($file->UploadDestination->url, '/') .'/'. $file->file_name;
+                $this->set[] = rtrim($file->UploadDestination->url, '/') . '/' . $file->file_name;
             }
         } elseif (is_dir($folder)) {
             ee()->load->helper('file');
@@ -164,6 +165,7 @@ class Low_random extends Pi
             foreach ($filters as $needle) {
                 if (strpos($val, $needle) === false) {
                     unset($this->set[$i]);
+
                     continue;
                 }
             }
@@ -181,7 +183,8 @@ class Low_random extends Pi
      */
     private function _random_item_from_set()
     {
-        ee()->TMPL->log_item('Low Random: getting random item from:<br>'.implode('<br>', $this->set));
+        ee()->TMPL->log_item('Low Random: getting random item from:<br>' . implode('<br>', $this->set));
+
         return $this->set ? (string) $this->set[array_rand($this->set)] : '';
     }
 
