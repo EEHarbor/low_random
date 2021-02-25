@@ -1,20 +1,15 @@
 <?php
 
-/**
- * Low Random setup file
- *
- * @package        low_random
- * @author         Lodewijk Schutte <hi@gotolow.com>
- * @link           http://gotolow.com/addons/low-random
- * @copyright      Copyright (c) 2017, Low
- */
+require_once 'autoload.php';
+$addonJson = json_decode(file_get_contents(__DIR__ . '/addon.json'));
 
 return array(
-	'author'      => 'Low',
-	'author_url'  => 'http://gotolow.com/',
-	'docs_url'    => 'http://gotolow.com/addons/low-random',
-	'name'        => 'Low Random',
-	'description' => 'Generates randomness',
-	'version'     => '3.0.0',
-	'namespace'   => 'Low\Random'
+    'name'              => $addonJson->name,
+    'description'       => $addonJson->description,
+    'version'           => $addonJson->version,
+    'namespace'         => $addonJson->namespace,
+    'author'            => 'EEHarbor',
+    'author_url'        => 'http://eeharbor.com/low_random',
+    'docs_url'          => 'http://eeharbor.com/low_random/documentation',
+    'settings_exist'    => false,
 );
