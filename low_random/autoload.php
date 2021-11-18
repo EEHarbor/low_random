@@ -1,6 +1,7 @@
 <?php
+
 /**
- * EEHarbor PHAR Loader for low_random
+ * EEHarbor PHAR Loader for Low Random
  * Register a new auto-loader to handle loading files from the
  * PHAR in various environments (w/ opcache, w/o phar stream, etc).
  *
@@ -13,6 +14,7 @@
  * @license    https://eeharbor.com/license EEHarbor Add-on License
  * @link       https://eeharbor.com/low_random
  */
+
 spl_autoload_register(
     function ($class_name) {
         // This is the PHAR path for this addon
