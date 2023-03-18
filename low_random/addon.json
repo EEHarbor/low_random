@@ -2,7 +2,7 @@
     "name": "Low Random",
     "shortname": "low_random",
     "version": "4.0.2",
-    "foundation_version": "4.9.0",
+    "foundation_version": "4.10.0",
     "description": "Generates randomness",
     "license": "EEHarbor",
     "namespace": "Low\\Random",
@@ -11,6 +11,6 @@
         "expressionengine/core": ">=3"
     },
     "resources": {
-
+        
     }
 }
