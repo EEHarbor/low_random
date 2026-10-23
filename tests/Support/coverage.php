@@ -50,6 +50,7 @@ if ($coveragePath !== false && $coveragePath !== '') {
             'ee_version' => defined('APP_VER') ? APP_VER : null,
             'request_type' => defined('REQ') ? REQ : null,
             'native_case' => $_SERVER['LOW_RANDOM_NATIVE_CASE'] ?? null,
+            'locale_ctype' => setlocale(LC_CTYPE, 0),
             'opcache' => array(
                 'enable_cli' => ini_get('opcache.enable_cli'),
                 'optimization_level' => ini_get('opcache.optimization_level'),
