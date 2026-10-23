@@ -1,8 +1,8 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 2 awaits independent exact-diff review**. The first source-red checkpoint is published. Phase 2 extends archive behavior and strict native isolation; it is uncommitted pending review. No production source was changed.
+Status: **active / incomplete campaign; reviewed phase 2 source regressions published**. Phase 2 extends archive behavior and strict native isolation. Its reviewed test/support/docs checkpoint is committed and verified at origin/unit-tests-2026; independent later archive work continues. No production source was changed.
 
-## Phase 2 checkpoint awaiting review
+## Phase 2 reviewed checkpoint
 
 The previous published checkpoint is `f28674835bd1f973910e766f64fbce1a59bcfa36`. This test/support/docs delta adds archive extension registration/removal, updater installation/removal, license schema and storage, license crypto/footer generation, controller validation and redirects, fieldtype channel/settings behavior, modern bridge URL/view/cache/alert/pagination delegation, and native EE2/EE7 request/version contexts. `SOURCE_INVENTORY.json` remains unchanged and every complete suite verifies all 27 shipped source hashes and native compilation.
 
@@ -22,7 +22,7 @@ Checkpoint full matrix command: `./tests/scripts/run-matrix.sh`. Evidence: `test
 
 Random order with seed `20261023` independently reproduces the default counts and source issues on PHP 7.4 and 8.5 (`tests/reports/phase2-review-fixed/evidence/random74.xml` and `random85.xml`). Full raw PHP 7.4 and 8.2 runs reproduce their complete-suite counts. Main native raw reports are committed as `BRANCH_RAW_PHP74.json` and `BRANCH_RAW_PHP82.json`; all 54 independent process/context reports are enumerated with SHA256 hashes in `tests/reports/phase2-review-fixed/contexts.json`. These process/runtime/conditional graphs are kept separate. `COVERAGE.md` contains 262 function/graph rows across all source units, unknown metrics and remaining gaps. The zero-main-coverage combined Clover/raw trial was rejected and replaced with a separate raw run; Clover remains useful only for lines.
 
-Independent phase 2 review found two blocking test issues in original snapshot `59b319d0f8466a92991fac9b4351807ec1720b181103f5832cc6498328913a85`: the crypto contract test consumed a pre-existing caller error, and mutation assertions did not prove fresh site/add-on predicates attached to the UPDATE/DELETE. Both were repaired. Queue-mutating setup and full FIFO comparison now occur only in a disposable native probe using the actual helper; external pre-seeded caller probes pass PHP 7.4/8.5 and preserve all two/one entries. Direct Version UPDATE and controller UPDATE/ignored-key DELETE require exact adjacent mutation predicates. The seven suites, random order and separate raw/Clover runs above were refreshed in a byte-identical private reconstruction containing exactly this checkpoint; independent later navigation tests remain outside this snapshot. Replacement exact-diff review is pending.
+Independent phase 2 review found two blocking test issues in original snapshot `59b319d0f8466a92991fac9b4351807ec1720b181103f5832cc6498328913a85`: the crypto contract test consumed a pre-existing caller error, and mutation assertions did not prove fresh site/add-on predicates attached to the UPDATE/DELETE. Both were repaired. Queue-mutating setup and full FIFO comparison now occur only in a disposable native probe using the actual helper; external pre-seeded caller probes pass PHP 7.4/8.5 and preserve all two/one entries. Direct Version UPDATE and controller UPDATE/ignored-key DELETE require exact adjacent mutation predicates. The seven suites, random order and separate raw/Clover runs above were refreshed in a byte-identical private reconstruction containing exactly this checkpoint; independent later navigation tests remain outside this snapshot. Replacement exact-diff review approved SHA256 `16138a8e5f3899f1772f282748dd2dbcf3e74fad78c0b9ba1b8b7cc4dbcf3449` after independently reproducing all seven suites, issue identities, all 54 raw graphs, separate Clover/skill results and both external caller-queue sentinels. All 23 manifest hashes matched; no additional actionable test/harness/report issue remained. Broad source/outcome/live-EE/SQL/integration gaps remain incomplete.
 
 Twelve additional source regressions remain red alongside the original twelve below. All paths are archive members under `FluxCapacitor/`:
 
@@ -115,3 +115,20 @@ Reviewer: `/root/review_priority_playa`. Review snapshot and copied evidence: `/
 Publication evidence: `git push -u origin unit-tests-2026` succeeded. A subsequent fetch and `git ls-remote --heads origin unit-tests-2026` verified code checkpoint HEAD and remote ref both equal `c1780f7f617303e5bfec0bfa25b57803b98f1b30`; `git rev-list --left-right --count HEAD...origin/unit-tests-2026` returned `0 0`. Working tree was clean and production diff against the pinned baseline was empty. This documentation-only ledger update follows that verified code checkpoint; no executable test or source changed after the measured/reviewed run.
 
 The documentation publication commit `f28674835bd1f973910e766f64fbce1a59bcfa36` was subsequently pushed and verified at exact remote parity before phase 2 began. The phase 2 work above is not covered by the first checkpoint approval.
+
+## Phase 2 publication evidence
+
+Independent reviewer: `/root/tests_hits`. Approved snapshot: `/private/tmp/low-random-phase2-review-fixed-ke913r79/`; patch base `f28674835bd1f973910e766f64fbce1a59bcfa36`; approved/final tree `9c4a2e9b9c524318b23446174b3411251a1c421c`. The independent reconstruction was `/private/tmp/low-random-phase2-fixed-review-bzhq10c8`; all seven 126-case results and every error/failure identity matched. All 54 raw graphs matched after PID/root-path normalization, retaining unchanged out/out_hit. The source-red checkpoint was then published through these reviewed scopes:
+
+| Commit | Scope |
+|---|---|
+| `04c2f6f` | Native isolation, realistic EE fixture expansion and harness contracts |
+| `587e39d` | Modern archive bridge control-panel adapters |
+| `9e932e4` | Extension lifecycle and compatibility regressions |
+| `9cbe0da` | Updater installation/removal and mutation scopes |
+| `f8e7515` | Licensing schema and scoped persistence |
+| `85cc7c9` | Controller validation, redirects and exact update/delete predicates |
+| `dd6d919` | Fieldtype channel/settings APIs and regressions |
+| `d9e3a3f` | Runtime matrix, raw coverage and incomplete checkpoint evidence |
+
+A fresh origin fetch showed the previous checkpoint at parity before publication. `git push origin unit-tests-2026` succeeded. A subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` returned exact `d9e3a3f5999267948e2aaf5fbdc7dab0681799b1`; local/tracking parity was `0 0`, and production diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` was empty. Only three independent next-phase helper/navigation files remained untracked outside the reviewed tree; they were not included in these commits or matrix claims. This ledger update changes documentation only. Full archive coverage and the campaign goal remain incomplete.
