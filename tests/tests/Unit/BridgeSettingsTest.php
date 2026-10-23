@@ -81,12 +81,33 @@ final class BridgeSettingsTest extends TestCase
                 $this->ee->db->tables = array('low_random_settings');
                 $this->ee->db->results = array('low_random_settings' => $exists ? array(array('site_id' => 1)) : array());
                 $this->ee->db->calls = array();
-                $this->ee->db->data_cache['table_names'] = array('stale');
+                $this->ee->db->where('caller_member_id', 99);
+                $pending = $this->ee->db->calls;
+                $cache = array('table_names' => array('caller_table'), 'caller' => 'owned');
+                $this->ee->db->data_cache = $cache;
+                $before = count($this->ee->db->queries);
                 $bridge->setConfig('custom', 0);
+                $queries = array_slice($this->ee->db->queries, $before);
+                $this->assertCount(2, $queries);
+                $this->assertNotSame($this->ee->db, $queries[0]);
+                $this->assertNotSame($queries[0], $queries[1]);
+                $writer = $queries[1];
                 $expected = array($exists ? 'update' : 'insert', array('low_random_settings', array('site_id' => 1, 'custom' => 0)));
-                $this->assertContains($expected, $this->ee->db->calls);
+                $trace = array(
+                    array('table_exists', array('low_random_settings')),
+                    array('where', array('site_id', 1)), array('count_all_results', array('low_random_settings')),
+                );
+
+                if ($exists) {
+                    $trace[] = array('where', array('site_id', 1));
+                }
+
+                $trace[] = $expected;
+                $this->assertSame($trace, $writer->calls);
+                $this->assertSame(array(), $writer->data_cache);
+                $this->assertSame($pending, $this->ee->db->calls);
+                $this->assertSame($cache, $this->ee->db->data_cache);
                 $this->assertSame(0, $bridge->getConfig('custom'));
-                $this->assertArrayNotHasKey('table_names', $this->ee->db->data_cache);
             }
         }
     }

@@ -7,6 +7,36 @@ use Tests\Support\Query;
 final class FixtureContractTest extends TestCase
 {
     /**
+     * Match current EE's fresh query builders with live shared backend results.
+     *
+     * @return void
+     */
+    public function testDatabaseServiceCreatesIsolatedLiveBuilders()
+    {
+        $primary = $this->ee->db;
+        $primary->calls = array();
+        $primary->where('caller_id', 9);
+        $primary->data_cache = array('table_names' => array('caller_table'));
+        $primary->results['fixtures'] = array(array('id' => 1));
+        $first = ee('db');
+        $second = ee('db');
+        $this->assertNotSame($primary, $first);
+        $this->assertNotSame($first, $second);
+        $this->assertSame(array(), $first->calls);
+        $this->assertSame(array(), $first->data_cache);
+        $this->assertSame(1, $first->get('fixtures')->row('id'));
+        $primary->results['fixtures'] = array(array('id' => 2));
+        $this->assertSame(2, $second->get('fixtures')->row('id'));
+        $primary->getQueues['fixtures'] = array(array(array('id' => 3)), array(array('id' => 4)));
+        $this->assertSame(3, $first->get('fixtures')->row('id'));
+        $this->assertSame(4, $second->get('fixtures')->row('id'));
+        $this->assertSame(array(), $primary->getQueues['fixtures']);
+        $this->assertSame(array(array('where', array('caller_id', 9))), $primary->calls);
+        $this->assertSame(array('table_names' => array('caller_table')), $primary->data_cache);
+        $this->assertSame(array('builder' => spl_object_id($second), 'call' => array('get', array('fixtures'))), end($primary->journal->calls));
+    }
+
+    /**
      * Native output cannot deadlock when stdout and stderr exceed pipe capacity.
      *
      * @return void

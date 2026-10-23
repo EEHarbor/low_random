@@ -227,6 +227,36 @@ namespace Tests\Support {
         public $getQueues = array();
         public $fields = array();
         public $primaryKeys = array();
+        public $queries = array();
+        public $journal;
+
+        /**
+         * Keep backend observations separate from each builder's pending state.
+         *
+         * @return void
+         */
+        public function __construct()
+        {
+            $this->journal = (object) array('calls' => array());
+        }
+
+        /**
+         * Match EE's newQuery service: fresh builder and cache over one backend.
+         *
+         * @return self
+         */
+        public function newQuery()
+        {
+            $query = new self();
+
+            foreach (array('tables', 'results', 'getQueues', 'fields', 'primaryKeys') as $property) {
+                $query->$property =& $this->$property;
+            }
+
+            $query->journal = $this->journal;
+            $this->queries[] = $query;
+            return $query;
+        }
 
         /**
          * Record the exact Active Record chain without mutating shared EE state.
@@ -238,6 +268,7 @@ namespace Tests\Support {
         public function __call($method, array $arguments)
         {
             $this->calls[] = array($method, $arguments);
+            $this->journal->calls[] = array('builder' => spl_object_id($this), 'call' => array($method, $arguments));
 
             if ($method === 'table_exists') {
                 return in_array($arguments[0], $this->tables, true);
@@ -507,7 +538,7 @@ namespace {
         }
 
         if ($service === 'db') {
-            return $GLOBALS['low_random_ee']->db;
+            return $GLOBALS['low_random_ee']->db->newQuery();
         }
 
         if (!isset($GLOBALS['low_random_services'][$service])) {
