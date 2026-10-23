@@ -1,6 +1,37 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; reviewed phase 2 source regressions published**. Phase 2 extends archive behavior and strict native isolation. Its reviewed test/support/docs checkpoint is committed and verified at origin/unit-tests-2026; independent later archive work continues. No production source was changed.
+Status: **active / incomplete campaign; phase 3 awaits independent review**. Reviewed phase 2 is committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+
+## Phase 3 checkpoint awaiting independent review
+
+Forty-seven added cases bring this configured checkpoint to 173 cases. New tests exercise modern bridge navigation, legacy/current helper and parser boundaries, loader registry rejection/removal, complete URL information, all three procedural fieldtype parent-import layouts, and ten independent navigation conduit component contexts. Existing modern settings updates now assert the exact fresh site predicate immediately before UPDATE. The previous reviewed/published checkpoint is `ad00485f88283ec0bafbbb4478e182ad84a48670`.
+
+The original installation still retains its missing optional navigation-file warning as a red regression. Positive conduit tests use the normal optional add-on extension point in a unique native installation, execute library class methods directly from the original immutable PHAR, and SHA256-verify copied setup/JSON/autoloader bytes. Their component loader bypasses package autoload resolution for library classes, so they do not claim full installation or loader integration. Default hooks, root/empty aliases, forced/existing licensing links, headings/external URLs, populated/empty button groups, active references, toolbar defaults/overrides, deferred generation and EE2 delegation are asserted. Native header fixtures mirror EE's single button replacement and non-stringable object semantics. Parser and formatter fixtures record service boundaries without claiming to test EE's algorithms.
+
+Command: `./tests/scripts/run-matrix.sh`. Evidence: `tests/reports/matrix.spQrIr/`; precise commands, runtimes, JUnit SHA256 hashes and every source error/failure are retained in `MATRIX_RESULTS.json`.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 173 | 1476 | 7 | 20 | 0/0/0/0 | 2 |
+| 8.0.30 | 173 | 1474 | 7 | 17 | 0/0/0/0 | 2 |
+| 8.1.33 | 173 | 1470 | 9 | 17 | 0/0/0/0 | 2 |
+| 8.2.30 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.3.28 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.4.15 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.5.0 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+
+Random seed `20261023` on PHP 7.4/8.5 reproduces the same counts and issue identities. All six changed/new executable test files run alone on both runtimes without additional issues (`tests/reports/phase3-fixed-standalone-upb38lh0/`). Three imports load the real source's system, application and installer parent-file branches with hash-verified compatible EE_Fieldtype fixture copies; the existing parent-preloaded/predefined-version contexts remain separate.
+
+Genuine raw PHP 7.4/8.2 reports, their per-function summaries, context SHA256 manifest, separate Clover82/skill report and random runs are in `tests/reports/phase3-fixed-x230odmk/`. All 80 main/native graphs remain separate, including twenty navigation component observations and six import-layout observations. Raw provenance now records LC_CTYPE as well as runtime, source root/archive hash, EE/request/native context, PHAR stream and OPcache. `COVERAGE.md` reports every inventory unit, 262 main function/graph rows and individual PHP8.2 conduit-method observations. Synthetic exits and missing metrics are unresolved, not credited.
+
+Independent review of original phase 3 snapshot `2082f80db697894a5761db8e501dbc54dcdb12853031ebb593faf371f9ce408a` found one P2 fixture-contract issue: ee('db') returned the primary builder while current EE app.setup.php:179–181 and Database::newQuery return a fresh query. The repaired fixture creates separate builders/pending-call lists/schema caches over live shared backend responses and an owning-builder journal. The settings tests now seed and preserve an unfinished primary query/cache, observe each actual settings writer, and require its exact count/read/fresh scoped mutation trace. A direct service contract verifies distinct identity, live backend changes, shared queued results, untouched primary state and journal ownership. Affected seam/settings tests pass12cases/143assertions; all refreshed full173-case suites retain exactly the previous source issue identities. Fresh-query stale-cache clear lines are no longer credited, and that honest coverage decrease is retained. Replacement independent review is pending.
+
+Two additional compatibility/source regression families remain red:
+
+25. `Bridge/EE3.php:96`, `EE4.php:96`, `EE5.php:96`: an active-map alias assigns a Sidebar Header object as the CP page title instead of its string label. Three independent implementation cases require the text title.
+26. `Bridge/EE2.php:357` and the copied modern URL-title normalizations: on this explicit Herd PHP7.4.33 under LC_CTYPE `C.UTF-8`, `strtolower` converts valid UTF-8 `c3844243` (ÄBC) to invalid UTF-8 `e3846263` before delegation. Four implementation cases require UTF-8 integrity; PHP8.0–8.5 controls pass. This is a qualified runtime/source compatibility boundary, not a claim about every PHP7.4 locale. No expected value is changed to accept corrupted bytes.
+
+Source diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` remains empty. No independent test helper, source loader or graph is treated as full EE/SQL integration. Further EE2 settings/session/dynamic-view, updater extension, loader/platform and actual outcome coverage remain incomplete. This tranche is uncommitted pending independent exact-diff review.
 
 ## Phase 2 reviewed checkpoint
 

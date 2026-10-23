@@ -1,32 +1,66 @@
 {
   "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-  "previous_reviewed_checkpoint": "f28674835bd1f973910e766f64fbce1a59bcfa36",
+  "previous_reviewed_checkpoint": "ad00485f88283ec0bafbbb4478e182ad84a48670",
   "phpunit": "9.6.38",
-  "measurement_root": "/private/tmp/low-random-phase2-fixed-run-40i82lg2",
-  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase2-review-fixed/matrix",
-  "note": "Complete configured checkpoint suite reconstructed from published HEAD plus the corrected 23-path delta. Independent later navigation tests are outside this checkpoint. All production bytes and source inventory match the pinned baseline.",
+  "measurement_root": "/Users/tomjaeger/Sites/add-ons/low_random",
+  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr",
   "runs": [
     {
       "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php74.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php74.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 969,
+        "tests": 173,
+        "assertions": 1476,
         "errors": 7,
-        "failures": 13,
+        "failures": 20,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "07d7e4d71ed19c61b9cb27f7e5afaed1c837e30a0bc8f781763d5777b15a387b",
+      "junit_sha256": "73f2f407a8c4117271d6ccbcbcc8a8d5cf5bcac89d257980f3cf6f581bb49d1b",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #0",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #2",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #3",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ed20000000021dbd5ec ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ee10000000021dbd5ec ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ef00000000021dbd5ec ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -56,7 +90,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
@@ -81,12 +115,12 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
@@ -128,24 +162,39 @@
     {
       "runtime": "PHP 8.0.30 (cli) (built: Dec 21 2023 08:22:38) ( NTS )",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php80' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php80.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php80' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php80.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 963,
+        "tests": 173,
+        "assertions": 1474,
         "errors": 7,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "51a4623485e3cec1579ca9b65fe4a3be8f0e890c71256f8a14652ed54777c503",
+      "junit_sha256": "25450f87d01cc5b79cd92367227654c641ba7769483e4672db33f53a6b307cd3",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489e6000000005504ff35 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489f7000000005504ff35 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489c8000000005504ff35 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -175,7 +224,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
@@ -200,17 +249,17 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
@@ -252,24 +301,39 @@
     {
       "runtime": "PHP 8.1.33 (cli) (built: Jul  4 2025 00:24:36) (NTS)",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php81' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php81.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php81' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php81.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 959,
+        "tests": 173,
+        "assertions": 1470,
         "errors": 9,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "cd85e9e98cd0aafc05fe880214eead22f0da43f6488a694727aaa81da4b66d75",
+      "junit_sha256": "aa48ca30ca6ccf3d67788cde686a737add08cd03a8b438310fc9122b99efe74f",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -299,7 +363,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
@@ -329,22 +393,22 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
         },
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
@@ -386,24 +450,39 @@
     {
       "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php82' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php82.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php82' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php82.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 952,
+        "tests": 173,
+        "assertions": 1463,
         "errors": 10,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "68e693366f28d23a3f47ee49a0a40ed71833633feeab860e26ae28eb97dbc90e",
+      "junit_sha256": "2640573f03ca998b6ead15e6327a1ce5e4f0aed3c1ebf6dbe488d7da1251f7dc",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -438,7 +517,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
@@ -468,22 +547,22 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
         },
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
@@ -525,24 +604,39 @@
     {
       "runtime": "PHP 8.3.28 (cli) (built: Nov 20 2025 11:21:23) (NTS clang 15.0.0)",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php83' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php83.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php83' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php83.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 952,
+        "tests": 173,
+        "assertions": 1463,
         "errors": 10,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "11d633f74c75a4d784115550395123f94aead95af7511f6b92ad20c1006a58a8",
+      "junit_sha256": "5220d690f8454207a6fce548fb0eadd56206e873d9bc9f961fe2647bac993d58",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -577,7 +671,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
@@ -607,22 +701,22 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
         },
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
@@ -664,24 +758,39 @@
     {
       "runtime": "PHP 8.4.15 (cli) (built: Nov 20 2025 14:28:49) (NTS clang 15.0.0)",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php84' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php84.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php84' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php84.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 952,
+        "tests": 173,
+        "assertions": 1463,
         "errors": 10,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "e27e158f36873ecf2cf6c601a890a3a1db6629473f9109cad0cb92dbf974ba1d",
+      "junit_sha256": "ce7d1e7f38be6cd02a4d7d6b6b98b3b35e2c9fde45742b296562e8dc6c4be291",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -716,7 +825,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
@@ -746,22 +855,22 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
         },
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
@@ -803,24 +912,39 @@
     {
       "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php85' ./tests/.phpunit/run-phpunit.sh -c '/private/tmp/low-random-phase2-fixed-run-40i82lg2/phpunit.xml' --log-junit '/private/tmp/low-random-phase2-fixed-run-40i82lg2/tests/reports/matrix.8E6zs3/php85.junit.xml'",
+      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php85' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php85.junit.xml'",
       "exit": 2,
       "counts": {
-        "tests": 126,
-        "assertions": 952,
+        "tests": 173,
+        "assertions": 1463,
         "errors": 10,
-        "failures": 14,
+        "failures": 17,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "93d6a0527fba7a6448769123f63947f5661c027540c4b26088801632ae514ab7",
+      "junit_sha256": "174bead6c05807e50a73a39ee83a04451f40dcc2e4c4067130a06f842bfc7195",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -855,7 +979,7 @@
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
@@ -885,22 +1009,22 @@
         {
           "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar:177"
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
         },
         {
           "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
           "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///private/tmp/low-random-phase2-fixed-run-40i82lg2/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
         },
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
@@ -943,15 +1067,19 @@
   "random_order": {
     "seed": 20261023,
     "reports": [
-      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase2-review-fixed/evidence/random74.xml",
-      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase2-review-fixed/evidence/random85.xml"
+      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-x230odmk/random74.xml",
+      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-x230odmk/random85.xml"
     ],
     "result": "Counts and issue identities match each corresponding default-order run."
   },
-  "caller_crypto_sentinels": {
-    "php74_entries": 2,
-    "php85_entries": 1,
-    "preserved": true,
-    "reports": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase2-review-fixed/evidence"
-  }
+  "standalone": {
+    "directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-standalone-upb38lh0",
+    "files": 6,
+    "runtimes": [
+      "7.4",
+      "8.5"
+    ],
+    "result": "Every changed/new executable test class independently reproduces its full-suite issues without additional harness diagnostics."
+  },
+  "review_repair": "Current EE db service returns fresh builders with live shared backend responses, separate pending calls/schema caches and owning-builder journal. Settings writes are observed on their actual writer with primary state preservation controls."
 }
