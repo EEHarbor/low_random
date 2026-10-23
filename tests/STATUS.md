@@ -1,8 +1,8 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 5 awaits independent review**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 5 reviewed and published**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
 
-## Phase 5 checkpoint awaiting independent review
+## Phase 5 reviewed checkpoint
 
 Twenty-nine added cases bring the complete configured suite to 236 cases. They exercise the original PHAR extraction helper, all 22 original manifest entries and byte bodies against native Phar, alias/metadata offsets and unsigned CRC parser inputs, 18 binary/codec/read-boundary vectors, checksum and size termination, Unix temporary selection, and six owned cleanup shapes. The prior published and reviewed head is `5d72289177f2820ecf2cdf31878434ea1392f3a0`.
 
@@ -35,7 +35,7 @@ Fresh raw coverage captures 182 separate process/context graphs (91 per runtime)
 
 External full-suite caller probes on PHP 7.4 and 8.5 preserve complete empty and seeded OpenSSL FIFO states: zero entries for empty controls, four seeded entries on 7.4 and two on 8.5. The probe drains only its own terminating observation process at shutdown; no test reads or clears the PHPUnit caller's queue.
 
-Self-review checked original-source execution, native Phar and codec controls, unsigned/binary input fidelity, read boundaries, termination messages, strict diagnostics hidden by @, owned paths/links, CWD/environment/queue isolation, source invariance and report provenance. Independent exact-diff review is pending. Source diagnostics block size-error formatting and recursive cleanup; broader fallback/platform, full EE/SQL/HTTP integration, updater extension and per-method outcome coverage remain incomplete. This checkpoint does not claim full campaign completion.
+Self-review checked original-source execution, native Phar and codec controls, unsigned/binary input fidelity, read boundaries, termination messages, strict diagnostics hidden by @, owned paths/links, CWD/environment/queue isolation, source invariance and report provenance. Independent exact-diff review approved patch `d885246c3fd9d8c4036fd8e8857fadb827334419111cfeafd80d560b12047ce2`. Source diagnostics block size-error formatting and recursive cleanup; broader fallback/platform, full EE/SQL/HTTP integration, updater extension and per-method outcome coverage remain incomplete. This checkpoint does not claim full campaign completion.
 
 ## Phase 4 reviewed checkpoint
 
@@ -252,3 +252,12 @@ Independent reviewer `/root/tests_low_options` approved exact patch `25d3ab88f7b
 Code commit `e3b9235` contains only the legacy fixtures/native entry/test class. Evidence commit `c40db2c` contains the six reviewed report/documentation paths. Before publishing, their combined full-index binary diff and tree exactly matched the approved snapshot. Fresh pre-publication origin parity was `0 0`. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `c40db2c22c51d445962943a10454df8892f4f7a4`, with tracking parity `0 0` and an empty production baseline diff.
 
 Three independent next-phase files remain untracked outside this reviewed tree: `tests/Support/native-stub-boundary.php`, `tests/tests/Unit/ArchiveStubBoundaryTest.php` and `tests/tests/Unit/ArchiveStubManifestTest.php`. They are excluded from the207-case/128-graph claims and from both commits above. This publication ledger changes STATUS only; no executable delta is part of it. Full campaign completion is not claimed.
+
+
+## Phase 5 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact patch `d885246c3fd9d8c4036fd8e8857fadb827334419111cfeafd80d560b12047ce2`, based at `5d72289177f2820ecf2cdf31878434ea1392f3a0`, final tree `2e1206c5fec2d0341995e79880d1daeec8958a8d`. The immutable packet is `/private/tmp/low-random-phase5-review-em9wiq8r/`; independent reconstruction is `/private/tmp/low-random-phase5-independent-3ggmyjvm`. All seven 236-case counts and every issue identity matched, along with focused 29/315/4 failures, randomized 7.4/8.5, each new class alone, changed PHP lint across all seven runtimes and full caller FIFO controls. All 182 separate graphs, every retained raw hash and complete per-method summary matched after root/PID normalization. All nine manifest files, pinned PHPUnit and 27 source hashes verified. No actionable bounded issue remained. Platform/fallback/full EE/SQL/HTTP integration and broad outcome gaps remain incomplete.
+
+Reviewed test/support commit `43fb015` and evidence commit `0065fef` were published without force. Before pushing, their combined full-index binary diff and tree exactly matched the approved snapshot, and fresh origin tracking parity was `0 0`. Subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `0065fefa19bf926363bfbdb8e236083f61769536`, with tracking parity `0 0` and an empty production baseline diff.
+
+Three independent next-phase files remain untracked outside the reviewed tree: `tests/Support/NeighborLibraryFixture.php`, `tests/Support/native-loader-options.php` and `tests/tests/Unit/ArchiveLoaderOptionsTest.php`. They are excluded from the 236-case/182-graph claims and both commits above. This STATUS-only ledger adds no executable change. Full campaign completion is not claimed.
