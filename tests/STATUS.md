@@ -1,6 +1,6 @@
 # Low Random PHPUnit campaign status
 
-Status: **blocked / incomplete checkpoint**. Tests and reports are ready for independent exact-diff review. No production source was changed. No commits or publication have occurred yet.
+Status: **blocked / incomplete checkpoint, reviewed source regressions published**. The test-only code checkpoint is committed and verified on origin/unit-tests-2026. No production source was changed.
 
 ## Baseline and provenance
 
@@ -58,6 +58,19 @@ These are source failures, not exceptions expected merely to make the suite gree
 
 ## Review and publication
 
-Independent reviewer verified every file/hash in the first immutable snapshot (`8462f73fb37a9be36b8e8a1e755740afa77d13c704379b68d1dad8f811197d3e`) and independently reproduced its complete PHP 8.2 suite. Three P2 harness findings were corrected: capture/restore the PHAR-mutated include path in finally; match native DB_result named/default/numeric/current-row/SQL NULL/empty-result contracts; skip dot directories before recursive filename traversal while preserving native readdir order. Four fixture-contract tests (24 assertions) pass independently. All seven complete suites, randomized order and genuine coverage were rerun after repairs; only the same source regressions remain. The replacement immutable snapshot is awaiting follow-up independent review. Self-review also corrected initial autoloader leakage and the template ignore list. No additional actionable harness issue is currently known. Residual risks are the documented source defects, incomplete archive branch coverage, and environment-specific PHAR loader branches.
+Independent reviewer verified every file/hash in the first immutable snapshot (`8462f73fb37a9be36b8e8a1e755740afa77d13c704379b68d1dad8f811197d3e`) and independently reproduced its complete PHP 8.2 suite. Three P2 harness findings were corrected: capture/restore the PHAR-mutated include path in finally; match native DB_result named/default/numeric/current-row/SQL NULL/empty-result contracts; skip dot directories before recursive filename traversal while preserving native readdir order. Four fixture-contract tests (24 assertions) pass independently. All seven complete suites, randomized order and genuine coverage were rerun after repairs; only the same source regressions remain. Follow-up independent review approved replacement snapshot `b86d440d9645697dedca70e6725a4bde30ab5c137462d0931439d1bf6ca519b5` after verifying all 26 file hashes, independently passing the three original regression probes, and reproducing 57 tests /446 assertions /6 errors /6 failures on PHP 8.2. No actionable harness issue remained in the bounded checkpoint review. Self-review also corrected initial autoloader leakage and the template ignore list. No additional actionable harness issue is currently known. Residual risks are the documented source defects, incomplete archive branch coverage, and environment-specific PHAR loader branches.
 
-Coordinator will receive an immutable exact staged patch plus SHA256 and copied evidence. After independent review, actionable test issues must be corrected and affected validation repeated before scoped checkpoint commits/push. The user has authorized reviewed red source-regression commits. Do not label this checkpoint complete or open a PR.
+Reviewer: `/root/review_priority_playa`. Review snapshot and copied evidence: `/private/tmp/low-random-review-fixed-20261023T135445/`. The user authorized publishing reviewed red source-regression commits; no PR was opened and full campaign completion is not claimed.
+
+| Commit | Scope |
+|---|---|
+| `f017d0b` | Pinned strict harness, fixture contracts, source/coverage inventory and documentation |
+| `b600418` | Ordinary plugin APIs and source regressions |
+| `15eb8bc` | Metadata, license views and static info regression |
+| `5ab974f` | Archive base classes and global field settings |
+| `801510b` | Archive bridge settings contracts |
+| `86d4a64` | Persistent cache and source regressions |
+| `251766b` | Static cache and source regressions |
+| `c1780f7` | Native loaders and all shipped PHP source compilation |
+
+Publication evidence: `git push -u origin unit-tests-2026` succeeded. A subsequent fetch and `git ls-remote --heads origin unit-tests-2026` verified code checkpoint HEAD and remote ref both equal `c1780f7f617303e5bfec0bfa25b57803b98f1b30`; `git rev-list --left-right --count HEAD...origin/unit-tests-2026` returned `0 0`. Working tree was clean and production diff against the pinned baseline was empty. This documentation-only ledger update follows that verified code checkpoint; no executable test or source changed after the measured/reviewed run.
