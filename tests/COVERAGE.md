@@ -1,16 +1,14 @@
 # Coverage checkpoint
 
-Incomplete phase 5. Main process: PHP 8.2.30 / Xdebug 3.5.3. Pinned source baseline: `892b6dae8282b159e580e3c1a6076a39d9902f84`. Complete 236-case suites verify all 27 shipped source hashes and native compilation. No product source or archive changed.
+Incomplete phase 6. Main process: PHP 8.2.30 / Xdebug 3.5.3. Pinned source baseline: `892b6dae8282b159e580e3c1a6076a39d9902f84`. Complete 243-case suites verify all 27 shipped source hashes and native compilation. No product source or archive changed.
 
-`BRANCH_RAW_PHP74.json` and `BRANCH_RAW_PHP82.json` retain the exact current main-process native lines, basic blocks and unchanged outgoing exits. All 182 main/native graphs (91 per runtime) remain separate in `tests/reports/phase5-final-ey7o8wc3/`. `contexts.json` retains every raw SHA256 and PHP/Xdebug/EE/request/native case, original archive/source root, locale, OPcache and PHAR-stream provenance. Every graph has a full `*.summary.json` listing exact uncovered exits and unknown sources. No process/runtime/conditional graphs are merged; previous native scenarios are freshly rerun.
+`BRANCH_RAW_PHP74.json` and `BRANCH_RAW_PHP82.json` retain exact current main-process native lines, basic blocks and unchanged outgoing exits. All 196 main/native graphs (98 per runtime) remain separate in `tests/reports/phase6-final-lfzrknhk/`. `contexts.json` retains every raw SHA256 and PHP/Xdebug/EE/request/native case, original archive/source root, locale, OPcache and PHAR-stream provenance. Every graph has a full `*.summary.json` listing exact uncovered exits and unknown sources. No process/runtime/conditional graphs are merged; every prior native scenario is freshly rerun.
 
-Unknown or absent branch instrumentation is never 100%. Basic-block hits do not establish all conditional/loop outcomes. Original `out`/`out_hit` includes synthetic terminal counters, whose unobserved values remain unresolved. Function lines use Xdebug opcode intervals rather than AST ranges; broad `{main}` intervals may overlap method bodies and must not be added to method totals. Full execution path 100% is not required. The main report has 262 function/graph rows across every inventory unit.
+Unknown or absent branch instrumentation is never 100%. Basic-block hits do not establish all conditional/loop outcomes. Original `out`/`out_hit` includes synthetic terminal counters, whose unobserved values remain unresolved. Function lines use Xdebug opcode intervals rather than AST ranges; broad main intervals may overlap method bodies and must not be added to method totals. Full execution path 100% is not required.
 
-The normal original archive loader declares Extract_low_random. In-process parser tests compare all 22 original manifest entries and extracted bodies with native Phar, including sizes, timestamps, unsigned CRCs, offsets and final stream positions. Synthetic alias/metadata/flag bytes are parser inputs, never an edited archive. The main _unpack method now observes 20/20 lines, 4/4 basic blocks and4/4 outgoing exits. Main extractFile has 13/18 lines, 10/14 blocks and 11/19 outgoing exits; native codec and termination graphs remain separate below rather than being merged into a larger percentage.
+Seven new original-loader contexts per runtime cover default CLI, enabled CLI, permission validation, globally disabled OPcache, disabled configuration API, restricted API, and a valid neighboring namespace owned by the next autoloader. Settings are explicit process-local flags. PHP 7.4 has no installed OPcache module and honestly measures absent-module fallback; PHP 8.0–8.5 exercise the available module. No module/configuration is synthesized. Original source warnings/failures remain red at restricted API access and the missing namespace-separator guard. Reflected class filenames and archive hashes prove the loaded class comes from the original PHAR. Reflection canonicalizes its filename; raw execution of autoload line82 establishes the permission/query-string branch rather than a filename assertion.
 
-Fifty-four new native graphs use the original declared extraction helper. Eighteen deterministic high-entropy binary vectors span 0/1/8191/8192/8193/20000 bytes with native plain/gzip/bzip2 data. Encoded-size assertions prove the large compressed inputs cross the actual 8 KiB source read boundary. Checksum termination succeeds; malformed size reporting exposes undefined$stat at stub 262. Native Unix TMPDIR checks include explicit, empty and unset values. Cleanup controls use only unique owned trees and finally restore the child CWD and delete owned remnants. Nonempty-child, dotfile and dangling-link cases remain ordinary red source regressions. Dotfile/link cases are explicitly robustness shapes, not claims the shipped archive normally creates them.
-
-Separate Clover: `tests/reports/phase5-final-ey7o8wc3/clover82.xml`, separate JUnit `clover82.junit.xml`, skill line-only `methods82.json`. Eight ordinary plugin methods retain 100% executable lines with unknown branch fields. This is not source/file coverage closure. Synthetic exits, original stream-free loader diagnostics, immutable archive contents, platform-specific branches and broader behavior/integration gaps remain explicit.
+Separate Clover: `tests/reports/phase6-final-lfzrknhk/clover82.xml`, separate JUnit `clover82.junit.xml`, skill line-only `methods82.json`. Eight ordinary plugin methods retain 100% executable lines with unknown branch fields. This is not source/file coverage closure. Stream-free diagnostics, immutable archive contents, platform-specific branches, updater extensions and broader behavior/integration gaps remain explicit.
 
 | Source | Function/method | Lines | Basic blocks | Outgoing exits | Uncovered executable lines |
 |---|---|---|---|---|---|
@@ -260,80 +258,40 @@ Separate Clover: `tests/reports/phase5-final-ey7o8wc3/clover82.xml`, separate JU
 | `low_random/low_random.phar!/FluxCapacitor/Base/Tab.php` | `Low\Random\FluxCapacitor\Base\Tab->save` | 1/1 | 1/1 | 0/0 | none |
 | `low_random/low_random.phar!/FluxCapacitor/Base/Tab.php` | `Low\Random\FluxCapacitor\Base\Tab->display` | 1/1 | 1/1 | 0/0 | none |
 | `low_random/low_random.phar!/FluxCapacitor/Base/Tab.php` | `Low\Random\FluxCapacitor\Base\Tab->publish_data_db` | 1/1 | 1/1 | 0/0 | none |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `__construct` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `generateNav` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `formatItems` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `itemsToNav` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `buttonsToItems` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setActive` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setBreadcrumb` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `getActiveItem` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `deferGenerate` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `preGenerateNav` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `postGenerateNav` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `getUrl` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultItems` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultButtons` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultActiveMap` | unknown | unknown | unknown | unknown |
-| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setToolbarIcon` | unknown | unknown | unknown | unknown |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `__construct` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `generateNav` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `formatItems` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `itemsToNav` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `buttonsToItems` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setActive` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setBreadcrumb` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `getActiveItem` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `deferGenerate` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `preGenerateNav` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `postGenerateNav` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `getUrl` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultItems` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultButtons` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `defaultActiveMap` | unknown | unknown | unknown | uninstrumented |
+| `low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php` | `setToolbarIcon` | unknown | unknown | unknown | uninstrumented |
 
-## Separate native stub observations
+## Native loader observations
 
-Only executed stub methods are shown. Complete per-context summaries retain all unexecuted methods and unknowns; these graphs are not combined.
+These observations stay separate from the main graphs and each other. Complete per-context reports retain every inventory unit and uninstrumented method; the table focuses on the original autoloader closure.
 
-| PHP | Native case | Raw report | Method | Lines | Basic blocks | Outgoing exits |
-|---|---|---|---|---|---|---|
-| 7.4.33 | stub-boundary/valid/plain/0 | `raw74.75227.json` | `Extract_low_random->extractFile` | 8/18 | 7/14 | 6/19 |
-| 7.4.33 | stub-boundary/valid/gzip/0 | `raw74.75241.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/valid/bzip/0 | `raw74.75257.json` | `Extract_low_random->extractFile` | 12/18 | 10/14 | 10/19 |
-| 7.4.33 | stub-boundary/valid/plain/1 | `raw74.75271.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/valid/gzip/1 | `raw74.75291.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/valid/bzip/1 | `raw74.75314.json` | `Extract_low_random->extractFile` | 12/18 | 10/14 | 10/19 |
-| 7.4.33 | stub-boundary/valid/plain/8191 | `raw74.75330.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/valid/gzip/8191 | `raw74.75347.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/bzip/8191 | `raw74.75393.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 7.4.33 | stub-boundary/valid/plain/8192 | `raw74.75409.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/valid/gzip/8192 | `raw74.75465.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/bzip/8192 | `raw74.75479.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 7.4.33 | stub-boundary/valid/plain/8193 | `raw74.75500.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/gzip/8193 | `raw74.75512.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/bzip/8193 | `raw74.75537.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 7.4.33 | stub-boundary/valid/plain/20000 | `raw74.75552.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/gzip/20000 | `raw74.75580.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 7.4.33 | stub-boundary/valid/bzip/20000 | `raw74.75604.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 7.4.33 | stub-boundary/checksum/plain/1 | `raw74.75621.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 7.4.33 | stub-boundary/size/plain/1 | `raw74.75633.json` | `Extract_low_random->extractFile` | 11/18 | 8/14 | 8/19 |
-| 7.4.33 | stub-boundary/temporary-directory/none/none | `raw74.75650.json` | `Extract_low_random->tmpdir` | 4/9 | 4/14 | 3/19 |
-| 7.4.33 | stub-boundary/cleanup/empty/none | `raw74.75668.json` | `Extract_low_random->_removeTmpFiles` | 6/10 | 3/12 | 2/18 |
-| 7.4.33 | stub-boundary/cleanup/files/none | `raw74.75679.json` | `Extract_low_random->_removeTmpFiles` | 9/10 | 9/12 | 9/18 |
-| 7.4.33 | stub-boundary/cleanup/empty-directory/none | `raw74.75691.json` | `Extract_low_random->_removeTmpFiles` | 9/10 | 9/12 | 9/18 |
-| 7.4.33 | stub-boundary/cleanup/populated-directory/none | `raw74.75700.json` | `Extract_low_random->_removeTmpFiles` | 4/10 | 5/12 | 4/18 |
-| 7.4.33 | stub-boundary/cleanup/dotfile/none | `raw74.75715.json` | `Extract_low_random->_removeTmpFiles` | 3/10 | 3/12 | 2/18 |
-| 7.4.33 | stub-boundary/cleanup/dangling-link/none | `raw74.75727.json` | `Extract_low_random->_removeTmpFiles` | 4/10 | 5/12 | 5/18 |
-| 8.2.30 | stub-boundary/valid/plain/0 | `raw82.75945.json` | `Extract_low_random->extractFile` | 8/18 | 7/14 | 6/19 |
-| 8.2.30 | stub-boundary/valid/gzip/0 | `raw82.75956.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/valid/bzip/0 | `raw82.75971.json` | `Extract_low_random->extractFile` | 12/18 | 10/14 | 10/19 |
-| 8.2.30 | stub-boundary/valid/plain/1 | `raw82.75989.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/valid/gzip/1 | `raw82.76001.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/valid/bzip/1 | `raw82.76012.json` | `Extract_low_random->extractFile` | 12/18 | 10/14 | 10/19 |
-| 8.2.30 | stub-boundary/valid/plain/8191 | `raw82.76029.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/valid/gzip/8191 | `raw82.76041.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/bzip/8191 | `raw82.76054.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 8.2.30 | stub-boundary/valid/plain/8192 | `raw82.76066.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/valid/gzip/8192 | `raw82.76076.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/bzip/8192 | `raw82.76088.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 8.2.30 | stub-boundary/valid/plain/8193 | `raw82.76105.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/gzip/8193 | `raw82.76129.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/bzip/8193 | `raw82.76152.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 8.2.30 | stub-boundary/valid/plain/20000 | `raw82.76180.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/gzip/20000 | `raw82.76211.json` | `Extract_low_random->extractFile` | 13/18 | 10/14 | 11/19 |
-| 8.2.30 | stub-boundary/valid/bzip/20000 | `raw82.76227.json` | `Extract_low_random->extractFile` | 14/18 | 11/14 | 12/19 |
-| 8.2.30 | stub-boundary/checksum/plain/1 | `raw82.76244.json` | `Extract_low_random->extractFile` | 11/18 | 9/14 | 9/19 |
-| 8.2.30 | stub-boundary/size/plain/1 | `raw82.76258.json` | `Extract_low_random->extractFile` | 11/18 | 8/14 | 8/19 |
-| 8.2.30 | stub-boundary/temporary-directory/none/none | `raw82.76280.json` | `Extract_low_random->tmpdir` | 4/9 | 4/14 | 3/19 |
-| 8.2.30 | stub-boundary/cleanup/empty/none | `raw82.76289.json` | `Extract_low_random->_removeTmpFiles` | 6/10 | 3/12 | 2/18 |
-| 8.2.30 | stub-boundary/cleanup/files/none | `raw82.76309.json` | `Extract_low_random->_removeTmpFiles` | 9/10 | 9/12 | 9/18 |
-| 8.2.30 | stub-boundary/cleanup/empty-directory/none | `raw82.76329.json` | `Extract_low_random->_removeTmpFiles` | 9/10 | 9/12 | 9/18 |
-| 8.2.30 | stub-boundary/cleanup/populated-directory/none | `raw82.76347.json` | `Extract_low_random->_removeTmpFiles` | 4/10 | 5/12 | 4/18 |
-| 8.2.30 | stub-boundary/cleanup/dotfile/none | `raw82.76372.json` | `Extract_low_random->_removeTmpFiles` | 3/10 | 3/12 | 2/18 |
-| 8.2.30 | stub-boundary/cleanup/dangling-link/none | `raw82.76385.json` | `Extract_low_random->_removeTmpFiles` | 4/10 | 5/12 | 5/18 |
+| Runtime / context | Lines | Basic blocks | Outgoing exits | Uncovered lines |
+|---|---|---|---|---|
+| 7.4.33 / `loader-options/default` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/enabled` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/permission` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/global-disabled` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/disabled-api` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/restricted` | 23/30 | 20/31 | 19/44 | 35,57,63,66,77,82,90 |
+| 7.4.33 / `loader-options/neighbor` | 19/30 | 9/31 | 8/44 | 35,57,63,66,74,76,77,81,82,84,90 |
+| 8.2.30 / `loader-options/default` | 23/30 | 22/31 | 21/44 | 35,57,63,66,82,87,90 |
+| 8.2.30 / `loader-options/enabled` | 23/30 | 22/31 | 21/44 | 35,57,63,66,82,87,90 |
+| 8.2.30 / `loader-options/permission` | 23/30 | 23/31 | 22/44 | 35,57,63,66,84,87,90 |
+| 8.2.30 / `loader-options/global-disabled` | 23/30 | 23/31 | 22/44 | 35,57,63,66,84,87,90 |
+| 8.2.30 / `loader-options/disabled-api` | 22/30 | 20/31 | 19/44 | 35,57,63,66,77,82,87,90 |
+| 8.2.30 / `loader-options/restricted` | 21/30 | 12/31 | 11/44 | 35,57,63,66,81,82,84,87,90 |
+| 8.2.30 / `loader-options/neighbor` | 19/30 | 9/31 | 8/44 | 35,57,63,66,74,76,77,81,82,84,90 |

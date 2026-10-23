@@ -1,6 +1,35 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 5 reviewed and published**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 6 awaits independent exact-diff review**. The prior phase 5 checkpoint and factual ledger are published through `38905934805327f29499035e8de4831e8469ff25`. No production source changed. Current matrix/coverage artifacts describe phase 6; historical summaries below refer to their frozen packets and retained evidence.
+
+## Phase 6 loader checkpoint pending review
+
+Seven added cases bring the complete configured suite to 243 cases. Disposable native processes load the original unchanged autoloader and PHAR under explicit process-local OPcache enable/CLI/permission settings, an absent configuration function, a restricted API prefix and a neighboring namespace owned by the next registered loader. The prior reviewed/published head is `38905934805327f29499035e8de4831e8469ff25`. Class filename and archive SHA assertions require the original archive, with no replacement production class or rebuilt archive.
+
+The setting vectors explicitly cover disabled CLI, enabled CLI, permission validation, globally disabled OPcache, disabled configuration API and restricted API. PHP 7.4 has no installed OPcache module, so these controls honestly measure absent-module fallback there; PHP 8.0–8.5 use the actual installed extension. No unavailable runtime component is faked. A first trial assumed a loaded extension was enabled; PHP 8.1's host configuration has opcache.enable=0. That trial at tests/reports/phase6-final-grmc4tq7 was rejected. The corrected test sets enable/disable explicitly in the child and reruns into fresh paths. Global Herd/php.ini configuration remains unchanged.
+
+Precise commands, full issue identities and JUnit hashes are in `MATRIX_RESULTS.json`; fresh evidence is `tests/reports/phase6-final-lfzrknhk/`. The local pinned PHPUnit 9.6.38 SHA256 remains 6b5235f282c6ccab3674ac27c5b1ddbd1da838e74bf07002ddcfd030d31298d7.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 243 | 2033 | 7 | 26 | 0/0/0/0 | 2 |
+| 8.0.30 | 243 | 2021 | 7 | 24 | 0/0/0/0 | 2 |
+| 8.1.33 | 243 | 2017 | 9 | 24 | 0/0/0/0 | 2 |
+| 8.2.30 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.3.28 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.4.15 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.5.0 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+
+The new class independently runs seven cases/74 assertions/one source failure on PHP 7.4 and seven/64/two source failures on PHP 8.0–8.5. All prior 236-case source issue identities remain. Randomized full order with seed 20261023 matches default counts/issues on PHP 7.4 and 8.5. All three added PHP files lint across all seven runtimes. Complete suites verify all 27 shipped source hashes and native compilation. External full-suite observers preserve the complete empty and seeded caller OpenSSL FIFO on 7.4/8.5: zero/four and zero/two entries. No test reads or drains its caller's queue.
+
+Two source observations remain ordinary red intended-behavior regressions:
+
+32. Original autoload.php:77 calls suppressed opcache_get_configuration even when the actual API is restricted. Its native warning becomes a strict diagnostic before the loader includes the available class. Absent-function, disabled runtime and unrestricted positive controls pass. This applies only where OPcache is installed; PHP 7.4's absent-module control passes.
+33. Original namespace prefix matching at autoload.php:34 omits the following namespace separator. A valid `Low\Random\FluxCapacitorExtra\Widget` class belongs to a separate fixture loader, but the original loader intercepts it and throws at line 87 before the next loader executes. The test requires that ordinary neighboring class to load through its own loader; the observed exception is not accepted as passing behavior.
+
+Fresh raw coverage retains 196 separate main/native process graphs, 98 per runtime on PHP 7.4 / Xdebug 3.1.6 and PHP 8.2 / Xdebug 3.5.3. Fourteen new native graphs cover the loader settings/neighbor flows; every prior context is freshly rerun. contexts.json preserves every raw SHA and full provenance; every graph has a complete method summary retaining exact out/out_hit and all unknown units. No graphs are merged. The permission control executes original autoload.php:82; reflected filenames are canonical and are not treated as proof of its query string. Separate Clover/JUnit/skill line-only reports are retained. Missing branch data, basic-block 100% or unobserved synthetic terminals never prove full outcome coverage.
+
+Self-review checked original source execution, actual runtime capabilities, process-local flags, independent namespace fixture ownership, strict diagnostics hidden by @, owned temporary paths, caller state and source/report hashes. Independent exact-diff review is pending. Source defects, unavailable positive OPcache on PHP 7.4, platform/fallback, historical/full EE/SQL/HTTP integration, updater optional extensions and broad per-method outcome closure remain incomplete. After this coherent checkpoint is reviewed and published, implementation will hold for coordinator ownership rotation; the full Low Random goal remains incomplete.
 
 ## Phase 5 reviewed checkpoint
 

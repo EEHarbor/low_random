@@ -1,9 +1,9 @@
 {
   "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-  "previous_reviewed_checkpoint": "5d72289177f2820ecf2cdf31878434ea1392f3a0",
+  "previous_reviewed_checkpoint": "38905934805327f29499035e8de4831e8469ff25",
   "phpunit": "9.6.38",
   "measurement_root": "/Users/tomjaeger/Sites/add-ons/low_random",
-  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3",
+  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk",
   "runs": [
     {
       "kind": "full",
@@ -19,14 +19,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full74.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full74.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1959,
+        "tests": 243,
+        "assertions": 2033,
         "errors": 7,
-        "failures": 25,
+        "failures": 26,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -61,17 +61,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000075e444740000000072c349a0 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002fb39a0600000000536de5c4 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000075e444670000000072c349a0 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002fb39a3100000000536de5c4 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000075e444160000000072c349a0 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002fb39a2000000000536de5c4 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -104,6 +104,11 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -116,12 +121,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-70443-b33abb958c85/stub-tree-12e4ce61bfe2): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-32480-f8c711606976/stub-tree-d94b8a7a0cd7): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-70443-c4af4f083d36/stub-tree-74fe9ef5f239): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-32480-ef4960b94d2e/stub-tree-e7c5021c208d): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -194,7 +199,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "058516e0eecc6dc7862ea9982654658c094410005c024b5bd8d548aa0a3ae72d",
+      "junit_sha256": "fa4c3112aedcc3b404cd9cac0af2a4d4a5fb481f57117e9ca92896f857f1bd19",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
       "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
     },
@@ -212,14 +217,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full80.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full80.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1957,
+        "tests": 243,
+        "assertions": 2021,
         "errors": 7,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -234,17 +239,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000038f7de94000000004eb1e5be ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000007c55a3ad000000006f032b05 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000038f7dea5000000004eb1e5be ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000007c55a3bc000000006f032b05 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000038f7deba000000004eb1e5be ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000007c55a38f000000006f032b05 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -277,6 +282,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -289,12 +304,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-70441-b72be22d4caa/stub-tree-b4708a367bbb): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-33505-589a2aaec8d0/stub-tree-98d72eaaa2f1): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-70441-8c1a00db8c3f/stub-tree-7e3bb4ea4dd5): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-33505-0f28cbff40aa/stub-tree-770c13d3543c): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -372,7 +387,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "67e0ab89d1b598dae8976670aaffdbe08c661864271148981082c631a9150e5a",
+      "junit_sha256": "11cb33ab819ef29d853ee495c6dccdea143ccde0d810cdaa96e2dbd7a72e19b2",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
       "runtime": "PHP 8.0.30 (cli) (built: Dec 21 2023 08:22:38) ( NTS )"
     },
@@ -390,14 +405,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full81.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full81.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1953,
+        "tests": 243,
+        "assertions": 2017,
         "errors": 9,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -412,17 +427,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005290000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005180000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005070000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -455,6 +470,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -467,12 +492,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-71330-1ab51a063f8d/stub-tree-cf4a2fbdd12b): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-34417-200e83c0fd07/stub-tree-5d203c8ec6b4): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-71330-2395278a26ad/stub-tree-39956ac07cef): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-34417-b8c013d2d2ab/stub-tree-f23b5fdcea82): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -560,7 +585,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "7936b169a483e6a1bf81f2cfc42896b1a0e41e38138b4733f72d2903369fc2c1",
+      "junit_sha256": "bac9276f796bf603f0c62d415b6bb117f1cbafb88c0c051a72e2b2cf7b528f32",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
       "runtime": "PHP 8.1.33 (cli) (built: Jul  4 2025 00:24:36) (NTS)"
     },
@@ -578,14 +603,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full82.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full82.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -600,17 +625,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005290000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005180000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005070000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -648,6 +673,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -660,12 +695,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-71346-1b93511505df/stub-tree-982a84a9931c): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-35227-cce323cd4627/stub-tree-1b2710bcec95): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-71346-73a1c2133f57/stub-tree-92aff30bea65): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-35227-9e7384ab6c69/stub-tree-51c45852006a): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -753,7 +788,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "7ee75d8144e97a4a49342212fe38a7cb9704884d08034041b5277ec5a3c63529",
+      "junit_sha256": "7d29d3b12992b99d14fe65b958d7523da5570ca103d9ff0463294867a8284c39",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
       "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
     },
@@ -771,14 +806,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full83.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full83.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -793,17 +828,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005290000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005180000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005070000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -841,6 +876,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -853,12 +898,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-72259-f88408d81724/stub-tree-4a7fb43abb0d): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-36076-59ce6095914e/stub-tree-64606f96ead5): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-72259-a77f1537fcc6/stub-tree-c6839eea8a7c): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-36076-e028e08775c3/stub-tree-aaf5ffdabd09): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -946,7 +991,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "c433f479310e27c47b16c00b557783037c570c0afb23947a7570379ab258a32d",
+      "junit_sha256": "12fff33f1f58734f84343822ea7971f1a95a0c80d15c20011d73ed165c3a144e",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
       "runtime": "PHP 8.3.28 (cli) (built: Nov 20 2025 11:21:23) (NTS clang 15.0.0)"
     },
@@ -964,14 +1009,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full84.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full84.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -986,17 +1031,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005290000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005180000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005070000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -1034,6 +1079,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -1046,12 +1101,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-72264-8148e5c46ea2/stub-tree-e867a8fbb589): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-36978-65868bbefa66/stub-tree-ea12fbab9673): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-72264-f12fc2aad9ba/stub-tree-542701238623): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-36978-85eabc6be728/stub-tree-264e20b0e3d7): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -1139,7 +1194,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "e19c324d974bcf2c3caa5d525e993e2ef864c3dfafecb6b2e449c3f680713924",
+      "junit_sha256": "9e0732f388c7a2063dbdff7f6c0e77457b8e1c3b7542043eeab910ae3c594ac7",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
       "runtime": "PHP 8.4.15 (cli) (built: Nov 20 2025 14:28:49) (NTS clang 15.0.0)"
     },
@@ -1157,14 +1212,14 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/full85.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/full85.junit.xml"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1179,17 +1234,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005290000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005180000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005070000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -1227,6 +1282,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -1239,12 +1304,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73063-9c5e6a86c096/stub-tree-25878e49c080): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-37795-8a22a4d01c21/stub-tree-9aebdc780646): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73063-2a50a03fcfc9/stub-tree-adcc8ddbd00b): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-37795-dee52c879a9b/stub-tree-12bf8ccde079): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -1332,7 +1397,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "5f5a98808021761e6992d07e05f32bbd1d00d6ae148f6993027d9e00085979ae",
+      "junit_sha256": "ba72a08e82a9c8632935acd65889fc4c5e631adb3848a02a73e684c606c7bf7a",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
       "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
     }
@@ -1352,16 +1417,16 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/focused74.junit.xml",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused74.junit.xml",
         "--filter",
-        "ArchiveStubBoundaryTest|ArchiveStubManifestTest"
+        "ArchiveLoaderOptionsTest"
       ],
       "environment": {},
       "counts": {
-        "tests": 29,
-        "assertions": 315,
+        "tests": 7,
+        "assertions": 74,
         "errors": 0,
-        "failures": 4,
+        "failures": 1,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1369,29 +1434,239 @@
       },
       "issues": [
         {
-          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73079-9d38b4545941/stub-tree-3309c02fa95a): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73079-f15fc60aead7/stub-tree-437de2e099a3): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
         }
       ],
-      "junit_sha256": "d2aaafdb7a99cf1da0147d704777d4d0862583e565c239ac0a8083084308bdf8",
+      "junit_sha256": "964fa75fde87d18337fa609c5cfca780f8125d2b3aa59cf051177173b4b17d53",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
       "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
+    },
+    {
+      "kind": "focused",
+      "version": "80",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused80.junit.xml",
+        "--filter",
+        "ArchiveLoaderOptionsTest"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 7,
+        "assertions": 64,
+        "errors": 0,
+        "failures": 2,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        }
+      ],
+      "junit_sha256": "5bb41715c0e72cbf6d8f45e4cc17603511a29d144c6b45aec2c918201856f684",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
+      "runtime": "PHP 8.0.30 (cli) (built: Dec 21 2023 08:22:38) ( NTS )"
+    },
+    {
+      "kind": "focused",
+      "version": "81",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused81.junit.xml",
+        "--filter",
+        "ArchiveLoaderOptionsTest"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 7,
+        "assertions": 64,
+        "errors": 0,
+        "failures": 2,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        }
+      ],
+      "junit_sha256": "881c5d66a7c2f134f557e17c215015cddfe9146ff65a4f5ba7ebb9cd44f64db8",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
+      "runtime": "PHP 8.1.33 (cli) (built: Jul  4 2025 00:24:36) (NTS)"
+    },
+    {
+      "kind": "focused",
+      "version": "82",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused82.junit.xml",
+        "--filter",
+        "ArchiveLoaderOptionsTest"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 7,
+        "assertions": 64,
+        "errors": 0,
+        "failures": 2,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        }
+      ],
+      "junit_sha256": "0eec2f49a320eeff2427c238fc7c68e424f8e5d260897e181b137c6149ce6d70",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+      "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "focused",
+      "version": "83",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused83.junit.xml",
+        "--filter",
+        "ArchiveLoaderOptionsTest"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 7,
+        "assertions": 64,
+        "errors": 0,
+        "failures": 2,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        }
+      ],
+      "junit_sha256": "eb5a48bef3f4f090ea4d5a8ae459de51b65a7eb698aa23de3468fd4dab8fd668",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
+      "runtime": "PHP 8.3.28 (cli) (built: Nov 20 2025 11:21:23) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "focused",
+      "version": "84",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused84.junit.xml",
+        "--filter",
+        "ArchiveLoaderOptionsTest"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 7,
+        "assertions": 64,
+        "errors": 0,
+        "failures": 2,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        }
+      ],
+      "junit_sha256": "ea6e7d08404cdf07db1ba5b29f9e5f3bfa2428b5794f57c520a07c17898da035",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
+      "runtime": "PHP 8.4.15 (cli) (built: Nov 20 2025 14:28:49) (NTS clang 15.0.0)"
     },
     {
       "kind": "focused",
@@ -1407,16 +1682,16 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/focused85.junit.xml",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/focused85.junit.xml",
         "--filter",
-        "ArchiveStubBoundaryTest|ArchiveStubManifestTest"
+        "ArchiveLoaderOptionsTest"
       ],
       "environment": {},
       "counts": {
-        "tests": 29,
-        "assertions": 315,
+        "tests": 7,
+        "assertions": 64,
         "errors": 0,
-        "failures": 4,
+        "failures": 2,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1424,27 +1699,17 @@
       },
       "issues": [
         {
-          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
         },
         {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73210-ce4086dfca35/stub-tree-b87f2d2efad6): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73210-5297bace239f/stub-tree-0d173ad4b4eb): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
         }
       ],
-      "junit_sha256": "846baabcf202dec280c76e09d218240cc6e3383375b64118982e291007cabfba",
+      "junit_sha256": "d934a12b27a4cbbc9e5781f18a181f5bd4d5d77aece9a0f53133faf20b4aa5ba",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
       "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
     },
@@ -1462,16 +1727,16 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/random74.junit.xml",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/random74.junit.xml",
         "--order-by=random",
         "--random-order-seed=20261023"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1959,
+        "tests": 243,
+        "assertions": 2033,
         "errors": 7,
-        "failures": 25,
+        "failures": 26,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1479,69 +1744,9 @@
       },
       "issues": [
         {
-          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: Undefined index: missing"
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000004437e0ce000000004189ea34 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000004437e0bd000000004189ea34 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000004437e568000000004189ea34 ("
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73484-5526eb2f80a8/stub-tree-21bae5905b30): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73484-6dce15cf9865/stub-tree-cb52dbcab528): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
-        },
-        {
-          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+          "diagnostic": "Failed asserting that two strings are identical."
         },
         {
           "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
@@ -1554,6 +1759,16 @@
           "diagnostic": "Failed asserting that two arrays are identical."
         },
         {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
           "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
           "kind": "error",
           "diagnostic": "ErrorException: Trying to get property 'channel_id' of non-object"
@@ -1562,6 +1777,71 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined offset: 3"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001e1639590000000038151c12 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001e1639680000000038151c12 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001e1639af0000000038151c12 ("
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-38996-bf718d15d982/stub-tree-da3b0f496d69): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-38996-7a86bb2e4509/stub-tree-07b2f10b295f): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
         },
         {
           "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
@@ -1584,49 +1864,29 @@
           "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
         },
         {
-          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        },
-        {
-          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "Error: Using $this when not in object context"
+          "diagnostic": "ErrorException: Undefined index: missing"
         },
         {
-          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: Undefined offset: 3"
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
         },
         {
-          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
-          "kind": "error",
-          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
-        },
-        {
-          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
           "kind": "failure",
-          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
         },
         {
-          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
           "kind": "failure",
-          "diagnostic": "Failed asserting that two arrays are identical."
+          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
         },
         {
-          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
           "kind": "failure",
-          "diagnostic": "Failed asserting that 'request-value' is false."
-        },
-        {
-          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        },
-        {
-          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that false is identical to 0."
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
         },
         {
           "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
@@ -1634,12 +1894,22 @@
           "diagnostic": "Failed asserting that false is true."
         },
         {
-          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
           "kind": "failure",
-          "diagnostic": "Failed asserting that 0 is false."
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
         }
       ],
-      "junit_sha256": "93c7271c3b4fe5ca0b69433fdfe7d879e8b72b0c3b6160611518c449386b4fcb",
+      "junit_sha256": "7568552f8345d8c4335e793bf6e733c9bd48f63d125bb69b6c6d2080f453f8c4",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
       "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
     },
@@ -1657,16 +1927,16 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/random85.junit.xml",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/random85.junit.xml",
         "--order-by=random",
         "--random-order-seed=20261023"
       ],
       "environment": {},
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1674,79 +1944,14 @@
       },
       "issues": [
         {
-          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: Undefined array key \"missing\""
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005b40000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005a30000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000006d0000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73920-4867a8b42719/stub-tree-c19cf965a806): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-73920-6c3a18683380/stub-tree-a69003dab98b): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
-        },
-        {
-          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
-        },
-        {
-          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
         },
         {
           "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
@@ -1759,6 +1964,21 @@
           "diagnostic": "Failed asserting that two arrays are identical."
         },
         {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
           "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
           "kind": "error",
           "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
@@ -1767,16 +1987,6 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
-        },
-        {
-          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        },
-        {
-          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
         },
         {
           "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
@@ -1789,9 +1999,19 @@
           "diagnostic": "ErrorException: Undefined array key 3"
         },
         {
-          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
-          "kind": "error",
-          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000007d00000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000007bf0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000006fa0000000000000000 ("
         },
         {
           "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
@@ -1799,14 +2019,34 @@
           "diagnostic": "Failed asserting that false is identical to Array &0 ("
         },
         {
-          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two arrays are identical."
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
         },
         {
-          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-39673-171cfcc10464/stub-tree-74975925c2f5): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-39673-8f829895dabb/stub-tree-00eef07c3096): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
           "kind": "error",
-          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
         },
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -1814,7 +2054,250 @@
           "diagnostic": "Failed asserting that 'request-value' is false."
         },
         {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
           "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        }
+      ],
+      "junit_sha256": "7386288e24309c908c957105d441a08cb0b45ece5c9ae16b8e9e8d8f8751da77",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "queue0",
+      "version": "74",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue-prepend.php",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue074.junit.xml"
+      ],
+      "environment": {
+        "REVIEW_QUEUE_SEED": "0",
+        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue074.json"
+      },
+      "counts": {
+        "tests": 243,
+        "assertions": 2033,
+        "errors": 7,
+        "failures": 26,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #0",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #2",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #3",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000042cd6bda000000001bf69596 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000042cd6bed000000001bf69596 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000042cd6bfc000000001bf69596 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Trying to get property 'channel_id' of non-object"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-40402-bb0e521be3b2/stub-tree-4cae68acbe2d): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-40402-226bf157e447/stub-tree-eb625a0a4532): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined index: missing"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined offset: 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         },
@@ -1829,14 +2312,637 @@
           "diagnostic": "Failed asserting that false is true."
         },
         {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "dc5e59e988a8ff737bc33f6838b4631e9ea4e3d5fed4e979c7100951b6292eae",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )",
+      "preserved_entries": 0
+    },
+    {
+      "kind": "queue1",
+      "version": "74",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue-prepend.php",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue174.junit.xml"
+      ],
+      "environment": {
+        "REVIEW_QUEUE_SEED": "1",
+        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue174.json"
+      },
+      "counts": {
+        "tests": 243,
+        "assertions": 2033,
+        "errors": 7,
+        "failures": 26,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #0",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #2",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #3",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004be785c0000000031403051 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004be786b0000000031403051 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004be787a0000000031403051 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Trying to get property 'channel_id' of non-object"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
           "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
           "kind": "failure",
           "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-41356-c5d00d12260c/stub-tree-ec78d44f9109): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-41356-df5762affebd/stub-tree-ee07168f076c): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined index: missing"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined offset: 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "4484bda8684349e5a6ed18b25d333d5c6c27592e962c5c80a6703c63456bc3e7",
+      "junit_sha256": "f4967e8ff3c992c981bf0af85107a4108bbb4123eb8a1f7c4f6ff8aa9931e892",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )",
+      "preserved_entries": 4
+    },
+    {
+      "kind": "queue0",
+      "version": "85",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue-prepend.php",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue085.junit.xml"
+      ],
+      "environment": {
+        "REVIEW_QUEUE_SEED": "0",
+        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue085.json"
+      },
+      "counts": {
+        "tests": 243,
+        "assertions": 2010,
+        "errors": 10,
+        "failures": 24,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-42541-d30ab7029a7e/stub-tree-d98351109324): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-42541-7c7e4a12ba65/stub-tree-5f0bb4c02243): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "d72112f930a856ab0a91c1fa4f4ffe1b924cb12929e968f4ece471d0fcfcf5be",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
-      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)",
+      "preserved_entries": 0
+    },
+    {
+      "kind": "queue1",
+      "version": "85",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue-prepend.php",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue185.junit.xml"
+      ],
+      "environment": {
+        "REVIEW_QUEUE_SEED": "1",
+        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/queue185.json"
+      },
+      "counts": {
+        "tests": 243,
+        "assertions": 2010,
+        "errors": 10,
+        "failures": 24,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000053f0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052e0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051d0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"nonempty child\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(nested): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:278"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-43854-da7c5b581817/stub-tree-c18ed83f9ff0): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-43854-5b741e1e91b4/stub-tree-d9f1ff2d7f17): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "62cc5d62381524bd53bb95593b3892016e8e38b74eeba9d06440a6bddd65231b",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)",
+      "preserved_entries": 2
     },
     {
       "kind": "raw",
@@ -1858,18 +2964,18 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/raw74.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/raw74.junit.xml"
       ],
       "environment": {
         "XDEBUG_MODE": "coverage",
-        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/raw74",
+        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/raw74",
         "LOW_RANDOM_XDEBUG_EXTENSION": "/Applications/Herd.app/Contents/Resources/xdebug/xdebug-74-arm64.so"
       },
       "counts": {
-        "tests": 236,
-        "assertions": 1959,
+        "tests": 243,
+        "assertions": 2033,
         "errors": 7,
-        "failures": 25,
+        "failures": 26,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -1904,17 +3010,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000268059670000000064e4d4e3 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000060380b65000000001f36d510 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000268059760000000064e4d4e3 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000060380b54000000001f36d510 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000268059050000000064e4d4e3 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000060380b43000000001f36d510 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -1947,6 +3053,11 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable: stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -1959,12 +3070,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-74486-ced2b1dde303/stub-tree-691ebbf03a66): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-45388-6919c19108f7/stub-tree-87b7178dc43b): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-74486-a434439bd476/stub-tree-842de92f290c): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-45388-dfa7822e5440/stub-tree-47ba2f61fb68): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -2037,7 +3148,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "2322a353e4d5d503a373403d1e75149dc58f80b58823ff416b3b1c433e77b4bd",
+      "junit_sha256": "be61c19634a3007f70d8521d82002090e03cc2a98bf6a125db72cd38ec31d3fe",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
       "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
     },
@@ -2061,18 +3172,18 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/raw82.junit.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/raw82.junit.xml"
       ],
       "environment": {
         "XDEBUG_MODE": "coverage",
-        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/raw82",
+        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/raw82",
         "LOW_RANDOM_XDEBUG_EXTENSION": "/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so"
       },
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -2087,17 +3198,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052a0000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005400000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005190000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000052f0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000005080000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000000051e0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -2135,6 +3246,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -2147,12 +3268,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-75182-d2113420bfae/stub-tree-9d9dcc71a79f): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-48042-2a10dd1ae4f3/stub-tree-346c26e1af86): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-75182-552731083570/stub-tree-0c334a7e8965): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-48042-25a141e0387b/stub-tree-0d1f5ff7c002): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -2240,7 +3361,7 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "596dbbb97ea962e5f1cd9a2d1b7cf4991f2553ad892cb078322c359bdf987556",
+      "junit_sha256": "117672f484b982f42f50c4ece3c09497c619790c8f73fde47a01450abab7d682",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
       "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
     },
@@ -2264,18 +3385,18 @@
         "-c",
         "phpunit.xml",
         "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/clover82.junit.xml",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/clover82.junit.xml",
         "--coverage-clover",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/clover82.xml"
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase6-final-lfzrknhk/clover82.xml"
       ],
       "environment": {
         "XDEBUG_MODE": "coverage"
       },
       "counts": {
-        "tests": 236,
-        "assertions": 1946,
+        "tests": 243,
+        "assertions": 2010,
         "errors": 10,
-        "failures": 22,
+        "failures": 24,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
@@ -2290,17 +3411,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f540000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f6a0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f430000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f590000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f320000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f480000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -2338,6 +3459,16 @@
           "diagnostic": "Failed asserting that 0 is false."
         },
         {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNativeLoaderOptions with data set \"restricted API\"",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: Zend OPcache API is restricted by \"restrict_api\" configuration directive in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:77"
+        },
+        {
+          "case": "Tests\\ArchiveLoaderOptionsTest::testNeighboringNamespaceCanReachItsOwnLoader",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught Exception: Class at location phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitorExtra/Widget.php not found. in /Users/tomjaeger/Sites/add-ons/low_random/low_random/autoload.php:87"
+        },
+        {
           "case": "Tests\\ArchiveStubBoundaryTest::testSizeMismatchReportsItsDeclaredSize",
           "kind": "failure",
           "diagnostic": "Fatal error: Uncaught ErrorException: Undefined variable $stat in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:262"
@@ -2350,12 +3481,12 @@
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"hidden file robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-76845-4f06fbc9c036/stub-tree-ba7e9e6baaad): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-50530-0465ddbfff09/stub-tree-791d1b2618ce): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveStubBoundaryTest::testOwnedTreeCleanup with data set \"dangling link robustness\"",
           "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-76845-d8a75a3bfb7e/stub-tree-bc281dda0211): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
+          "diagnostic": "Fatal error: Uncaught ErrorException: rmdir(/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-50530-e23b4daa194e/stub-tree-353437c6b480): Directory not empty in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:285"
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -2443,149 +3574,9 @@
           "diagnostic": "Failed asserting that two strings are identical."
         }
       ],
-      "junit_sha256": "f97702a0fa1b5481a00ba90589b75c5cb596d85a24ecb79c46b97893c23a00e6",
+      "junit_sha256": "25bd8099b375d71ce8b694cc7872cdfcab6cd337db61c781e0e5e12cb553d694",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
       "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
-    },
-    {
-      "kind": "queue0",
-      "version": "74",
-      "exit": 2,
-      "command": [
-        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
-        "-d",
-        "error_reporting=-1",
-        "-d",
-        "display_errors=1",
-        "-d",
-        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue-prepend.php",
-        "tests/.phpunit/phpunit-9.phar",
-        "-c",
-        "phpunit.xml",
-        "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue074.junit.xml"
-      ],
-      "environment": {
-        "REVIEW_QUEUE_SEED": "0",
-        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue074.json"
-      },
-      "preserved_entries": 0,
-      "counts": {
-        "tests": 236,
-        "assertions": 1959,
-        "errors": 7,
-        "failures": 25,
-        "warnings": 0,
-        "skipped": 0,
-        "risky": 0,
-        "incomplete": 0
-      },
-      "junit_sha256": "6e2175ab89c1845ee694f805d7348c05554647c5d51616b0a0b56530cbcd426b"
-    },
-    {
-      "kind": "queue1",
-      "version": "74",
-      "exit": 2,
-      "command": [
-        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
-        "-d",
-        "error_reporting=-1",
-        "-d",
-        "display_errors=1",
-        "-d",
-        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue-prepend.php",
-        "tests/.phpunit/phpunit-9.phar",
-        "-c",
-        "phpunit.xml",
-        "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue174.junit.xml"
-      ],
-      "environment": {
-        "REVIEW_QUEUE_SEED": "1",
-        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue174.json"
-      },
-      "preserved_entries": 4,
-      "counts": {
-        "tests": 236,
-        "assertions": 1959,
-        "errors": 7,
-        "failures": 25,
-        "warnings": 0,
-        "skipped": 0,
-        "risky": 0,
-        "incomplete": 0
-      },
-      "junit_sha256": "e98d8fd40b03b2be7b93d718d0954147c09c0b7619846be7747106ae127aa3b1"
-    },
-    {
-      "kind": "queue0",
-      "version": "85",
-      "exit": 2,
-      "command": [
-        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
-        "-d",
-        "error_reporting=-1",
-        "-d",
-        "display_errors=1",
-        "-d",
-        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue-prepend.php",
-        "tests/.phpunit/phpunit-9.phar",
-        "-c",
-        "phpunit.xml",
-        "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue085.junit.xml"
-      ],
-      "environment": {
-        "REVIEW_QUEUE_SEED": "0",
-        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue085.json"
-      },
-      "preserved_entries": 0,
-      "counts": {
-        "tests": 236,
-        "assertions": 1946,
-        "errors": 10,
-        "failures": 22,
-        "warnings": 0,
-        "skipped": 0,
-        "risky": 0,
-        "incomplete": 0
-      },
-      "junit_sha256": "5230fdd8b1631d589b3bcfea6ce615cfa166bcfa2212362275de3571505275a4"
-    },
-    {
-      "kind": "queue1",
-      "version": "85",
-      "exit": 2,
-      "command": [
-        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
-        "-d",
-        "error_reporting=-1",
-        "-d",
-        "display_errors=1",
-        "-d",
-        "auto_prepend_file=/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue-prepend.php",
-        "tests/.phpunit/phpunit-9.phar",
-        "-c",
-        "phpunit.xml",
-        "--log-junit",
-        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue185.junit.xml"
-      ],
-      "environment": {
-        "REVIEW_QUEUE_SEED": "1",
-        "REVIEW_QUEUE_REPORT": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase5-final-ey7o8wc3/queue185.json"
-      },
-      "preserved_entries": 2,
-      "counts": {
-        "tests": 236,
-        "assertions": 1946,
-        "errors": 10,
-        "failures": 22,
-        "warnings": 0,
-        "skipped": 0,
-        "risky": 0,
-        "incomplete": 0
-      },
-      "junit_sha256": "adc43fe731145e80d4075ad5f661678cb347e43e87fdf48cea608af6bec89f77"
     }
   ],
   "pinned_phpunit_sha256": "6b5235f282c6ccab3674ac27c5b1ddbd1da838e74bf07002ddcfd030d31298d7"
