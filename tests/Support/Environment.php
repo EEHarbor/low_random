@@ -86,6 +86,7 @@ namespace Tests\Support {
     {
         public $helpers = array();
         public $libraries = array();
+        public $forgeLoads = 0;
 
         /**
          * Record helper dependencies; native test helpers are preloaded.
@@ -107,6 +108,16 @@ namespace Tests\Support {
         public function library($name)
         {
             $this->libraries[] = $name;
+        }
+
+        /**
+         * Record schema-service initialization without touching an EE database.
+         *
+         * @return void
+         */
+        public function dbforge()
+        {
+            $this->forgeLoads++;
         }
     }
 
@@ -213,6 +224,9 @@ namespace Tests\Support {
         public $tables = array();
         public $calls = array();
         public $results = array();
+        public $getQueues = array();
+        public $fields = array();
+        public $primaryKeys = array();
 
         /**
          * Record the exact Active Record chain without mutating shared EE state.
@@ -229,15 +243,213 @@ namespace Tests\Support {
                 return in_array($arguments[0], $this->tables, true);
             }
 
+            if ($method === 'field_exists') {
+                return in_array($arguments[1] . '.' . $arguments[0], $this->fields, true);
+            }
+
+            if ($method === 'query') {
+                $sql = "SHOW KEYS FROM exp_eeharbor_licenses WHERE Key_name = 'PRIMARY'";
+
+                if ($arguments[0] !== $sql) {
+                    throw new \RuntimeException('Unconfigured SQL query: ' . $arguments[0]);
+                }
+
+                return new Query($this->primaryKeys['eeharbor_licenses'] ?? array());
+            }
+
             if ($method === 'get' || $method === 'get_where') {
-                return new Query($this->results[$arguments[0] ?? ''] ?? array());
+                $table = $arguments[0] ?? '';
+
+                if (!empty($this->getQueues[$table])) {
+                    return new Query(array_shift($this->getQueues[$table]));
+                }
+
+                return new Query($this->results[$table] ?? array());
             }
 
             if ($method === 'count_all_results') {
                 return count($this->results[$arguments[0]] ?? array());
             }
 
+            if (in_array($method, array('insert', 'update', 'delete'), true)) {
+                return true;
+            }
+
             return $this;
+        }
+    }
+
+    final class Configuration
+    {
+        public $items = array('site_id' => 1, 'base_url' => 'https://example.test/', 'site_license_key' => '', 'theme_folder_url' => 'https://example.test/themes/');
+
+        /**
+         * Read an explicitly configured EE value, preserving SQL-style nulls.
+         *
+         * @param string $key
+         * @return mixed
+         */
+        public function item($key)
+        {
+            return $this->items[$key] ?? null;
+        }
+
+        /**
+         * Return an EE configuration URL with exactly one trailing slash.
+         *
+         * @param string $key
+         * @return string|false
+         */
+        public function slash_item($key)
+        {
+            $value = $this->item($key);
+            return $value ? rtrim($value, '/') . '/' : false;
+        }
+    }
+
+    final class SchemaForge
+    {
+        public $calls = array();
+        private $database;
+        private $fields = array();
+        private $primaryKey;
+
+        /**
+         * Keep schema introspection consistent with the recorded DDL changes.
+         *
+         * @param Database $database
+         * @return void
+         */
+        public function __construct(Database $database)
+        {
+            $this->database = $database;
+        }
+
+        /**
+         * Queue field definitions for the next table creation.
+         *
+         * @param array $fields
+         * @return void
+         */
+        public function add_field(array $fields)
+        {
+            $this->calls[] = array('add_field', $fields);
+            $this->fields = $fields;
+        }
+
+        /**
+         * Record secondary and primary key definitions in their actual order.
+         *
+         * @param string|array $key
+         * @param bool $primary
+         * @return void
+         */
+        public function add_key($key, $primary = false)
+        {
+            $this->calls[] = array('add_key', $key, $primary);
+
+            if ($primary) {
+                $this->primaryKey = $key;
+            }
+        }
+
+        /**
+         * Expose the newly created fields and key to subsequent schema queries.
+         *
+         * @param string $table
+         * @return bool
+         */
+        public function create_table($table)
+        {
+            $this->calls[] = array('create_table', $table);
+            $this->database->tables[] = $table;
+            $this->addFieldsToDatabase($table, $this->fields);
+
+            if ($this->primaryKey !== null) {
+                $this->database->primaryKeys[$table] = array(array('Column_name' => $this->primaryKey, 'Non_unique' => '0'));
+            }
+
+            $this->fields = array();
+            $this->primaryKey = null;
+            return true;
+        }
+
+        /**
+         * Apply an existing-table schema extension for the next introspection.
+         *
+         * @param string $table
+         * @param array $fields
+         * @return bool
+         */
+        public function add_column($table, array $fields)
+        {
+            $this->calls[] = array('add_column', $table, $fields);
+            $this->addFieldsToDatabase($table, $fields);
+            return true;
+        }
+
+        /**
+         * Keep fully qualified field names consistent across both DDL paths.
+         *
+         * @param string $table
+         * @param array $fields
+         * @return void
+         */
+        private function addFieldsToDatabase($table, array $fields)
+        {
+            foreach (array_keys($fields) as $name) {
+                $this->database->fields[] = $table . '.' . $name;
+            }
+        }
+    }
+
+    final class ControlPanel
+    {
+        public $footer = array();
+        public $footer_item;
+        public $breadcrumbs = array();
+
+        /**
+         * Expose EE2's footer collection alongside the current getter contract.
+         *
+         * @return void
+         */
+        public function __construct()
+        {
+            $this->footer_item = &$this->footer;
+        }
+
+        /**
+         * Read the same footer entries that earlier add-on calls appended.
+         *
+         * @return array
+         */
+        public function get_foot()
+        {
+            return $this->footer;
+        }
+
+        /**
+         * Append one fragment to the EE footer collection.
+         *
+         * @param string $html
+         * @return void
+         */
+        public function add_to_foot($html)
+        {
+            $this->footer[] = $html;
+        }
+
+        /**
+         * Record breadcrumb URL and title without rendering CP chrome.
+         *
+         * @param mixed $url
+         * @param string $title
+         * @return void
+         */
+        public function set_breadcrumb($url, $title)
+        {
+            $this->breadcrumbs[] = array($url, $title);
         }
     }
 
@@ -261,6 +473,10 @@ namespace Tests\Support {
                 return $this->rows;
             }
 
+            if ($method === 'first') {
+                return $this->rows ? $this->rows[0] : null;
+            }
+
             return $this;
         }
     }
@@ -268,12 +484,23 @@ namespace Tests\Support {
 
 namespace {
     /**
+     * Delegate the legacy URL helper to EE's active URI object.
+     *
+     * @return string
+     */
+    function uri_string()
+    {
+        return ee()->uri->uri_string();
+    }
+
+    /**
      * Resolve the test EE container using native service names.
      *
      * @param string|null $service
+     * @param mixed ...$arguments
      * @return mixed
      */
-    function ee($service = null)
+    function ee($service = null, ...$arguments)
     {
         if ($service === null) {
             return $GLOBALS['low_random_ee'];
@@ -287,7 +514,13 @@ namespace {
             throw new \RuntimeException('Unconfigured EE service: ' . $service);
         }
 
-        return $GLOBALS['low_random_services'][$service];
+        $resolved = $GLOBALS['low_random_services'][$service];
+
+        if (is_callable($resolved)) {
+            return call_user_func_array($resolved, $arguments);
+        }
+
+        return $resolved;
     }
 
     /**

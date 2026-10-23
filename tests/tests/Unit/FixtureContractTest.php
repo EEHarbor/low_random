@@ -7,6 +7,44 @@ use Tests\Support\Query;
 final class FixtureContractTest extends TestCase
 {
     /**
+     * Native output cannot deadlock when stdout and stderr exceed pipe capacity.
+     *
+     * @return void
+     */
+    public function testNativeOutputFilesAvoidPipeDeadlock()
+    {
+        $result = $this->native(array('-r', 'fwrite(STDOUT, str_repeat("o", 1048576)); fwrite(STDERR, str_repeat("e", 1048576));'));
+        $this->assertSame(0, $result[0]);
+        $this->assertSame(1048576, strlen($result[1]));
+        $this->assertSame(1048576, strlen($result[2]));
+    }
+
+    /**
+     * Hung native children are terminated without changing global runtime limits.
+     *
+     * @return void
+     */
+    public function testNativeDeadlineIsEnforced()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('exceeded its deadline');
+        $this->native(array('-r', 'usleep(500000);'), array(), 0.05);
+    }
+
+    /**
+     * License-check crypto runs cannot consume or append to the caller's SSL errors.
+     *
+     * @return void
+     */
+    public function testNativeCryptoPreservesCallerErrorQueue()
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native.php', 'crypto-queue-probe', $this->temporaryDirectory));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $this->assertSame('caller queue preserved', $result[1]);
+    }
+
+    /**
      * Nested fixture execution restores the caller's include path after cleanup.
      *
      * @return void

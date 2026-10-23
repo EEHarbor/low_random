@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Report each native graph separately; absent instrumentation is unknown."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -11,12 +12,22 @@ args = parser.parse_args()
 raw = json.loads(args.raw_report.read_text())
 inventory = json.loads(args.inventory.read_text())
 root = args.inventory.resolve().parents[1]
+instrumented_root = raw.get('source_root', str(root))
+if raw.get('baseline', inventory['production_baseline']) != inventory['production_baseline']:
+    raise SystemExit('Raw report baseline differs from the source inventory.')
+if hashlib.sha256((root / 'low_random/low_random.phar').read_bytes()).hexdigest() != inventory['archive_sha256']:
+    raise SystemExit('Current archive differs from the pinned source inventory.')
+if raw.get('archive_sha256', inventory['archive_sha256']) != inventory['archive_sha256']:
+    raise SystemExit('Measured archive differs from the pinned source inventory.')
+for path, metadata in inventory['sources'].items():
+    if '!' not in path and hashlib.sha256((root / path).read_bytes()).hexdigest() != metadata['sha256']:
+        raise SystemExit('Current source differs from the pinned source inventory: ' + path)
 results = {}
 for path, coverage in raw['coverage'].items():
-    if path.startswith('phar://' + str(root) + '/low_random/'):
-        name = path.removeprefix('phar://' + str(root) + '/').replace('.phar/', '.phar!/')
-    elif path.startswith(str(root) + '/low_random/'):
-        name = path.removeprefix(str(root) + '/')
+    if path.startswith('phar://' + instrumented_root + '/low_random/'):
+        name = path.removeprefix('phar://' + instrumented_root + '/').replace('.phar/', '.phar!/')
+    elif path.startswith(instrumented_root + '/low_random/'):
+        name = path.removeprefix(instrumented_root + '/')
         if name.endswith('.phar'):
             name += '!stub'
     else:

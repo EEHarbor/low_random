@@ -8,27 +8,12 @@ final class NativeProcessTest extends TestCase
      * Start native PHP using the same explicit Herd runtime and strict settings.
      *
      * @param array $arguments
+     * @param array $environmentOverrides
      * @return array
      */
-    private function process(array $arguments)
+    private function process(array $arguments, array $environmentOverrides = array())
     {
-        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=1', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
-        $extension = getenv('LOW_RANDOM_XDEBUG_EXTENSION');
-
-        if ($extension !== false && $extension !== '') {
-            array_splice($command, 1, 0, array('-d', 'zend_extension=' . $extension, '-d', 'xdebug.mode=coverage'));
-        }
-
-        $environment = getenv();
-        $environment['TMPDIR'] = $this->temporaryDirectory;
-        $process = proc_open($command, array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w')), $pipes, dirname(__DIR__, 3), $environment);
-        $this->assertIsResource($process);
-        fclose($pipes[0]);
-        $stdout = stream_get_contents($pipes[1]);
-        $stderr = stream_get_contents($pipes[2]);
-        fclose($pipes[1]);
-        fclose($pipes[2]);
-        return array(proc_close($process), $stdout, $stderr);
+        return $this->native($arguments, $environmentOverrides);
     }
 
     /**
@@ -87,6 +72,195 @@ final class NativeProcessTest extends TestCase
         $this->assertSame(0, $result[0], $result[1] . $result[2]);
         $this->assertSame('loaded', $result[1]);
         $this->assertSame('', $result[2]);
+    }
+
+    /**
+     * Extension menu and removal behavior differs between native EE2 and EE7.
+     *
+     * @dataProvider extensionContexts
+     * @param string $version
+     * @param string $request
+     * @return void
+     */
+    public function testExtensionContextsInFreshProcesses($version, $request)
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'extension-context', $this->temporaryDirectory, $version, $request));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true);
+        $expected = array(
+            array('where', array('class', 'Low\\Random\\FluxCapacitor\\Base\\Ext')),
+            array('delete', array('extensions')),
+        );
+        $legacy = substr($version, 0, 1) === '2';
+
+        if (!$legacy) {
+            $expected[] = array('where', array('data', 'Low\\Random\\FluxCapacitor\\Base\\Ext'));
+            $expected[] = array('delete', array('menu_items'));
+        }
+
+        $this->assertSame($expected, $data['deletes']);
+        $this->assertSame($request === 'PAGE' ? true : null, $data['result']);
+        $this->assertCount($request === 'PAGE' ? 0 : 1, $data['menu']);
+
+        if ($request === 'CP') {
+            $this->assertSame('Low Random', $data['menu'][0][0]);
+            $this->assertStringContainsString($legacy ? 'module=low_random' : 'addons/settings/low_random/index', $data['menu'][0][1]);
+        }
+    }
+
+    /**
+     * Keep old-version and request variations as independently executed cases.
+     *
+     * @return array
+     */
+    public static function extensionContexts()
+    {
+        return array(array('2.9.3', 'PAGE'), array('2.9.3', 'CP'), array('2.5.5', 'CP'), array('7.5.0', 'PAGE'), array('7.5.0', 'CP'));
+    }
+
+    /**
+     * The shipped navigation base should load when an optional custom nav is absent.
+     *
+     * @return void
+     */
+    public function testNavigationBaseLoadsWithoutOptionalAddonNavigation()
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'archive-navigation', $this->temporaryDirectory));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('loaded', $result[1]);
+        $this->assertSame('', $result[2]);
+    }
+
+    /**
+     * Raw collection creates fresh directories and rejects a repeated reservation.
+     *
+     * @return void
+     */
+    public function testRawCoverageReportLifecycle()
+    {
+        $prefix = $this->temporaryDirectory . '/new/reports/graph';
+        $architecture = php_uname('m') === 'arm64' ? 'arm64' : 'x86';
+        $extension = '/Applications/Herd.app/Contents/Resources/xdebug/xdebug-' . PHP_MAJOR_VERSION . PHP_MINOR_VERSION . '-' . $architecture . '.so';
+        $environment = array('LOW_RANDOM_RAW_COVERAGE' => $prefix, 'LOW_RANDOM_XDEBUG_EXTENSION' => $extension, 'XDEBUG_MODE' => 'coverage');
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'bridge-version', $this->temporaryDirectory), $environment);
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $reports = glob($prefix . '.*.json');
+        $this->assertCount(1, $reports);
+        $payload = json_decode(file_get_contents($reports[0]), true);
+        $this->assertSame(PHP_VERSION, $payload['php']);
+        $this->assertNotEmpty($payload['coverage']);
+        $repeat = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'coverage-repeat', $this->temporaryDirectory), $environment);
+        $this->assertSame(255, $repeat[0]);
+        $this->assertStringContainsString('Coverage report already exists:', $repeat[1] . $repeat[2]);
+        $this->assertCount(2, glob($prefix . '.*.json'));
+    }
+
+    /**
+     * Native EE2 and EE7 fieldtypes honor framework row and request differences.
+     *
+     * @dataProvider fieldtypeContexts
+     * @param string $version
+     * @param string $request
+     * @param string $predefined
+     * @return void
+     */
+    public function testFieldtypeContextsInFreshProcesses($version, $request, $predefined)
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'fieldtype-context', $this->temporaryDirectory, $version, $request, $predefined));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true);
+        $legacy = substr($version, 0, 1) === '2';
+        $this->assertSame($legacy ? '9' : 8, $data['channel']);
+        $this->assertSame('4.1.1', $data['version']);
+        $this->assertSame($request === 'CP' ? 2 : 0, $data['footerCount']);
+
+        if ($legacy) {
+            $this->assertSame(array(array('Title', '<input>'), array(array('colspan' => '2', 'data' => 'Wide<select>'))), $data['table']);
+            $this->assertSame(array(), $data['rows']);
+            $this->assertTrue($data['result']);
+            return;
+        }
+
+        $this->assertSame(array(), $data['table']);
+        $this->assertCount(2, $data['rows']);
+        $this->assertSame($data['rows'], $data['result']['field_options_low_random']['settings']);
+    }
+
+    /**
+     * Keep request and predeclared-version graphs separate in native children.
+     *
+     * @return array
+     */
+    public static function fieldtypeContexts()
+    {
+        return array(array('2.5.5', 'PAGE', ''), array('2.5.5', 'CP', ''), array('7.5.0', 'PAGE', ''), array('7.5.0', 'CP', ''), array('7.5.0', 'PAGE', 'predefined'));
+    }
+
+    /**
+     * Real updater construction performs schema verification and one license check.
+     *
+     * @return void
+     */
+    public function testUpdaterConstructorInFreshProcess()
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'updater-constructor', $this->temporaryDirectory));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $this->assertSame(array('version' => '4.1.1', 'module' => 'Low_random_test', 'footerCount' => 2, 'schema' => array('add_field', 'add_key', 'add_key', 'create_table')), json_decode($result[1], true));
+    }
+
+    /**
+     * Real encryption emits one pixel and script while repeated checks stay idempotent.
+     *
+     * @return void
+     */
+    public function testLicenseCheckBuildsEncryptedFooterInFreshProcess()
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'version-check', $this->temporaryDirectory));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true);
+        $this->assertNull($data['first']);
+        $this->assertTrue($data['second']);
+        $this->assertCount(2, $data['footer']);
+        $this->assertStringContainsString('<div id="low_random__up"', $data['footer'][0]);
+        $this->assertStringContainsString('&#104;&#116;&#116;&#112;&#115;&#58;', $data['footer'][0]);
+        $this->assertMatchesRegularExpression('/\?[a-f0-9]+"/', $data['footer'][0]);
+        $this->assertStringContainsString('<script type="text/javascript">', $data['footer'][1]);
+    }
+
+    /**
+     * The development switch selects a local endpoint and preserves prior footer items.
+     *
+     * @return void
+     */
+    public function testDevelopmentLicenseCheckInFreshProcess()
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'version-check', $this->temporaryDirectory, '7.5.0', 'PAGE', 'development'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true);
+        $this->assertCount(3, $data['footer']);
+        $this->assertSame('<script>existing()</script>', $data['footer'][0]);
+        $encoded = implode('', array_map(static function ($character) { return '&#' . ord($character) . ';'; }, str_split('http://localhost:2368/update.gif')));
+        $this->assertStringContainsString($encoded, $data['footer'][1]);
+    }
+
+    /**
+     * Oversized URLs must not yield an empty encrypted payload or native diagnostics.
+     *
+     * @return void
+     */
+    public function testLongLicenseSiteUrlInFreshProcess()
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'version-check', $this->temporaryDirectory, '7.5.0', 'PAGE', 'long-url'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true);
+        $this->assertMatchesRegularExpression('/\?[a-f0-9]+"/', $data['footer'][0]);
     }
 
     /**
