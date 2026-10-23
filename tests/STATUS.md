@@ -1,8 +1,8 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 4 awaits independent review**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 4 reviewed and published**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
 
-## Phase 4 checkpoint awaiting independent review
+## Phase 4 reviewed checkpoint
 
 Thirty-four new cases bring the complete configured suite to 207 cases. They cover original EE2 bridge session/fingerprint/cookie URL handling, preservation of existing S/D directives, eleven legacy CP route mappings, four temporary view modes, pre/post-2.8 cache tier selection, request deletion/clear with another add-on sentinel, legacy settings insert/update and row-per-variable settings, flash/class replacement, request offset/page precedence and pagination delegation. The prior reviewed/published head is `81a81efc571b48588f2c63f06b052a89131d4f68`.
 
@@ -28,7 +28,7 @@ The new class independently runs 34 cases/168 assertions with exactly one source
 
 Fresh raw coverage captures128 separate process/context graphs (64 per runtime) on PHP74/Xdebug3.1.6 and PHP82/Xdebug3.5.3. Forty-eight new graphs cover the historical URL/route/view/cache vectors; all existing native graphs are freshly rerun. Every raw SHA and provenance appears in contexts.json; corresponding summary files preserve all unchanged outgoing exits and unknown methods. The current main graphs are committed as BRANCH_RAW_PHP74/82.json. A separate Clover82 run, separate JUnit and skill line-only report are retained; a trial shared Clover/JUnit path was rejected and rerun correctly. No cross-runtime/context merge or absent-branch100% inference is made. `COVERAGE.md` lists262 main graph/function rows and106 executed legacy-method observations, with full context summaries for unexecuted methods.
 
-Self-review checked actual Session userdata defaults, real bridge source conditions, temporary view ownership, typed zero/false cache controls, live-writer journal scope, cloned query isolation, strict diagnostics and source invariance. Independent exact-diff review is pending. Remaining EE2/historical/full EE/SQL integration, updater optional extensions, loader/platform branches and broad per-method outcome closure are incomplete; this checkpoint is not full coverage or campaign completion.
+Self-review checked actual Session userdata defaults, real bridge source conditions, temporary view ownership, typed zero/false cache controls, live-writer journal scope, cloned query isolation, strict diagnostics and source invariance. Independent exact-diff review approved patch `25d3ab88f7bc33a9a0b8fccc63572f850542d0d756603592788f9e0d78a40edf`. Remaining EE2/historical/full EE/SQL integration, updater optional extensions, loader/platform branches and broad per-method outcome closure are incomplete; this checkpoint is not full coverage or campaign completion.
 
 ## Phase 3 reviewed checkpoint
 
@@ -208,3 +208,12 @@ Independent reviewer `/root/tests_low_options` approved exact replacement patch 
 | `430d7c8` | Seven-runtime and separate raw-coverage evidence |
 
 Before publication, fresh origin tracking parity was `0 0`. The seven commits' combined full-index binary diff exactly matched the approved patch, and the final tree exactly matched the reviewed tree. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `430d7c804d6324b328620a225b7eb66b6d2d8028`, with tracking parity `0 0`. The working tree was clean, and production diff against the pinned baseline was empty. This follow-up ledger changes documentation only; no executable source or test changed after the reviewed replay. Publication is an incomplete source-red checkpoint, not full campaign or coverage completion.
+
+
+## Phase 4 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact patch `25d3ab88f7bc33a9a0b8fccc63572f850542d0d756603592788f9e0d78a40edf`, based at `81a81efc571b48588f2c63f06b052a89131d4f68`, final tree `e3dfde39cc19d1d6963744ab55334d576b021ed2`. The immutable packet is `/private/tmp/low-random-phase4-review-h7zyb7lg/`; the independent reconstruction is `/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-phase4-independent-5d58f5g_`. Full seven 207-case results and every issue identity matched, including only the additional intended EE2 persistent-delete failure. Random74/85, focused34/168/1failure, all128 separate raw graphs, all27 source hashes and all9 manifest hashes matched. Every retained raw SHA and per-method summary regenerated. No actionable bounded finding remained; full historical EE/SQL/view rendering/package loading and broad outcome coverage remain incomplete.
+
+Code commit `e3b9235` contains only the legacy fixtures/native entry/test class. Evidence commit `c40db2c` contains the six reviewed report/documentation paths. Before publishing, their combined full-index binary diff and tree exactly matched the approved snapshot. Fresh pre-publication origin parity was `0 0`. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `c40db2c22c51d445962943a10454df8892f4f7a4`, with tracking parity `0 0` and an empty production baseline diff.
+
+Three independent next-phase files remain untracked outside this reviewed tree: `tests/Support/native-stub-boundary.php`, `tests/tests/Unit/ArchiveStubBoundaryTest.php` and `tests/tests/Unit/ArchiveStubManifestTest.php`. They are excluded from the207-case/128-graph claims and from both commits above. This publication ledger changes STATUS only; no executable delta is part of it. Full campaign completion is not claimed.
