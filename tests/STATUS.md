@@ -1,6 +1,34 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 3 reviewed and published**. Reviewed phase 3 is committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 4 awaits independent review**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+
+## Phase 4 checkpoint awaiting independent review
+
+Thirty-four new cases bring the complete configured suite to 207 cases. They cover original EE2 bridge session/fingerprint/cookie URL handling, preservation of existing S/D directives, eleven legacy CP route mappings, four temporary view modes, pre/post-2.8 cache tier selection, request deletion/clear with another add-on sentinel, legacy settings insert/update and row-per-variable settings, flash/class replacement, request offset/page precedence and pagination delegation. The prior reviewed/published head is `81a81efc571b48588f2c63f06b052a89131d4f68`.
+
+Native library probes directly require byte-unchanged AbstractBridge, StaticCache and EE2 entries from the original PHAR. They bypass package autoloading and do not boot a complete historical EE installation. Historical APP_VER constants and boundary fixtures exercise the shipped version conditions; they are not proof that historical EE itself runs on all seven current interpreters. Native view writes use only each test's owned temporary PATH_THIRD. No product file is copied, rewritten or removed by these views. Existing source-regression contexts for the invalid comparison operator and optional loader failures remain unchanged.
+
+Every settings mutation asserts the owning writer's adjacent trace, exact site predicate before UPDATE and exactly one DML call. The primary builder's calls and table cache remain unchanged. Clone object ids are compared only inside the live writer trace; prior destroyed clone ids may be reused. Structure-style variable rows verify merge precedence and zero/false values. Parser/loader/paginator fixtures observe boundary arguments and their configured returns without claiming to implement EE internals.
+
+Complete commands, explicit Herd versions, fresh JUnit hashes, every issue identity and extra raw/random/focused runs are in `MATRIX_RESULTS.json`; evidence is `tests/reports/phase4-final-qfanmdlw/`. Each command uses the pinned local PHPUnit9.6.38. No runtime/php.ini configuration changed.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 207 | 1644 | 7 | 21 | 0/0/0/0 | 2 |
+| 8.0.30 | 207 | 1642 | 7 | 18 | 0/0/0/0 | 2 |
+| 8.1.33 | 207 | 1638 | 9 | 18 | 0/0/0/0 | 2 |
+| 8.2.30 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.3.28 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.4.15 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.5.0 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+
+The new class independently runs 34 cases/168 assertions with exactly one source failure on PHP74 and PHP85. Complete randomized order with seed20261023 on both runtimes preserves full counts and every issue identity. All previous173-case source issue identities remain; no expectation was changed to accept source defects. The three new PHP files lint on74/85. All 27 source inventory hashes and archive bytes remain unchanged.
+
+27. `Bridge/EE2.php:281–288`: persistent get/set use EE's cache for APP_VER>=2.8, but delete clears only the session tier. The native2.8 test writes numeric zero, verifies the persistent/request boundary, and requires a subsequent persistent read to miss. Actual zero remains, so the intended deletion assertion stays red. Pre2.8 persistent-mode fallback and post2.8 explicit request-mode deletion/clear controls pass; another add-on's zero sentinel survives. This is the separately shipped EE2 implementation of the cache-tier defect.
+
+Fresh raw coverage captures128 separate process/context graphs (64 per runtime) on PHP74/Xdebug3.1.6 and PHP82/Xdebug3.5.3. Forty-eight new graphs cover the historical URL/route/view/cache vectors; all existing native graphs are freshly rerun. Every raw SHA and provenance appears in contexts.json; corresponding summary files preserve all unchanged outgoing exits and unknown methods. The current main graphs are committed as BRANCH_RAW_PHP74/82.json. A separate Clover82 run, separate JUnit and skill line-only report are retained; a trial shared Clover/JUnit path was rejected and rerun correctly. No cross-runtime/context merge or absent-branch100% inference is made. `COVERAGE.md` lists262 main graph/function rows and106 executed legacy-method observations, with full context summaries for unexecuted methods.
+
+Self-review checked actual Session userdata defaults, real bridge source conditions, temporary view ownership, typed zero/false cache controls, live-writer journal scope, cloned query isolation, strict diagnostics and source invariance. Independent exact-diff review is pending. Remaining EE2/historical/full EE/SQL integration, updater optional extensions, loader/platform branches and broad per-method outcome closure are incomplete; this checkpoint is not full coverage or campaign completion.
 
 ## Phase 3 reviewed checkpoint
 

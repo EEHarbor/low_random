@@ -1,26 +1,37 @@
 {
   "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-  "previous_reviewed_checkpoint": "ad00485f88283ec0bafbbb4478e182ad84a48670",
+  "previous_reviewed_checkpoint": "81a81efc571b48588f2c63f06b052a89131d4f68",
   "phpunit": "9.6.38",
   "measurement_root": "/Users/tomjaeger/Sites/add-ons/low_random",
-  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr",
+  "report_directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw",
   "runs": [
     {
-      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )",
-      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php74.junit.xml'",
+      "kind": "full",
+      "version": "74",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full74.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1476,
+        "tests": 207,
+        "assertions": 1644,
         "errors": 7,
-        "failures": 20,
+        "failures": 21,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "73f2f407a8c4117271d6ccbcbcc8a8d5cf5bcac89d257980f3cf6f581bb49d1b",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -50,17 +61,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ed20000000021dbd5ec ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004911669000000001f0665ac ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ee10000000021dbd5ec ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004911798000000001f0665ac ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000071be2ef00000000021dbd5ec ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000004911787000000001f0665ac ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -86,6 +97,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -157,24 +173,38 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
+      ],
+      "junit_sha256": "01a141be1fdb67121390b6092380b619ea4aec4bb5fc9e9d87b1a5b898fc7f36",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
     },
     {
-      "runtime": "PHP 8.0.30 (cli) (built: Dec 21 2023 08:22:38) ( NTS )",
-      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php80' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php80.junit.xml'",
+      "kind": "full",
+      "version": "80",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full80.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1474,
+        "tests": 207,
+        "assertions": 1642,
         "errors": 7,
-        "failures": 17,
+        "failures": 18,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "25450f87d01cc5b79cd92367227654c641ba7769483e4672db33f53a6b307cd3",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -184,17 +214,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489e6000000005504ff35 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000061aedcb000000005574e826 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489f7000000005504ff35 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000061aeddc000000005574e826 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000001ae489c8000000005504ff35 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000061aedad000000005574e826 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -220,6 +250,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -296,24 +331,38 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
+      ],
+      "junit_sha256": "7feb607303246deca2c803db1afadfa615c21020a82c0c7b8bf75a404b2f1f72",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php80",
+      "runtime": "PHP 8.0.30 (cli) (built: Dec 21 2023 08:22:38) ( NTS )"
     },
     {
-      "runtime": "PHP 8.1.33 (cli) (built: Jul  4 2025 00:24:36) (NTS)",
-      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php81' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php81.junit.xml'",
+      "kind": "full",
+      "version": "81",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full81.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1470,
+        "tests": 207,
+        "assertions": 1638,
         "errors": 9,
-        "failures": 17,
+        "failures": 18,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "aa48ca30ca6ccf3d67788cde686a737add08cd03a8b438310fc9122b99efe74f",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -323,17 +372,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dc0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cb0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004ba0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -359,6 +408,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -445,24 +499,211 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
+      ],
+      "junit_sha256": "e12eaf20cbbdb89e4917519478a350de60d4205274258213048cf4579ba4c121",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php81",
+      "runtime": "PHP 8.1.33 (cli) (built: Jul  4 2025 00:24:36) (NTS)"
     },
     {
-      "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)",
+      "kind": "full",
+      "version": "82",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full82.xml"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 207,
+        "assertions": 1631,
+        "errors": 10,
+        "failures": 18,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dc0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cb0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004ba0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "468c5ecfd087679bd85792f7cfa1f01da65545325f223d086d42334e09f75d29",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php82' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php82.junit.xml'",
+      "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "full",
+      "version": "83",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full83.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1463,
+        "tests": 207,
+        "assertions": 1631,
         "errors": 10,
-        "failures": 17,
+        "failures": 18,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "2640573f03ca998b6ead15e6327a1ce5e4f0aed3c1ebf6dbe488d7da1251f7dc",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -472,17 +713,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dc0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cb0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004ba0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -513,6 +754,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -567,7 +813,7 @@
         {
           "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
           "kind": "error",
-          "diagnostic": "TypeError: Illegal offset type in isset or empty"
+          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
         },
         {
           "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
@@ -599,24 +845,38 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
-    },
-    {
-      "runtime": "PHP 8.3.28 (cli) (built: Nov 20 2025 11:21:23) (NTS clang 15.0.0)",
+      ],
+      "junit_sha256": "022c2f2987a57cd2c83c8196b08af84e62541d2835343e3843a7a266ac24f614",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php83",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php83' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php83.junit.xml'",
+      "runtime": "PHP 8.3.28 (cli) (built: Nov 20 2025 11:21:23) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "full",
+      "version": "84",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full84.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1463,
+        "tests": 207,
+        "assertions": 1631,
         "errors": 10,
-        "failures": 17,
+        "failures": 18,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "5220d690f8454207a6fce548fb0eadd56206e873d9bc9f961fe2647bac993d58",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -626,17 +886,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dc0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cb0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004ba0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -667,6 +927,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -753,178 +1018,38 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
-    },
-    {
-      "runtime": "PHP 8.4.15 (cli) (built: Nov 20 2025 14:28:49) (NTS clang 15.0.0)",
+      ],
+      "junit_sha256": "be259cb83e084ed9ee0dbc49990ec3841f4fcc5711382bd2dc8de5b5e5bbe40b",
       "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php84",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php84' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php84.junit.xml'",
-      "exit": 2,
-      "counts": {
-        "tests": 173,
-        "assertions": 1463,
-        "errors": 10,
-        "failures": 17,
-        "warnings": 0,
-        "skipped": 0,
-        "risky": 0,
-        "incomplete": 0
-      },
-      "junit_sha256": "ce7d1e7f38be6cd02a4d7d6b6b98b3b35e2c9fde45742b296562e8dc6c4be291",
-      "issues": [
-        {
-          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that 'request-value' is false."
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
-        },
-        {
-          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two arrays are identical."
-        },
-        {
-          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
-          "kind": "error",
-          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
-        },
-        {
-          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two arrays are identical."
-        },
-        {
-          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        },
-        {
-          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
-          "kind": "error",
-          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
-        },
-        {
-          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that true is false."
-        },
-        {
-          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
-        },
-        {
-          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: Undefined array key \"missing\""
-        },
-        {
-          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
-        },
-        {
-          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
-          "kind": "error",
-          "diagnostic": "Error: Using $this when not in object context"
-        },
-        {
-          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: Undefined array key 3"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
-        },
-        {
-          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
-          "kind": "failure",
-          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
-        },
-        {
-          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
-          "kind": "error",
-          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
-        },
-        {
-          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that false is identical to Array &0 ("
-        },
-        {
-          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        },
-        {
-          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
-          "kind": "error",
-          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
-        },
-        {
-          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that false is identical to 0."
-        },
-        {
-          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that false is true."
-        },
-        {
-          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
-          "kind": "failure",
-          "diagnostic": "Failed asserting that two strings are identical."
-        }
-      ]
+      "runtime": "PHP 8.4.15 (cli) (built: Nov 20 2025 14:28:49) (NTS clang 15.0.0)"
     },
     {
-      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)",
-      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
-      "command": "PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php85' ./tests/.phpunit/run-phpunit.sh -c '/Users/tomjaeger/Sites/add-ons/low_random/phpunit.xml' --log-junit '/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.spQrIr/php85.junit.xml'",
+      "kind": "full",
+      "version": "85",
       "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/full85.xml"
+      ],
+      "environment": {},
       "counts": {
-        "tests": 173,
-        "assertions": 1463,
+        "tests": 207,
+        "assertions": 1631,
         "errors": 10,
-        "failures": 17,
+        "failures": 18,
         "warnings": 0,
         "skipped": 0,
         "risky": 0,
         "incomplete": 0
       },
-      "junit_sha256": "174bead6c05807e50a73a39ee83a04451f40dcc2e4c4067130a06f842bfc7195",
       "issues": [
         {
           "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
@@ -934,17 +1059,17 @@
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004790000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dc0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004680000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cb0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
           "kind": "failure",
-          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004570000000000000000 ("
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004ba0000000000000000 ("
         },
         {
           "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
@@ -975,6 +1100,11 @@
           "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
           "kind": "failure",
           "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
         },
         {
           "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
@@ -1061,25 +1191,989 @@
           "kind": "failure",
           "diagnostic": "Failed asserting that two strings are identical."
         }
-      ]
+      ],
+      "junit_sha256": "93e82d9bbad42cbb9e4d3a3aa33d65b2fe906f0ed2bb35f4e26f51106abe5d9b",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
     }
   ],
-  "random_order": {
-    "seed": 20261023,
-    "reports": [
-      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-x230odmk/random74.xml",
-      "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-x230odmk/random85.xml"
-    ],
-    "result": "Counts and issue identities match each corresponding default-order run."
-  },
-  "standalone": {
-    "directory": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase3-fixed-standalone-upb38lh0",
-    "files": 6,
-    "runtimes": [
-      "7.4",
-      "8.5"
-    ],
-    "result": "Every changed/new executable test class independently reproduces its full-suite issues without additional harness diagnostics."
-  },
-  "review_repair": "Current EE db service returns fresh builders with live shared backend responses, separate pending calls/schema caches and owning-builder journal. Settings writes are observed on their actual writer with primary state preservation controls."
+  "additional_runs": [
+    {
+      "kind": "focused",
+      "version": "74",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/focused74.xml",
+        "tests/tests/Unit/ArchiveLegacyBridgeStateTest.php"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 34,
+        "assertions": 168,
+        "errors": 0,
+        "failures": 1,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        }
+      ],
+      "junit_sha256": "4d90eb42a8cfac1d924737b226ee8800de8ac65d0615aee220a48be4f6bb39ca",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
+    },
+    {
+      "kind": "focused",
+      "version": "85",
+      "exit": 1,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/focused85.xml",
+        "tests/tests/Unit/ArchiveLegacyBridgeStateTest.php"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 34,
+        "assertions": 168,
+        "errors": 0,
+        "failures": 1,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        }
+      ],
+      "junit_sha256": "e8a724366d1837e33c59550406d6bda31c3b5155eca21c02ee76db7b2abc2da0",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "random",
+      "version": "74",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/random74.xml",
+        "--order-by=random",
+        "--random-order-seed=20261023"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 207,
+        "assertions": 1644,
+        "errors": 7,
+        "failures": 21,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Trying to get property 'channel_id' of non-object"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #2",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #3",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #0",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined index: missing"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002542b555000000003b197764 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002542b57a000000003b197764 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000002542b56b000000003b197764 ("
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined offset: 3"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        }
+      ],
+      "junit_sha256": "ce0244256cbfca7081e7dfc50d58ef45807b987ab606bcc7566c1cda18368dec",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
+    },
+    {
+      "kind": "random",
+      "version": "85",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/random85.xml",
+        "--order-by=random",
+        "--random-order-seed=20261023"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 207,
+        "assertions": 1631,
+        "errors": 10,
+        "failures": 18,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Cannot access offset of type array in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000ad00000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000abf0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000aae0000000000000000 ("
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        }
+      ],
+      "junit_sha256": "13d483946b1b83fb8367f2a56ef921d51d2babe7ca8d75a0fc9eac0715f9dbb8",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php85",
+      "runtime": "PHP 8.5.0 (cli) (built: Nov 20 2025 09:30:23) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "raw",
+      "version": "74",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "zend_extension=/Applications/Herd.app/Contents/Resources/xdebug/xdebug-74-arm64.so",
+        "-d",
+        "xdebug.mode=coverage",
+        "-d",
+        "memory_limit=2G",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/raw74.xml"
+      ],
+      "environment": {
+        "XDEBUG_MODE": "coverage",
+        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/raw74",
+        "LOW_RANDOM_XDEBUG_EXTENSION": "/Applications/Herd.app/Contents/Resources/xdebug/xdebug-74-arm64.so"
+      },
+      "counts": {
+        "tests": 207,
+        "assertions": 1644,
+        "errors": 7,
+        "failures": 21,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #0",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #1",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #2",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeHelpersTest::testTitleUtf8Integrity with data set #3",
+          "kind": "failure",
+          "diagnostic": "Invalid normalized UTF-8 under LC_CTYPE=C.UTF-8: e3846263"
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000457f62b0000000042ad0206 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000457f7d80000000042ad0206 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &000000000457f7c90000000042ad0206 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Trying to get property 'channel_id' of non-object"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined index: missing"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined offset: 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that '<div id=\"low_random__up\" style=\"width:0;height:0;overflow:hidden;background:url(&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#112;&#105;&#110;&#103;&#46;&#101;&#101;&#104;&#97;&#114;&#98;&#111;&#114;&#46;&#99;&#111;&#109;&#47;&#117;&#112;&#100;&#97;&#116;&#101;&#46;&#103;&#105;&#102;?\"></div>' matches PCRE pattern \"/\\?[a-f0-9]+\"/\"."
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "ErrorException: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "6fa3f739174ae6b3e2e200799887606c89b37bc2dc31b966f302c77509d68253",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php74",
+      "runtime": "PHP 7.4.33 (cli) (built: Dec 13 2023 21:52:05) ( NTS )"
+    },
+    {
+      "kind": "raw",
+      "version": "82",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "zend_extension=/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so",
+        "-d",
+        "xdebug.mode=coverage",
+        "-d",
+        "memory_limit=2G",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/raw82.xml"
+      ],
+      "environment": {
+        "XDEBUG_MODE": "coverage",
+        "LOW_RANDOM_RAW_COVERAGE": "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/raw82",
+        "LOW_RANDOM_XDEBUG_EXTENSION": "/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so"
+      },
+      "counts": {
+        "tests": 207,
+        "assertions": 1631,
+        "errors": 10,
+        "failures": 18,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004dd0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004cc0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &00000000000004bb0000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "5cbd2d68618a433dcbead54bc8cd3257733c1c3ecca599c95fee8bc2a1b66055",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+      "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
+    },
+    {
+      "kind": "clover",
+      "version": "82",
+      "exit": 2,
+      "command": [
+        "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+        "-d",
+        "error_reporting=-1",
+        "-d",
+        "display_errors=1",
+        "-d",
+        "zend_extension=/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so",
+        "-d",
+        "xdebug.mode=coverage",
+        "-d",
+        "memory_limit=2G",
+        "tests/.phpunit/phpunit-9.phar",
+        "-c",
+        "phpunit.xml",
+        "--log-junit",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/clover82.junit.xml",
+        "--coverage-clover",
+        "/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/phase4-final-qfanmdlw/clover82.xml"
+      ],
+      "environment": {
+        "XDEBUG_MODE": "coverage"
+      },
+      "counts": {
+        "tests": 207,
+        "assertions": 1631,
+        "errors": 10,
+        "failures": 18,
+        "warnings": 0,
+        "skipped": 0,
+        "risky": 0,
+        "incomplete": 0
+      },
+      "issues": [
+        {
+          "case": "Tests\\ArchiveBridgeControlPanelTest::testRequestCacheDeleteTargetsTheRequestTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 'request-value' is false."
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #0",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000f070000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #1",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000ef60000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveBridgeNavigationTest::testActiveMapPreservesStringPageTitle with data set #2",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that Tests\\Support\\NavigationHeader Object &0000000000000ee50000000000000000 ("
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testNumericStringSiteIdMatchesTheCurrentSite",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveControlPanelControllerTest::testPaginatedModelAndExplicitUrl",
+          "kind": "error",
+          "diagnostic": "ErrorException: Creation of dynamic property Low\\Random\\FluxCapacitor\\Base\\Mcp@anonymous::$data is deprecated"
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyRegistrationPreservesCallerArguments",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two arrays are identical."
+        },
+        {
+          "case": "Tests\\ArchiveExtensionTest::testLegacyUnregistrationPreservesCallerHook",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testMissingEntryDoesNotDereferenceNull",
+          "kind": "error",
+          "diagnostic": "ErrorException: Attempt to read property \"channel_id\" on null"
+        },
+        {
+          "case": "Tests\\ArchiveFieldtypeTest::testBooleanContentTypeIsRejected",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that true is false."
+        },
+        {
+          "case": "Tests\\ArchiveLegacyBridgeStateTest::testPersistentCacheDeleteUsesItsOwnTier",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that 0 is false."
+        },
+        {
+          "case": "Tests\\ArchiveUpdaterTest::testUpdateWithoutOptionalExtensionDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/ext.low_random.php): Failed to open stream: No such file or directory"
+        },
+        {
+          "case": "Tests\\ArchiveVersionTest::testNullLicenseKeyDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated"
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMissingGlobalSettingDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key \"missing\""
+        },
+        {
+          "case": "Tests\\BaseAndGlobalSettingsTest::testMalformedGlobalSettingsDoNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: unserialize(): Error at offset 0 of 14 bytes"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testStaticPluginInfoReturnsMetadata",
+          "kind": "error",
+          "diagnostic": "Error: Using $this when not in object context"
+        },
+        {
+          "case": "Tests\\MetadataAndViewTest::testShortUriDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: Undefined array key 3"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testFallbackLoaderDoesNotEmitDiagnostics",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: mkdir(): File exists in /Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar:177"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testExtensionContextsInFreshProcesses with data set #1",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ValueError: version_compare(): Argument #3 ($operator) must be a valid comparison operator in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Bridge/EE2.php:47"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testNavigationBaseLoadsWithoutOptionalAddonNavigation",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: include_once(/Users/tomjaeger/Sites/add-ons/low_random/low_random/Conduit/McpNav.php): Failed to open stream: No such file or directory in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/McpNav.php:7"
+        },
+        {
+          "case": "Tests\\NativeProcessTest::testLongLicenseSiteUrlInFreshProcess",
+          "kind": "failure",
+          "diagnostic": "Fatal error: Uncaught ErrorException: bin2hex(): Passing null to parameter #1 ($string) of type string is deprecated in phar:///Users/tomjaeger/Sites/add-ons/low_random/low_random/low_random.phar/FluxCapacitor/Conduit/Version.php:161"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testCompositeKeyRoundTrip",
+          "kind": "error",
+          "diagnostic": "TypeError: Illegal offset type in isset or empty"
+        },
+        {
+          "case": "Tests\\PersistentCacheTest::testStaticTierSurvivesRemovalOfDiskFile",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to Array &0 ("
+        },
+        {
+          "case": "Tests\\PluginTest::testRepeatedFileCallsDoNotLeakPreviousCandidates",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        },
+        {
+          "case": "Tests\\PluginTest::testNullTagdataDoesNotEmitDiagnostics",
+          "kind": "error",
+          "diagnostic": "ErrorException: trim(): Passing null to parameter #1 ($string) of type string is deprecated"
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroValueRoundTrips",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is identical to 0."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testDeleteReportsSuccess",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that false is true."
+        },
+        {
+          "case": "Tests\\StaticCacheTest::testZeroKeyComponentDoesNotCollideWithMissingComponent",
+          "kind": "failure",
+          "diagnostic": "Failed asserting that two strings are identical."
+        }
+      ],
+      "junit_sha256": "14100e25dbcc6fc9cc21b7bdb881e58089491c9394ab5188062d7c7cd44b1492",
+      "binary": "/Users/tomjaeger/Library/Application Support/Herd/bin/php82",
+      "runtime": "PHP 8.2.30 (cli) (built: Dec 19 2025 07:42:41) (NTS clang 15.0.0)"
+    }
+  ]
 }
