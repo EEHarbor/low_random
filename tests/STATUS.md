@@ -1,6 +1,41 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 4 reviewed and published**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 5 awaits independent review**. Reviewed phase 3 and its ledger are committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+
+## Phase 5 checkpoint awaiting independent review
+
+Twenty-nine added cases bring the complete configured suite to 236 cases. They exercise the original PHAR extraction helper, all 22 original manifest entries and byte bodies against native Phar, alias/metadata offsets and unsigned CRC parser inputs, 18 binary/codec/read-boundary vectors, checksum and size termination, Unix temporary selection, and six owned cleanup shapes. The prior published and reviewed head is `5d72289177f2820ecf2cdf31878434ea1392f3a0`.
+
+Native probes use the normal unchanged archive loader to declare Extract_low_random, then call its original methods. No source or archive is rebuilt or rewritten. Deterministic SHA256-derived binary bytes are independent extractor inputs; encoded-size assertions prove the large native gzip/bzip2 fixtures cross the actual 8 KiB read boundary. The manifest oracle checks every original member's native size, timestamp, compressed size, unsigned CRC, offset, body and final stream position. Structured alias/metadata/flag bytes are parser input, not a substitute archive.
+
+All filesystem writes belong to the test's unique temporary root. Each cleanup scenario runs in a disposable native process, captures source CWD/removal results before fixture cleanup, and restores CWD/removes only owned remnants in finally, including links and dotfiles. Unix TMPDIR checks explicit, empty and unset values and restores the child environment. Robustness link targets stay inside the same owned tree. These library contexts do not boot complete EE or prove Windows/HTTP/package-loader integration.
+
+Precise commands, explicit Herd versions, JUnit hashes and issue identities are in `MATRIX_RESULTS.json`. Fresh evidence is `tests/reports/phase5-final-ey7o8wc3/`. The local pinned PHPUnit 9.6.38 SHA256 is retained; no global runtime configuration changed.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 236 | 1959 | 7 | 25 | 0/0/0/0 | 2 |
+| 8.0.30 | 236 | 1957 | 7 | 22 | 0/0/0/0 | 2 |
+| 8.1.33 | 236 | 1953 | 9 | 22 | 0/0/0/0 | 2 |
+| 8.2.30 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.3.28 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.4.15 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.5.0 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+
+The two new classes independently run 29 cases / 315 assertions / 4 source failures on PHP 7.4 and 8.5. Complete randomized order with seed 20261023 on those runtimes preserves counts and every issue identity. All previous 207-case source issues remain unchanged; four new native failures assert intended behavior and retain full source diagnostics. All three new PHP files lint on 7.4 and 8.5. Every complete suite verifies all 27 shipped source hashes and native compilation.
+
+Four additional source observations remain ordinary red regressions:
+
+28. Executable PHAR stub line 262 formats a malformed-size diagnostic using undefined `$stat[7]`. A native declared-size-2/body-size-1 vector requires the declared size in its message; strict execution throws before reporting it. The separate checksum-mismatch termination and all valid extraction controls pass.
+29. Stub line 278 calls suppressed rmdir on a nonempty child directory before its recursion guard. Strict diagnostics stop the promised recursive cleanup; ordinary empty/files/empty-child controls pass.
+30. Stub glob('*') omits an owned dotfile, then suppressed rmdir at line 285 fails because the tree remains nonempty. This is an explicit filesystem robustness shape, not a claim the shipped archive normally contains hidden members.
+31. Stub file_exists returns false for an owned dangling link, leaving it for the final rmdir at line 285 to fail. This is an explicit link robustness shape, not a claim normal extraction creates links. The absent target is confined to the same unique tree.
+
+Fresh raw coverage captures 182 separate process/context graphs (91 per runtime) under PHP 7.4 / Xdebug 3.1.6 and PHP 8.2 / Xdebug 3.5.3. Fifty-four new native graphs cover the helper vectors; all prior contexts are freshly rerun. `contexts.json` preserves each raw SHA and full provenance, and complete per-context summaries retain unknowns and original outgoing exit data. No graphs are merged. Main _unpack observes 20/20 lines, 4/4 basic blocks and 4/4 outgoing exits on PHP 8.2; broader stub methods remain incomplete. `COVERAGE.md` lists all 262 main graph/function rows and 54 separate executed native-stub observations. A separate Clover run, separate JUnit and line-only skill report are retained; missing branch metrics are not 100%.
+
+External full-suite caller probes on PHP 7.4 and 8.5 preserve complete empty and seeded OpenSSL FIFO states: zero entries for empty controls, four seeded entries on 7.4 and two on 8.5. The probe drains only its own terminating observation process at shutdown; no test reads or clears the PHPUnit caller's queue.
+
+Self-review checked original-source execution, native Phar and codec controls, unsigned/binary input fidelity, read boundaries, termination messages, strict diagnostics hidden by @, owned paths/links, CWD/environment/queue isolation, source invariance and report provenance. Independent exact-diff review is pending. Source diagnostics block size-error formatting and recursive cleanup; broader fallback/platform, full EE/SQL/HTTP integration, updater extension and per-method outcome coverage remain incomplete. This checkpoint does not claim full campaign completion.
 
 ## Phase 4 reviewed checkpoint
 
