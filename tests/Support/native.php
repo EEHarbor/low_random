@@ -83,7 +83,7 @@ if ($case === 'coverage-repeat') {
     throw new RuntimeException('A repeated collector should reject the reserved report.');
 }
 
-if (in_array($case, array('extension-context', 'archive-navigation', 'fieldtype-context', 'version-check', 'updater-constructor'), true)) {
+if (in_array($case, array('extension-context', 'archive-navigation', 'fieldtype-context', 'fieldtype-import', 'version-check', 'updater-constructor'), true)) {
     define('BASEPATH', $root . '/tests/');
     define('PATH_CACHE', $temporaryDirectory . '/cache/');
     define('REQ', $argv[4] ?? 'PAGE');
@@ -132,10 +132,30 @@ if (in_array($case, array('extension-context', 'archive-navigation', 'fieldtype-
         exit(0);
     }
 
-    if ($case === 'fieldtype-context') {
+    if ($case === 'fieldtype-context' || $case === 'fieldtype-import') {
+        $import = $case === 'fieldtype-import' ? $argv[5] : null;
         define('SYSPATH', $temporaryDirectory . '/system/');
-        define('APPPATH', $temporaryDirectory . '/application/');
-        require_once __DIR__ . '/FieldtypeFixture.php';
+        define('APPPATH', $temporaryDirectory . ($import === 'installer' ? '/installer/' : '/application/'));
+
+        if ($import !== null) {
+            $_SERVER['LOW_RANDOM_NATIVE_CASE'] .= '/' . $import;
+            $paths = array(
+                'system' => SYSPATH . 'ee/legacy/fieldtypes/EE_Fieldtype.php',
+                'application' => APPPATH . 'fieldtypes/EE_Fieldtype.php',
+                'installer' => $temporaryDirectory . '/expressionengine/fieldtypes/EE_Fieldtype.php',
+            );
+            $copy = $paths[$import];
+            mkdir(dirname($copy), 0700, true);
+            copy(__DIR__ . '/FieldtypeFixture.php', $copy);
+
+            if (hash_file('sha256', $copy) !== hash_file('sha256', __DIR__ . '/FieldtypeFixture.php')) {
+                throw new RuntimeException('The native fieldtype parent fixture copy changed.');
+            }
+        }
+
+        if ($import === null) {
+            require_once __DIR__ . '/FieldtypeFixture.php';
+        }
 
         if (($argv[5] ?? '') === 'predefined') {
             define('Low\\Random\\VERSION', '4.1.1');
@@ -168,6 +188,7 @@ if (in_array($case, array('extension-context', 'archive-navigation', 'fieldtype-
             'result' => $fieldtype->displaySettingsReturn(),
             'footerCount' => count($GLOBALS['low_random_ee']->cp->footer),
             'version' => $fieldtype->info['version'],
+            'parent_sha256' => hash_file('sha256', (new ReflectionClass('EE_Fieldtype'))->getFileName()),
         ));
         exit(0);
     }

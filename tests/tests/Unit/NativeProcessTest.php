@@ -200,6 +200,36 @@ final class NativeProcessTest extends TestCase
     }
 
     /**
+     * Load the actual procedural parent imports from each supported EE layout.
+     *
+     * @dataProvider fieldtypeImports
+     * @param string $layout
+     * @param string $version
+     * @return void
+     */
+    public function testFieldtypeImportsFromNativeLayouts($layout, $version)
+    {
+        $result = $this->process(array(dirname(__DIR__, 2) . '/Support/native.php', 'fieldtype-import', $this->temporaryDirectory, $version, 'PAGE', $layout));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $data = json_decode($result[1], true, 512, JSON_THROW_ON_ERROR);
+        $this->assertSame(hash_file('sha256', dirname(__DIR__, 2) . '/Support/FieldtypeFixture.php'), $data['parent_sha256']);
+        $this->assertSame(substr($version, 0, 1) === '2' ? '9' : 8, $data['channel']);
+        $this->assertSame('4.1.1', $data['version']);
+        $this->assertSame(0, $data['footerCount']);
+    }
+
+    /**
+     * Match modern system, legacy application and installer fallback layouts.
+     *
+     * @return array
+     */
+    public static function fieldtypeImports()
+    {
+        return array(array('system', '7.5.0'), array('application', '2.5.5'), array('installer', '7.5.0'));
+    }
+
+    /**
      * Real updater construction performs schema verification and one license check.
      *
      * @return void
