@@ -1,8 +1,8 @@
 # Low Random PHPUnit campaign status
 
-Status: **active / incomplete campaign; phase 3 awaits independent review**. Reviewed phase 2 is committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
+Status: **active / incomplete campaign; phase 3 reviewed and published**. Reviewed phase 3 is committed and verified at origin/unit-tests-2026. Additional archive behavior and procedural branches are tested below. No production source was changed.
 
-## Phase 3 checkpoint awaiting independent review
+## Phase 3 reviewed checkpoint
 
 Forty-seven added cases bring this configured checkpoint to 173 cases. New tests exercise modern bridge navigation, legacy/current helper and parser boundaries, loader registry rejection/removal, complete URL information, all three procedural fieldtype parent-import layouts, and ten independent navigation conduit component contexts. Existing modern settings updates now assert the exact fresh site predicate immediately before UPDATE. The previous reviewed/published checkpoint is `ad00485f88283ec0bafbbb4478e182ad84a48670`.
 
@@ -24,14 +24,14 @@ Random seed `20261023` on PHP 7.4/8.5 reproduces the same counts and issue ident
 
 Genuine raw PHP 7.4/8.2 reports, their per-function summaries, context SHA256 manifest, separate Clover82/skill report and random runs are in `tests/reports/phase3-fixed-x230odmk/`. All 80 main/native graphs remain separate, including twenty navigation component observations and six import-layout observations. Raw provenance now records LC_CTYPE as well as runtime, source root/archive hash, EE/request/native context, PHAR stream and OPcache. `COVERAGE.md` reports every inventory unit, 262 main function/graph rows and individual PHP8.2 conduit-method observations. Synthetic exits and missing metrics are unresolved, not credited.
 
-Independent review of original phase 3 snapshot `2082f80db697894a5761db8e501dbc54dcdb12853031ebb593faf371f9ce408a` found one P2 fixture-contract issue: ee('db') returned the primary builder while current EE app.setup.php:179–181 and Database::newQuery return a fresh query. The repaired fixture creates separate builders/pending-call lists/schema caches over live shared backend responses and an owning-builder journal. The settings tests now seed and preserve an unfinished primary query/cache, observe each actual settings writer, and require its exact count/read/fresh scoped mutation trace. A direct service contract verifies distinct identity, live backend changes, shared queued results, untouched primary state and journal ownership. Affected seam/settings tests pass12cases/143assertions; all refreshed full173-case suites retain exactly the previous source issue identities. Fresh-query stale-cache clear lines are no longer credited, and that honest coverage decrease is retained. Replacement independent review is pending.
+Independent review of original phase 3 snapshot `2082f80db697894a5761db8e501dbc54dcdb12853031ebb593faf371f9ce408a` found one P2 fixture-contract issue: ee('db') returned the primary builder while current EE app.setup.php:179–181 and Database::newQuery return a fresh query. The repaired fixture creates separate builders/pending-call lists/schema caches over live shared backend responses and an owning-builder journal. The settings tests now seed and preserve an unfinished primary query/cache, observe each actual settings writer, and require its exact count/read/fresh scoped mutation trace. A direct service contract verifies distinct identity, live backend changes, shared queued results, untouched primary state and journal ownership. Affected seam/settings tests pass12cases/143assertions; all refreshed full173-case suites retain exactly the previous source issue identities. Fresh-query stale-cache clear lines are no longer credited, and that honest coverage decrease is retained. Replacement independent review approved exact snapshot `e5c369897386114b5654cd963c46d98c993212f64fbc70bc468a2226f4a90874`.
 
 Two additional compatibility/source regression families remain red:
 
 25. `Bridge/EE3.php:96`, `EE4.php:96`, `EE5.php:96`: an active-map alias assigns a Sidebar Header object as the CP page title instead of its string label. Three independent implementation cases require the text title.
 26. `Bridge/EE2.php:357` and the copied modern URL-title normalizations: on this explicit Herd PHP7.4.33 under LC_CTYPE `C.UTF-8`, `strtolower` converts valid UTF-8 `c3844243` (ÄBC) to invalid UTF-8 `e3846263` before delegation. Four implementation cases require UTF-8 integrity; PHP8.0–8.5 controls pass. This is a qualified runtime/source compatibility boundary, not a claim about every PHP7.4 locale. No expected value is changed to accept corrupted bytes.
 
-Source diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` remains empty. No independent test helper, source loader or graph is treated as full EE/SQL integration. Further EE2 settings/session/dynamic-view, updater extension, loader/platform and actual outcome coverage remain incomplete. This tranche is uncommitted pending independent exact-diff review.
+Source diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` remains empty. No independent test helper, source loader or graph is treated as full EE/SQL integration. Further EE2 settings/session/dynamic-view, updater extension, loader/platform and actual outcome coverage remain incomplete. This tranche was independently reviewed and published; the publication evidence below identifies its exact tree and commits.
 
 ## Phase 2 reviewed checkpoint
 
@@ -163,3 +163,20 @@ Independent reviewer: `/root/tests_hits`. Approved snapshot: `/private/tmp/low-r
 | `d9e3a3f` | Runtime matrix, raw coverage and incomplete checkpoint evidence |
 
 A fresh origin fetch showed the previous checkpoint at parity before publication. `git push origin unit-tests-2026` succeeded. A subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` returned exact `d9e3a3f5999267948e2aaf5fbdc7dab0681799b1`; local/tracking parity was `0 0`, and production diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` was empty. Only three independent next-phase helper/navigation files remained untracked outside the reviewed tree; they were not included in these commits or matrix claims. This ledger update changes documentation only. Full archive coverage and the campaign goal remain incomplete.
+
+
+## Phase 3 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact replacement patch `e5c369897386114b5654cd963c46d98c993212f64fbc70bc468a2226f4a90874`, based at `ad00485f88283ec0bafbbb4478e182ad84a48670`, final tree `acbf10246e8e82b2d5c5e61232c9adf78aed0381`. The immutable packet is `/private/tmp/low-random-phase3-review-fixed-vgie7ina/`; independent reconstruction is `/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-independent-v2-qptgo256`. All 19 manifest hashes, 27 source hashes, complete seven-runtime 173-case suites, PHP74/85 randomized runs and all 80 separate main/native raw graphs matched. Their raw hashes and per-method summaries regenerated, with every outgoing-exit observation retained. The fresh database-builder finding was fixed; no remaining actionable bounded finding was identified. Native package-loader/full EE/historical/SQL integration and broad per-method outcome coverage remain incomplete.
+
+| Commit | Scope |
+|---|---|
+| `93a2d88` | Fresh database-service fixtures, direct seam and settings mutation assertions |
+| `da18c42` | Archive bridge helpers and registry contracts |
+| `2bffa76` | Bridge sidebar/navigation contracts and active-map regressions |
+| `9a7447b` | Original archive navigation component flows in native contexts |
+| `b1f5271` | Original fieldtype procedural parent-import layouts |
+| `ca69673` | Native coverage context provenance |
+| `430d7c8` | Seven-runtime and separate raw-coverage evidence |
+
+Before publication, fresh origin tracking parity was `0 0`. The seven commits' combined full-index binary diff exactly matched the approved patch, and the final tree exactly matched the reviewed tree. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `430d7c804d6324b328620a225b7eb66b6d2d8028`, with tracking parity `0 0`. The working tree was clean, and production diff against the pinned baseline was empty. This follow-up ledger changes documentation only; no executable source or test changed after the reviewed replay. Publication is an incomplete source-red checkpoint, not full campaign or coverage completion.
