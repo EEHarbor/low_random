@@ -154,4 +154,27 @@ final class ArchiveBridgeNavigationTest extends TestCase
         $this->assertTrue($GLOBALS['low_random_services']['CP/Sidebar']->headers[0]->active);
         $this->assertSame('Overview', $this->ee->view->cp_page_title);
     }
+    /**
+     * Canonicalize mapped root routes and retain meaningful zero-valued labels.
+     *
+     * @dataProvider versions
+     * @param string $version Bridge class suffix.
+     * @return void
+     */
+    public function testMappedRootAliasAndZeroTitlesUseTheSameHeader($version): void
+    {
+        foreach (array('detail', 'low_random') as $segment) {
+            foreach (array('Overview', '0') as $title) {
+                $bridge = $this->bridge($version, $segment);
+                $this->ee->cp->breadcrumbs = array();
+                $bridge->getNav(array('/' => $title), array(), array('detail' => '/'));
+                $header = $GLOBALS['low_random_services']['CP/Sidebar']->headers[0];
+                $this->assertTrue($header->active);
+                $this->assertSame('addons/settings/low_random/index', $header->url->path);
+                $this->assertSame($title, $this->ee->view->cp_page_title);
+                $this->assertCount(1, $this->ee->cp->breadcrumbs);
+            }
+        }
+    }
+
 }

@@ -216,7 +216,8 @@ class PersistentCache
         }
 
         // Make sure the generic cache folder is writable.
-        if (!is_writable(self::$cache_path)) {
+        if (!is_writable(self::$cache_path)
+            || (DIRECTORY_SEPARATOR === '/' && !is_executable(self::$cache_path))) {
             ee()->load->library('logger');
             ee()->logger->developer('Low Random: Write Cache enabled but cache path not writable: ' . self::$cache_path);
             return false;
@@ -235,7 +236,8 @@ class PersistentCache
         }
 
         // Make sure the module-specific cache folder is writable.
-        if (!is_writable(self::$module_cache_path)) {
+        if (!is_writable(self::$module_cache_path)
+            || (DIRECTORY_SEPARATOR === '/' && !is_executable(self::$module_cache_path))) {
             // If the path is wrong we'll turn off caching
             ee()->load->library('logger');
             ee()->logger->developer('Low Random: Write Cache enabled but module cache path not writable: ' . self::$module_cache_path);
@@ -253,10 +255,38 @@ class PersistentCache
      */
     private static function canCreatePath($path)
     {
-        $path = rtrim($path, DIRECTORY_SEPARATOR === '\\' ? '/\\' : '/');
-        $parent = dirname($path);
+        $separators = DIRECTORY_SEPARATOR === '\\' ? '/\\' : '/';
+        $path = rtrim($path, $separators);
+        $parent = realpath(dirname($path));
 
+        if ($parent === false) {
+            return false;
+        }
+
+        $path = $parent . DIRECTORY_SEPARATOR . basename($path);
+
+        if (is_link($path)) {
+            $target = readlink($path);
+
+            if ($target === false) {
+                return false;
+            }
+
+            $absolute = substr($target, 0, 1) === '/'
+                || (DIRECTORY_SEPARATOR === '\\' && preg_match('~^(?:[A-Za-z]:)?[\\\\/]~', $target));
+            $path = rtrim($absolute ? $target : $parent . DIRECTORY_SEPARATOR . $target, $separators);
+            $parent = realpath(dirname($path));
+
+            if ($parent === false) {
+                return false;
+            }
+
+            $path = $parent . DIRECTORY_SEPARATOR . basename($path);
+        }
+
+        // Native mkdir follows one missing final alias, but rejects a missing alias chain.
         return !file_exists($path) && !is_link($path)
-            && is_dir($parent) && is_writable($parent);
+            && is_dir($parent) && is_writable($parent)
+            && (DIRECTORY_SEPARATOR === '\\' || is_executable($parent));
     }
 }

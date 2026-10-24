@@ -15,9 +15,9 @@ class GlobalFieldSettings
     }
 
     /**
-     * Guard ordinary array keys while preserving custom ArrayAccess reads.
+     * Read native array keys and string offsets while preserving custom ArrayAccess reads.
      *
-     * @param string $name Setting key.
+     * @param int|string $name Setting key or native string byte offset.
      * @return mixed
      */
     public function getSetting($name)
@@ -27,8 +27,8 @@ class GlobalFieldSettings
             return $ftSettings[$name];
         }
 
-        if (is_array($ftSettings)) {
-            return $ftSettings[$name] ?? null;
+        if (is_array($ftSettings) || is_string($ftSettings)) {
+            return isset($ftSettings[$name]) ? $ftSettings[$name] : null;
         }
         return null;
     }
@@ -55,9 +55,9 @@ class GlobalFieldSettings
     }
 
     /**
-     * Update a key in stored array or ArrayAccess settings.
+     * Update a native array, ArrayAccess key or writable stored-string offset.
      *
-     * @param string $key Setting key.
+     * @param int|string $key Setting key or native string byte offset.
      * @param mixed $value Native serializable setting value.
      * @return bool Whether an update was requested for a writable settings value.
      * @throws \Throwable When object hydration or serialization fails.
@@ -66,7 +66,7 @@ class GlobalFieldSettings
     {
         $ftSettings = $this->getSettings();
 
-        if (is_array($ftSettings) || $ftSettings instanceof \ArrayAccess) {
+        if (is_array($ftSettings) || $ftSettings instanceof \ArrayAccess || self::canWriteStringOffset($ftSettings, $key)) {
             $ftSettings[$key] = $value;
             $settingsForDb = array('settings' => base64_encode(serialize($ftSettings)));
 
@@ -77,6 +77,27 @@ class GlobalFieldSettings
         }
 
         return true;
+    }
+
+    /**
+     * Recognize native integer offsets without coercing keys or stored values.
+     *
+     * @param mixed $settings Existing native settings value.
+     * @param mixed $key Requested byte offset.
+     * @return bool
+     */
+    private static function canWriteStringOffset($settings, $key)
+    {
+        if (!is_string($settings)) {
+            return false;
+        }
+
+        $pattern = PHP_VERSION_ID < 80000 ? '/^\s*[+-]?[0-9]+$/D' : '/^\s*[+-]?[0-9]+\s*$/D';
+        if (!is_int($key) && !(is_string($key) && preg_match($pattern, $key))) {
+            return false;
+        }
+
+        return $key >= -strlen($settings) && $key < PHP_INT_MAX;
     }
 
     /**
@@ -170,8 +191,11 @@ class GlobalFieldSettings
                 return $result . substr($value, $start);
             }
 
-            $size = (int) $match[2];
             $position += strlen($match[0]);
+            if ($match[2] > $length - $position) {
+                return $result . substr($value, $start);
+            }
+            $size = (int) $match[2];
             $contents = '';
             if ($type === 'S') {
                 for ($i = 0; $i < $size; $i++) {
@@ -202,8 +226,11 @@ class GlobalFieldSettings
                 }
                 $position += strlen($tail[0]);
                 if ($type === 'C') {
+                    if ($tail[1] < 0 || $tail[1] >= $length - $position) {
+                        return $result . substr($value, $start);
+                    }
                     $payload_length = (int) $tail[1];
-                    if ($payload_length < 0 || $payload_length >= $length - $position || $value[$position + $payload_length] !== '}') {
+                    if ($value[$position + $payload_length] !== '}') {
                         return $result . substr($value, $start);
                     }
                     $position += $payload_length + 1;

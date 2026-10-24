@@ -69,9 +69,10 @@ class EE5 extends AbstractBridge
         $last_segment = end($last_segment);
         $activeTitle = null;
         $titles = array();
+        $headers = array();
 
         foreach ($nav_items as $method => $title) {
-            if ($method == '/') {
+            if ($method === '/') {
                 $method = 'index';
             }
 
@@ -83,27 +84,32 @@ class EE5 extends AbstractBridge
                 $url = $method;
             }
 
-            $nav_items[$method] = $sidebar->addHeader($title)->withUrl($url);
+            $headers[$method] = $sidebar->addHeader($title)->withUrl($url);
 
             // This is to add buttons to a nav.
             if (!empty($buttons[$method])) {
                 foreach ($buttons[$method] as $url => $text) {
-                    $nav_items[$method]->withButton($text, $this->moduleURL($url));
+                    $headers[$method]->withButton($text, $this->moduleURL($url));
                 }
             }
 
             if ($last_segment == $method || ($method == 'index' && $last_segment == $this->module)) {
                 $activeTitle = $title;
-                $nav_items[$method]->isActive();
+                $headers[$method]->isActive();
             }
         }
 
-        if (!empty($active_map[$last_segment]) && !empty($nav_items[$active_map[$last_segment]])) {
-            $activeTitle = $titles[$active_map[$last_segment]];
-            $nav_items[$active_map[$last_segment]]->isActive();
+        $active_method = $active_map[$last_segment] ?? null;
+        if ($active_method === '/') {
+            $active_method = 'index';
         }
 
-        if ($activeTitle) {
+        if ($active_method !== null && isset($headers[$active_method])) {
+            $activeTitle = $titles[$active_method];
+            $headers[$active_method]->isActive();
+        }
+
+        if ($activeTitle !== null) {
             ee()->view->cp_page_title = $activeTitle;
             ee()->cp->set_breadcrumb($this->moduleURL('index'), 'Low\Random');
         }

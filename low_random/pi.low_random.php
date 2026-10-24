@@ -58,6 +58,7 @@ class Low_random extends Pi
      * @since   2.1
      * @return string
      * @throws InvalidArgumentException When the separator is empty.
+     * @throws Throwable When a stringable separator cannot be converted.
      */
     public function items()
     {
@@ -71,6 +72,9 @@ class Low_random extends Pi
 
         // get separator
         $sep = ee()->TMPL->fetch_param('separator', "\n");
+        if (is_object($sep) && method_exists($sep, '__toString')) {
+            $sep = (string) $sep;
+        }
         if ($sep === '' || $sep === false || $sep === null) {
             throw new InvalidArgumentException('Separator must not be empty.');
         }

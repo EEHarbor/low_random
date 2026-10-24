@@ -78,7 +78,7 @@ abstract class TestCase extends BaseTestCase
             $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->temporaryDirectory, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST);
 
             foreach ($iterator as $file) {
-                if ($file->isDir()) {
+                if ($file->isDir() && !$file->isLink()) {
                     rmdir($file->getPathname());
                     continue;
                 }

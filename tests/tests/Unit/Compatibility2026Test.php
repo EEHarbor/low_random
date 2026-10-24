@@ -270,4 +270,69 @@ final class Compatibility2026Test extends TestCase
         }
     }
 
+    /**
+     * Keep valid native byte offsets on stored strings without indexing invalid keys.
+     *
+     * @return void
+     */
+    public function testStoredStringOffsetsRemainReadable(): void
+    {
+        $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('text'))));
+        $settings = new GlobalFieldSettings();
+        foreach (array(0 => 't', 1 => 'e', -1 => 't') as $key => $value) {
+            $this->assertSame($value, $settings->getSetting($key));
+            $this->assertSame($value, $settings->getSetting((string) $key));
+        }
+        $this->assertNull($settings->getSetting('missing'));
+        $this->assertNull($settings->getSetting(4));
+    }
+
+    /**
+     * Preserve accepted native byte writes and their exact serialized database value.
+     *
+     * @return void
+     */
+    public function testStoredStringOffsetsRemainWritable(): void
+    {
+        $settings = new GlobalFieldSettings();
+        $cases = array(array(0, 'Zext'), array('0', 'Zext'), array(-1, 'texZ'), array('-1', 'texZ'), array(5, 'text Z'), array('+1', 'tZxt'), array('01', 'tZxt'), array(' 1', 'tZxt'));
+        if (PHP_VERSION_ID >= 80000) {
+            $cases[] = array('1 ', 'tZxt');
+        }
+
+        foreach ($cases as $case) {
+            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('text'))));
+            $this->ee->db->calls = array();
+            $this->assertTrue($settings->updateSetting($case[0], 'Z'));
+            $data = array('settings' => base64_encode(serialize($case[1])));
+            $this->assertContains(array('update', array('fieldtypes', $data)), $this->ee->db->calls);
+        }
+
+        foreach (array(-5, 'missing', true, null, 1.0, PHP_INT_MAX) as $key) {
+            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('text'))));
+            $this->ee->db->calls = array();
+            $this->assertFalse($settings->updateSetting($key, 'Z'));
+            $updates = array_filter($this->ee->db->calls, static function ($call) { return $call[0] === 'update'; });
+            $this->assertSame(array(), $updates);
+        }
+    }
+
+    /**
+     * Delegate oversized wire lengths to native parsing without extra cast diagnostics.
+     *
+     * @return void
+     */
+    public function testOversizedSerializedLengthsPreserveNativeCleanup(): void
+    {
+        $huge = '999999999999999999999999999999';
+        $tails = array('S:' . $huge . ':"x";', 's:' . $huge . ':"S:";', 'O:' . $huge . ':"X":0:{S:}', 'C:' . $huge . ':"X":1:{S:}', 'C:1:"X":' . $huge . ':{S:}', 'C:1:"X":-' . $huge . ':{S:}');
+        foreach ($tails as $tail) {
+            SettingsDeferredCallbackFixture::$calls = 0;
+            $serialized = 'a:2:{i:0;' . serialize(new SettingsDeferredCallbackFixture()) . 'i:1;' . $tail . '}';
+            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
+            $this->assertSame(array(), (new GlobalFieldSettings())->getSettings());
+            $this->assertSame(1, SettingsDeferredCallbackFixture::$calls);
+        }
+    }
+
 }

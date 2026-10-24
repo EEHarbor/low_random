@@ -164,13 +164,13 @@ final class PersistentCacheTest extends TestCase
     }
 
     /**
-     * Files, dangling links and missing parents keep failed cache creation quiet.
+     * Files, unavailable alias targets and missing parents keep failed creation quiet.
      *
      * @return void
      */
     public function testCreationObstaclesReturnFalseWithoutChangingTheFilesystem()
     {
-        foreach (array('file', 'dangling-link', 'missing-parent') as $shape) {
+        foreach (array('file', 'dangling-link', 'missing-parent', 'alias-chain', 'alias-cycle') as $shape) {
             $path = $this->temporaryDirectory . '/' . $shape;
 
             if ($shape === 'file') {
@@ -178,7 +178,13 @@ final class PersistentCacheTest extends TestCase
             }
 
             if ($shape === 'dangling-link') {
-                symlink($this->temporaryDirectory . '/absent-link-target', $path);
+                symlink($this->temporaryDirectory . '/absent-parent/cache', $path);
+            }
+
+            if ($shape === 'alias-chain' || $shape === 'alias-cycle') {
+                $target = $this->temporaryDirectory . '/' . $shape . '-target';
+                symlink($shape === 'alias-cycle' ? $path : $this->temporaryDirectory . '/absent-link-target', $target);
+                symlink($target, $path);
             }
 
             if ($shape === 'missing-parent') {
@@ -196,6 +202,97 @@ final class PersistentCacheTest extends TestCase
 
         $this->assertSame('keep', file_get_contents($this->temporaryDirectory . '/file'));
         $this->assertTrue(is_link($this->temporaryDirectory . '/dangling-link'));
+    }
+
+    /**
+     * Preserve configured absolute and relative aliases to a new cache directory.
+     *
+     * @return void
+     */
+    public function testConfiguredCacheAliasesRetainNativeDiskRoundTrips(): void
+    {
+        foreach (array('absolute', 'relative') as $shape) {
+            $parent = $this->temporaryDirectory . '/' . $shape;
+            mkdir($parent, 0700);
+            $target = $parent . '/target';
+            $alias = $parent . '/cache';
+            symlink($shape === 'absolute' ? $target : 'target', $alias);
+            $paths = \Closure::bind(static function ($path) {
+                self::$cache_path = $path;
+                self::$module_cache_path = $path . '/low_random/';
+            }, null, PersistentCache::class);
+            $paths($alias);
+            $this->assertTrue(PersistentCache::set('alias-key', array($shape)));
+            $this->assertSame(serialize(array($shape)), file_get_contents($target . '/low_random/' . sha1('alias-key')));
+            StaticCache::clear();
+            $this->assertSame(array($shape), PersistentCache::get('alias-key'));
+            $this->assertTrue(is_link($alias));
+            $this->assertSame(array(), $this->ee->logger->messages);
+        }
+    }
+
+    /**
+     * Validate the configured alias target's creation parent before native mkdir.
+     *
+     * @return void
+     */
+    public function testUnavailableAliasTargetParentsKeepTheQuietFallback(): void
+    {
+        $modes = DIRECTORY_SEPARATOR === '/' ? array(0500, 0200) : array(0500);
+
+        foreach ($modes as $mode) {
+            $parent = $this->temporaryDirectory . '/alias-parent-' . $mode;
+            mkdir($parent, 0700);
+            $alias = $this->temporaryDirectory . '/alias-' . $mode;
+            symlink($parent . '/cache', $alias);
+            $paths = \Closure::bind(static function ($path) {
+                self::$cache_path = $path;
+                self::$module_cache_path = $path . '/low_random/';
+            }, null, PersistentCache::class);
+            $paths($alias);
+            chmod($parent, $mode);
+
+            try {
+                $this->assertFalse(PersistentCache::set('key', 'value'));
+                $this->assertStringContainsString('could not create cache folder', end($this->ee->logger->messages));
+            } finally {
+                chmod($parent, 0700);
+            }
+
+            $this->assertDirectoryDoesNotExist($parent . '/cache');
+            $this->assertTrue(is_link($alias));
+        }
+    }
+
+    /**
+     * Existing writable POSIX cache directories still require search permission.
+     *
+     * @return void
+     */
+    public function testUnsearchableExistingCachePathsKeepTheQuietFallback(): void
+    {
+        if (DIRECTORY_SEPARATOR !== '/') {
+            $this->assertSame('\\', DIRECTORY_SEPARATOR);
+            return;
+        }
+
+        $base = $this->temporaryDirectory . '/cache';
+        $module = $base . '/low_random';
+        mkdir($base, 0700);
+        mkdir($module, 0700);
+
+        foreach (array($base, $module) as $path) {
+            chmod($path, 0200);
+
+            try {
+                $this->assertFalse(PersistentCache::set('key', 'value'));
+                $this->assertStringContainsString('path not writable', end($this->ee->logger->messages));
+            } finally {
+                chmod($path, 0700);
+            }
+        }
+
+        $this->assertSame(array(), glob($module . '/*'));
     }
     /**
      * Read an existing legacy cache from disk without rewriting its native bytes.
@@ -237,6 +334,35 @@ final class PersistentCacheTest extends TestCase
         StaticCache::clear();
         $this->assertSame('value', PersistentCache::get('key'));
         $this->assertSame('preserved file', file_get_contents($plain));
+    }
+
+    /**
+     * A writable POSIX parent without search permission cannot accept a cache folder.
+     *
+     * @return void
+     */
+    public function testUnsearchableParentReturnsTheQuietCacheFallback(): void
+    {
+        if (DIRECTORY_SEPARATOR !== '/') {
+            $this->assertSame('\\', DIRECTORY_SEPARATOR);
+            return;
+        }
+
+        $parent = $this->temporaryDirectory . '/unsearchable';
+        mkdir($parent, 0700);
+        $paths = \Closure::bind(static function ($parent) {
+            self::$cache_path = $parent . '/cache';
+            self::$module_cache_path = $parent . '/cache/low_random/';
+        }, null, PersistentCache::class);
+        $paths($parent);
+        chmod($parent, 0200);
+        try {
+            $this->assertFalse(PersistentCache::set('key', 'value'));
+            $this->assertStringContainsString('could not create cache folder', $this->ee->logger->messages[0]);
+        } finally {
+            chmod($parent, 0700);
+        }
+        $this->assertDirectoryDoesNotExist($parent . '/cache');
     }
 
 }

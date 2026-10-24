@@ -269,4 +269,98 @@ final class PluginTest extends TestCase
         $this->assertSame('owned-stringable-value', $this->plugin(array('items' => $value))->item());
     }
 
+    /**
+     * Reject a separator that becomes empty through its supported native conversion.
+     *
+     * @return void
+     */
+    public function testEmptyStringableSeparatorIsRejected(): void
+    {
+        $separator = new class {
+            /**
+             * Return the fixture's empty delimiter.
+             *
+             * @return string
+             */
+            public function __toString(): string
+            {
+                return '';
+            }
+        };
+        $this->ee->TMPL->ignore_fetch[] = 'separator';
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Separator must not be empty.');
+        $this->plugin(array('separator' => $separator), 'one')->items();
+    }
+
+    /**
+     * Convert a supported separator once before splitting the candidate set.
+     *
+     * @return void
+     */
+    public function testNonemptyStringableSeparatorIsConvertedOnce(): void
+    {
+        $separator = new class {
+            public $calls = 0;
+
+            /**
+             * Count this fixture's native conversion.
+             *
+             * @return string
+             */
+            public function __toString(): string
+            {
+                $this->calls++;
+                return '|';
+            }
+        };
+        $this->ee->TMPL->ignore_fetch[] = 'separator';
+        $this->assertContains($this->plugin(array('separator' => $separator), 'one|two')->items(), array('one', 'two'));
+        $this->assertCandidates(array('one', 'two'));
+        $this->assertSame(1, $separator->calls);
+    }
+
+    /**
+     * Preserve the exact exception raised by an existing conversion callback.
+     *
+     * @return void
+     */
+    public function testStringableSeparatorConversionExceptionPropagates(): void
+    {
+        $failure = new \RuntimeException('owned separator conversion exception');
+        $separator = new class($failure) {
+            private $failure;
+
+            /**
+             * Retain the exact owned callback exception.
+             *
+             * @param \RuntimeException $failure
+             * @return void
+             */
+            public function __construct(\RuntimeException $failure)
+            {
+                $this->failure = $failure;
+            }
+
+            /**
+             * Propagate this fixture's native callback exception unchanged.
+             *
+             * @return string
+             * @throws \RuntimeException
+             */
+            public function __toString(): string
+            {
+                throw $this->failure;
+            }
+        };
+        $this->ee->TMPL->ignore_fetch[] = 'separator';
+
+        try {
+            $this->plugin(array('separator' => $separator), 'one')->items();
+            $this->fail('The conversion callback exception was swallowed.');
+        } catch (\RuntimeException $caught) {
+            $this->assertSame($failure, $caught);
+        }
+    }
+
 }
