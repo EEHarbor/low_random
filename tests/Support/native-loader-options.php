@@ -1,10 +1,10 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-set_error_handler(static function ($severity, $message, $file, $line) {
-    throw new ErrorException($message, 0, $severity, $file, $line);
-}, E_ALL);
+error_reporting(-1);
+ini_set('display_errors', 'stderr');
+ini_set('display_startup_errors', '1');
+require_once dirname(__DIR__) . '/strict-diagnostics.php';
+set_error_handler(array(LowRandomDiagnostics::class, 'handle'), E_ALL);
 $root = dirname(__DIR__, 2);
 $mode = $argv[1];
 $_SERVER['LOW_RANDOM_NATIVE_CASE'] = 'loader-options/' . $mode;

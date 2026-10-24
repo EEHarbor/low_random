@@ -1,5 +1,7 @@
 # Low Random tests
 
+Current compatibility branch: see [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md) for the rebuilt production artifact, strict checked runner and current validation. The original tests-only campaign documentation below is retained as history.
+
 These tests use the shipped plugin and its immutable PHAR. They intentionally remain red for confirmed source defects. This is an incomplete campaign checkpoint, not a passing release gate.
 
 Run the pinned local PHPUnit 9.6.38 across every supported Herd runtime:

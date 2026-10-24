@@ -1,8 +1,6 @@
 <?php
 
 namespace Tests\Support {
-    use ErrorException;
-
     final class Diagnostics
     {
         /**
@@ -16,19 +14,13 @@ namespace Tests\Support {
         }
 
         /**
-         * Fail diagnostics from the add-on, including diagnostics hidden by @.
+         * Retain all diagnostics before throwing, including diagnostics hidden by @.
          *
          * @return callable|null
          */
         public static function install()
         {
-            return set_error_handler(static function ($severity, $message, $file, $line) {
-                if (strpos($file, dirname(__DIR__, 2) . '/low_random/') !== false || strpos($file, dirname(__DIR__) . '/') === 0) {
-                    throw new ErrorException($message, 0, $severity, $file, $line);
-                }
-
-                return false;
-            }, E_ALL);
+            return set_error_handler(array(\LowRandomDiagnostics::class, 'handle'), E_ALL);
         }
     }
 

@@ -280,7 +280,7 @@ final class NativeProcessTest extends TestCase
     }
 
     /**
-     * Oversized URLs must not yield an empty encrypted payload or native diagnostics.
+     * Oversized payloads must fail before emitting a broken RSA license pixel.
      *
      * @return void
      */
@@ -290,7 +290,9 @@ final class NativeProcessTest extends TestCase
         $this->assertSame(0, $result[0], $result[1] . $result[2]);
         $this->assertSame('', $result[2]);
         $data = json_decode($result[1], true);
-        $this->assertMatchesRegularExpression('/\?[a-f0-9]+"/', $data['footer'][0]);
+        $this->assertFalse($data['first']);
+        $this->assertFalse($data['second']);
+        $this->assertSame(array(), $data['footer']);
     }
 
     /**

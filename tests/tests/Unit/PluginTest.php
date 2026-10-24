@@ -91,9 +91,9 @@ final class PluginTest extends TestCase
      */
     public function testEmptySeparatorIsRejected()
     {
-        $plugin = $this->plugin(array('separator' => ''), 'one');
-        $this->expectException(\Throwable::class);
-        $plugin->items();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Separator must not be empty.');
+        $this->plugin(array('separator' => ''), 'one')->items();
     }
 
     /**
@@ -243,8 +243,30 @@ final class PluginTest extends TestCase
      */
     public function testStructuredItemsAreRejected()
     {
-        $plugin = $this->plugin(array('items' => array('one')));
-        $this->expectException(\Throwable::class);
-        $plugin->item();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Items must be a string-compatible template parameter.');
+        $this->plugin(array('items' => array('one')))->item();
     }
+
+    /**
+     * Preserve native conversion for explicitly stringable template parameter values.
+     *
+     * @return void
+     */
+    public function testStringableItemsRemainSupported(): void
+    {
+        $value = new class {
+            /**
+             * Return the fixture's single delimited candidate.
+             *
+             * @return string
+             */
+            public function __toString(): string
+            {
+                return 'owned-stringable-value';
+            }
+        };
+        $this->assertSame('owned-stringable-value', $this->plugin(array('items' => $value))->item());
+    }
+
 }

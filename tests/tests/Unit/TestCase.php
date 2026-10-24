@@ -126,6 +126,7 @@ abstract class TestCase extends BaseTestCase
      * @param float $timeout
      * @return array
      * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     protected function native(array $arguments, array $environmentOverrides = array(), $timeout = 20)
     {
@@ -133,7 +134,14 @@ abstract class TestCase extends BaseTestCase
             throw new \InvalidArgumentException('Native probe timeout must be positive.');
         }
 
-        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=1', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
+        $strict = dirname(__DIR__, 2) . '/strict-diagnostics.php';
+        $inline = array_search('-r', $arguments, true);
+
+        if ($inline !== false) {
+            $arguments[$inline + 1] = 'require_once ' . var_export($strict, true) . '; ' . $arguments[$inline + 1];
+        }
+
+        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=stderr', '-d', 'display_startup_errors=1', '-d', 'log_errors=0', '-d', 'auto_prepend_file=' . $strict, '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
         $extension = $environmentOverrides['LOW_RANDOM_XDEBUG_EXTENSION'] ?? getenv('LOW_RANDOM_XDEBUG_EXTENSION');
 
         if ($extension !== false && $extension !== '') {
@@ -141,15 +149,27 @@ abstract class TestCase extends BaseTestCase
         }
 
         $environment = array_merge(getenv(), $environmentOverrides, array('TMPDIR' => $this->temporaryDirectory));
-        $output = $this->temporaryDirectory . '/native-' . bin2hex(random_bytes(6));
+        $captureDirectory = getenv('LOW_RANDOM_STRICT_CAPTURES');
+        $output = ($captureDirectory ?: $this->temporaryDirectory) . '/native-' . getmypid() . '-' . bin2hex(random_bytes(6));
+        $capture = array('state' => 'started', 'command' => $command, 'stdout' => $output . '.out', 'stderr' => $output . '.err');
+
+        if ($captureDirectory) {
+            file_put_contents($output . '.json', json_encode($capture));
+        }
+
         $process = proc_open($command, array(0 => array('pipe', 'r'), 1 => array('file', $output . '.out', 'w'), 2 => array('file', $output . '.err', 'w')), $pipes, dirname(__DIR__, 3), $environment);
         $this->assertIsResource($process);
         fclose($pipes[0]);
         $deadline = hrtime(true) + ($timeout * 1000000000);
+        $exit = null;
+        $closed = null;
+        $status = null;
+        $timedOut = false;
 
         try {
             do {
                 if (hrtime(true) >= $deadline) {
+                    $timedOut = true;
                     throw new \RuntimeException('Native PHP probe exceeded its deadline.');
                 }
 
@@ -166,12 +186,31 @@ abstract class TestCase extends BaseTestCase
             } while (true);
         } finally {
             if (is_resource($process)) {
+                $status = proc_get_status($process);
                 proc_terminate($process, 9);
-                proc_close($process);
+
+                do {
+                    $status = proc_get_status($process);
+                    if (!$status['running']) {
+                        break;
+                    }
+                    usleep(1000);
+                } while (true);
+
+                $closed = proc_close($process);
             }
 
-            unlink($output . '.out');
-            unlink($output . '.err');
+            if ($captureDirectory) {
+                $capture['state'] = 'complete';
+                $capture['exit'] = $exit;
+                $capture['proc_close'] = $closed;
+                $capture['last_status'] = $status;
+                $capture['timed_out'] = $timedOut;
+                file_put_contents($output . '.json', json_encode($capture));
+            } else {
+                unlink($output . '.out');
+                unlink($output . '.err');
+            }
         }
     }
 }

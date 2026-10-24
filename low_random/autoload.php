@@ -27,7 +27,7 @@ spl_autoload_register(
         // Add 'FluxCapacitor' when checking our namespace otherwise we could have
         // a false positive if the class file does not extend anything in FluxCapacitor
         // as the raw namespace would still match.
-        $check_namespace = $namespace . '\FluxCapacitor';
+        $check_namespace = $namespace . '\FluxCapacitor\\';
 
         // If the class name does not start with the check_namespace, it's not from here
         // or it's not extending FluxCapacitor so return early.
@@ -71,14 +71,8 @@ spl_autoload_register(
 
             // If class file exists either in the phar or temp dir, load it.
             if (file_exists($class_file) && ($phar_stream === true || ($phar_stream === false && stream_resolve_include_path($class_file)) !== false)) {
-                $opcache_config = false;
-
-                if (function_exists('opcache_get_configuration')) {
-                    $opcache_config = @opcache_get_configuration();
-                }
-
                 // You can't include a query string on an include unless it's being included as a phar stream.
-                if ($phar_stream === true && !empty($opcache_config) && !empty($opcache_config['directives']['opcache.validate_permission']) && $opcache_config['directives']['opcache.validate_permission'] === true) {
+                if ($phar_stream === true && filter_var(ini_get('opcache.validate_permission'), FILTER_VALIDATE_BOOLEAN)) {
                     include $class_file . '?nocache=' . microtime(true);
                 } else {
                     include $class_file;

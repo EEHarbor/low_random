@@ -95,15 +95,17 @@ final class MetadataAndViewTest extends TestCase
     }
 
     /**
-     * The diagnostic handler also sees deprecations suppressed with @.
+     * A caught suppressed diagnostic still rejects its owned native process.
      *
      * @return void
      */
     public function testDiagnosticsCatchSuppressedDeprecation()
     {
-        $this->expectException(\ErrorException::class);
-        $this->expectExceptionMessage('diagnostic harness probe');
-        \Tests\Support\Diagnostics::probe();
+        $journal = $this->temporaryDirectory . '/expected-diagnostic.jsonl';
+        $result = $this->native(array('-r', 'try { @trigger_error("diagnostic harness probe", E_USER_DEPRECATED); } catch (Throwable $error) {}'), array('LOW_RANDOM_STRICT_JOURNAL' => $journal));
+        $this->assertSame(70, $result[0]);
+        $this->assertStringContainsString('diagnostic harness probe', $result[2]);
+        $this->assertStringContainsString('diagnostic harness probe', file_get_contents($journal));
     }
 
     /**

@@ -1,7 +1,9 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(-1);
+ini_set('display_errors', 'stderr');
+ini_set('display_startup_errors', '1');
+require_once __DIR__ . '/strict-diagnostics.php';
 define('BASEPATH', dirname(__DIR__) . '/tests/');
 define('PATH_THIRD', dirname(__DIR__) . '/');
 define('SYSPATH', __DIR__ . '/Support/system/');

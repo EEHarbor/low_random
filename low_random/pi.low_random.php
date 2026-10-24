@@ -35,12 +35,17 @@ class Low_random extends Pi
     /**
      * Randomize given items, pipe delimited
      *
-     * @param   string  $str
-     * @return  string
+     * @return string
+     * @throws InvalidArgumentException When items cannot be represented as a string.
      */
     public function item()
     {
-        $this->set = explode('|', ee()->TMPL->fetch_param('items'));
+        $items = ee()->TMPL->fetch_param('items');
+        if (!is_scalar($items) && $items !== null && !(is_object($items) && method_exists($items, '__toString'))) {
+            throw new InvalidArgumentException('Items must be a string-compatible template parameter.');
+        }
+
+        $this->set = explode('|', $items);
 
         return $this->_random_item_from_set();
     }
@@ -51,13 +56,13 @@ class Low_random extends Pi
      * Randomize tagdata
      *
      * @since   2.1
-     * @param   string  $str
-     * @return  string
+     * @return string
+     * @throws InvalidArgumentException When the separator is empty.
      */
     public function items()
     {
         // get tagdata
-        $str = ee()->TMPL->tagdata;
+        $str = ee()->TMPL->tagdata ?? '';
 
         // trim if necessary
         if (ee()->TMPL->fetch_param('trim', 'yes') != 'no') {
@@ -66,6 +71,9 @@ class Low_random extends Pi
 
         // get separator
         $sep = ee()->TMPL->fetch_param('separator', "\n");
+        if ($sep === '' || $sep === false || $sep === null) {
+            throw new InvalidArgumentException('Separator must not be empty.');
+        }
 
         // create array from tagdata
         $this->set = explode($sep, $str);
@@ -113,12 +121,11 @@ class Low_random extends Pi
     /**
      * Get random file from file system
      *
-     * @param   string  $folder
-     * @param   string  $filter
      * @return  string
      */
     public function file()
     {
+        $this->set = array();
         $folder = ee()->TMPL->fetch_param('folder');
         $filter = ee()->TMPL->fetch_param('filter');
 
@@ -139,7 +146,10 @@ class Low_random extends Pi
             foreach ($bob->all() as $file) {
                 $this->set[] = rtrim($file->UploadDestination->url, '/') . '/' . $file->file_name;
             }
-        } elseif (is_dir($folder)) {
+            return $this->_random_item_from_set();
+        }
+
+        if (is_dir($folder)) {
             ee()->load->helper('file');
             $this->set = $files = get_filenames($folder);
 

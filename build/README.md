@@ -1,0 +1,7 @@
+# Scoped Foundation compatibility build
+
+Run an explicit PHP 7.4 or newer binary with `-d phar.readonly=0 build/foundation/build.php` from this repository. The builder packages `foundation/source/` and `foundation/stub.php`, verifies all expected members by name, preserves the original SHA-256 signature algorithm and stored member modes, replaces only `low_random/low_random.phar`, and refreshes the active test source inventory.
+
+This is the add-on-local form of the established `packettide/tools` Foundation build (`foundation/phar.php` and the `gulp foundation` template substitutions). All 22 original Foundation 4.10 members matched tools commit `cc1d34bd8db0119bbe2b9e38ebb337add61c7fbb` exactly after the documented substitutions and insertion of the original generated licensing JavaScript. `foundation/provenance.json` records those original bytes, source templates, archive metadata and actual stored permission bits. The licensing constant remains `true`. Shared tools are unchanged.
+
+The committed stub is the original generated extraction stub with scoped compatibility repairs and its exact byte length recalculated. Native build timestamps vary; binary hashes across separate builds need not match. Member payloads, modes, signature algorithm, alias, compression and metadata are the preservation checks. Tests execute the shipped archive and separately rebuild a complete owned copy on each runtime.

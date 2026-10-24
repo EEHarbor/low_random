@@ -86,4 +86,22 @@ final class StaticCacheTest extends TestCase
         StaticCache::put(array('site'), 'default-site');
         $this->assertSame('zero-site', StaticCache::get(array('site', 0)));
     }
+
+    /**
+     * Scalar escape bytes cannot alias newly preserved compound key pieces.
+     *
+     * @return void
+     */
+    public function testScalarAndCompoundKeyBoundariesRemainDistinct()
+    {
+        foreach (array(array('site:0', array('site', 0)), array('a\\:b:c', array('a:b', 'c'))) as $keys) {
+            foreach (array($keys, array_reverse($keys)) as $order) {
+                StaticCache::clear();
+                StaticCache::set($order[0], 'first');
+                StaticCache::set($order[1], 'second');
+                $this->assertSame('first', StaticCache::get($order[0]));
+                $this->assertSame('second', StaticCache::get($order[1]));
+            }
+        }
+    }
 }

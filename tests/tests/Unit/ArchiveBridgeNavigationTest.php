@@ -139,4 +139,19 @@ final class ArchiveBridgeNavigationTest extends TestCase
         $this->assertTrue($GLOBALS['low_random_services']['CP/Sidebar']->headers[0]->active);
         $this->assertSame('Licensing', $this->ee->view->cp_page_title);
     }
+
+    /**
+     * Root aliases use the same normalized index key as sidebar registration.
+     *
+     * @dataProvider versions
+     * @param string $version Bridge class suffix.
+     * @return void
+     */
+    public function testRootAliasPreservesItsNormalizedPageTitle($version)
+    {
+        $bridge = $this->bridge($version, 'child');
+        $this->assertNull($bridge->getNav(array('/' => 'Overview'), array(), array('child' => 'index')));
+        $this->assertTrue($GLOBALS['low_random_services']['CP/Sidebar']->headers[0]->active);
+        $this->assertSame('Overview', $this->ee->view->cp_page_title);
+    }
 }
