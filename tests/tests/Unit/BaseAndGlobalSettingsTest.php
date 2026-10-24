@@ -147,4 +147,59 @@ final class BaseAndGlobalSettingsTest extends TestCase
         $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode('not serialized')));
         $this->assertSame(array(), $settings->getSettings());
     }
+    /**
+     * Read and write ordinary array float keys with their native signed-word identity.
+     *
+     * @return void
+     */
+    public function testNativeFloatArrayOffsetsKeepStoredKeys(): void
+    {
+        $settings = new GlobalFieldSettings();
+        foreach (array(array(1.5, 1), array(-1.5, -1), array(INF, 0), array(-INF, 0), array(NAN, 0)) as $case) {
+            list($key, $native) = $case;
+            $value = array($native => 'original');
+            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize($value))));
+            $this->assertSame('original', $settings->getSetting($key));
+            $this->assertTrue($settings->updateSetting($key, 'updated'));
+            $update = end($this->ee->db->calls);
+            $this->assertSame('update', $update[0]);
+            $this->assertSame(array($native => 'updated'), unserialize(base64_decode($update[1][1]['settings'])));
+        }
+    }
+
+    /**
+     * Preserve native first-byte writes and a single Stringable conversion.
+     *
+     * @return void
+     */
+    public function testNativeStringValueWritesKeepTheirFirstByte(): void
+    {
+        $settings = new GlobalFieldSettings();
+        $calls = 0;
+        $stringable = new class($calls) {
+            private $calls;
+            /**
+             * Retain the caller's conversion count.
+             *
+             * @param int $calls
+             * @return void
+             */
+            public function __construct(&$calls) { $this->calls =& $calls; }
+            /**
+             * Supply a native string value once per write.
+             *
+             * @return string
+             */
+            public function __toString() { $this->calls++; return 'long'; }
+        };
+        foreach (array(array('long', 'l'), array(1234, '1'), array(1.25, '1'), array($stringable, 'l')) as $case) {
+            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('abc'))));
+            $this->assertTrue($settings->updateSetting(1, $case[0]));
+            $update = end($this->ee->db->calls);
+            $this->assertSame('update', $update[0]);
+            $this->assertSame('a' . $case[1] . 'c', unserialize(base64_decode($update[1][1]['settings'])));
+        }
+        $this->assertSame(1, $calls);
+    }
+
 }

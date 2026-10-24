@@ -110,7 +110,10 @@ class PersistentCache
      */
     public static function has($key, $key_processed = false)
     {
-        $key = self::createKey($key);
+        if ($key_processed === false) {
+            $key = self::createKey($key);
+        }
+
         return is_file(self::$module_cache_path . $key);
     }
 
@@ -158,11 +161,15 @@ class PersistentCache
         }
 
         $pieces = array_filter($key, static function ($piece) {
-            return $piece !== null && $piece !== false && $piece !== '';
+            return $piece || $piece === 0 || $piece === '0';
         });
 
-        // Escape scalar and compound pieces equally to avoid new key collisions.
-        return sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
+        if (count($pieces) < 2) {
+            return sha1(implode(':', $pieces));
+        }
+
+        // Keep compound keys outside the historical scalar SHA1 namespace.
+        return 'compound-' . sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
     }
 
     /**
@@ -205,7 +212,7 @@ class PersistentCache
 
         // If the generic cache folder doesn't exist, try to create it.
         if (!is_dir(self::$cache_path)) {
-            if (!self::canCreatePath(self::$cache_path) || !mkdir(self::$cache_path, DIR_WRITE_MODE)) {
+            if (!self::createDirectory(self::$cache_path)) {
                 ee()->load->library('logger');
                 ee()->logger->developer('Low Random: Write Cache enabled but could not create cache folder: ' . self::$cache_path);
                 return false;
@@ -225,7 +232,7 @@ class PersistentCache
 
         // If the module-specific cache folder doesn't exist, try to create it.
         if (!is_dir(self::$module_cache_path)) {
-            if (!self::canCreatePath(self::$module_cache_path) || !mkdir(self::$module_cache_path, DIR_WRITE_MODE)) {
+            if (!self::createDirectory(self::$module_cache_path)) {
                 ee()->load->library('logger');
                 ee()->logger->developer('Low Random: Write Cache enabled but could not create module cache folder: ' . self::$module_cache_path);
                 return false;
@@ -248,45 +255,30 @@ class PersistentCache
     }
 
     /**
-     * Check expected filesystem obstacles before attempting directory creation.
+     * Preserve native cache aliases and the existing logged directory-failure path.
      *
-     * @param string $path Cache directory path.
-     * @return bool
+     * @param string $path Original configured directory path.
+     * @return bool Whether native directory creation succeeded.
+     * @throws \Throwable When an unexpected diagnostic handler fails.
      */
-    private static function canCreatePath($path)
+    private static function createDirectory($path)
     {
-        $separators = DIRECTORY_SEPARATOR === '\\' ? '/\\' : '/';
-        $path = rtrim($path, $separators);
-        $parent = realpath(dirname($path));
-
-        if ($parent === false) {
-            return false;
-        }
-
-        $path = $parent . DIRECTORY_SEPARATOR . basename($path);
-
-        if (is_link($path)) {
-            $target = readlink($path);
-
-            if ($target === false) {
-                return false;
+        $mkdirLine = 0;
+        $previous = null;
+        $previous = set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$mkdirLine) {
+            if ($severity === E_WARNING && $file === __FILE__ && $line === $mkdirLine
+                && preg_match('/^mkdir\\(\\): (?:Permission denied|File exists|Not a directory|No such file or directory|Too many levels of symbolic links|Read-only file system)$/D', $message)) {
+                return true;
             }
 
-            $absolute = substr($target, 0, 1) === '/'
-                || (DIRECTORY_SEPARATOR === '\\' && preg_match('~^(?:[A-Za-z]:)?[\\\\/]~', $target));
-            $path = rtrim($absolute ? $target : $parent . DIRECTORY_SEPARATOR . $target, $separators);
-            $parent = realpath(dirname($path));
+            return $previous === null ? false : $previous(...func_get_args());
+        });
 
-            if ($parent === false) {
-                return false;
-            }
-
-            $path = $parent . DIRECTORY_SEPARATOR . basename($path);
+        try {
+            $mkdirLine = __LINE__ + 1;
+            return mkdir($path, DIR_WRITE_MODE);
+        } finally {
+            restore_error_handler();
         }
-
-        // Native mkdir follows one missing final alias, but rejects a missing alias chain.
-        return !file_exists($path) && !is_link($path)
-            && is_dir($parent) && is_writable($parent)
-            && (DIRECTORY_SEPARATOR === '\\' || is_executable($parent));
     }
 }

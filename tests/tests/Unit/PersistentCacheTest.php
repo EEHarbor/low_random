@@ -232,6 +232,38 @@ final class PersistentCacheTest extends TestCase
     }
 
     /**
+     * Native mkdir follows trailing-separator aliases through intermediate links.
+     *
+     * @return void
+     */
+    public function testTrailingSeparatorAliasChainsKeepRealDiskRoundTrips(): void
+    {
+        foreach (array('absolute', 'relative') as $shape) {
+            $parent = $this->temporaryDirectory . '/chain-' . $shape;
+            mkdir($parent, 0700);
+            $target = $parent . '/target';
+            $inner = $parent . '/inner';
+            $alias = $parent . '/cache';
+            symlink($shape === 'absolute' ? $target : 'target', $inner);
+            symlink(($shape === 'absolute' ? $inner : 'inner') . '/', $alias);
+            clearstatcache(true);
+            $paths = \Closure::bind(static function ($path) {
+                self::$cache_path = $path;
+                self::$module_cache_path = $path . '/low_random/';
+            }, null, PersistentCache::class);
+            $paths($alias);
+
+            $this->assertTrue(PersistentCache::set('alias-key', array($shape)));
+            $this->assertSame(serialize(array($shape)), file_get_contents($target . '/low_random/' . sha1('alias-key')));
+            StaticCache::clear();
+            $this->assertSame(array($shape), PersistentCache::get('alias-key'));
+            $this->assertTrue(is_link($alias));
+            $this->assertTrue(is_link($inner));
+            $this->assertSame(array(), $this->ee->logger->messages);
+        }
+    }
+
+    /**
      * Validate the configured alias target's creation parent before native mkdir.
      *
      * @return void
@@ -363,6 +395,105 @@ final class PersistentCacheTest extends TestCase
             chmod($parent, 0700);
         }
         $this->assertDirectoryDoesNotExist($parent . '/cache');
+    }
+
+    /**
+     * Omit historical falsey optional parts while retaining explicit zero IDs.
+     *
+     * @return void
+     */
+    public function testOptionalKeyPartsKeepTheirNativeIdentity(): void
+    {
+        $parts = array('topic', null, false, '', array(), 0.0);
+        $this->assertTrue(PersistentCache::set($parts, 'kept'));
+        $this->assertSame('kept', StaticCache::get('topic'));
+        StaticCache::clear();
+        $this->assertSame('kept', PersistentCache::get('topic'));
+        $this->assertSame(serialize('kept'), file_get_contents($this->temporaryDirectory . '/cache/low_random/' . sha1('topic')));
+        $this->assertTrue(PersistentCache::set(array('topic', 0), 'zero'));
+        $this->assertSame('zero', PersistentCache::get(array('topic', '0')));
+        $this->assertSame('kept', PersistentCache::get('topic'));
+    }
+
+    /**
+     * Honor the documented flag for an already processed disk-cache key.
+     *
+     * @return void
+     */
+    public function testProcessedHasKeyReadsTheStoredFile(): void
+    {
+        $this->assertTrue(PersistentCache::set('processed', array('value')));
+        $this->assertTrue(PersistentCache::has(sha1('processed'), true));
+        $this->assertFalse(PersistentCache::has(sha1('processed')));
+    }
+
+    /**
+     * Preserve native accepted persisted values without new parser diagnostics.
+     *
+     * @param string $serialized
+     * @param mixed $expected
+     * @return void
+     * @dataProvider acceptedPersistedValues
+     */
+    public function testAcceptedPersistedValuesKeepTheirNativeBehavior($serialized, $expected): void
+    {
+        $this->assertTrue(PersistentCache::set('accepted-native', 'seed'));
+        $path = $this->temporaryDirectory . '/cache/low_random/' . sha1('accepted-native');
+        file_put_contents($path, $serialized);
+        StaticCache::clear();
+        $this->assertSame($expected, PersistentCache::get('accepted-native'));
+        $this->assertSame($serialized, file_get_contents($path));
+    }
+
+    /**
+     * Supply actual clean PHP 7.4 persisted prefixes.
+     *
+     * @return array
+     */
+    public function acceptedPersistedValues(): array
+    {
+        return array(
+            'ordinary prefix' => array('a:1:{s:4:"name";s:1:"A";}trailing', array('name' => 'A')),
+            'escaped prefix' => array('a:1:{s:4:"name";S:1:"\\41";}trailing', array('name' => 'A')),
+        );
+    }
+
+    /**
+     * Keep pre-existing scalar cache files readable through their original SHA1.
+     *
+     * @return void
+     */
+    public function testLegacyScalarDelimiterFilesKeepTheirColdReadIdentity(): void
+    {
+        $this->assertTrue(PersistentCache::set('seed', array()));
+        foreach (array('topic:one', 'topic\\one') as $key) {
+            $path = $this->temporaryDirectory . '/cache/low_random/' . sha1($key);
+            file_put_contents($path, serialize(array('key' => $key)));
+            StaticCache::clear();
+            $this->assertSame(array('key' => $key), PersistentCache::get($key));
+            $this->assertSame(serialize(array('key' => $key)), file_get_contents($path));
+        }
+    }
+
+    /**
+     * Disambiguate compound parts without replacing legacy scalar cache entries.
+     *
+     * @return void
+     */
+    public function testCompoundKeysCannotOverwriteLegacyScalarKeys(): void
+    {
+        foreach (array(false, true) as $reverse) {
+            $entries = array(array('topic:one', 'scalar'), array(array('topic', 'one'), 'compound'));
+            foreach ($reverse ? array_reverse($entries) : $entries as $entry) {
+                $this->assertTrue(PersistentCache::set($entry[0], $entry[1]));
+            }
+            $this->assertSame('scalar', StaticCache::get('topic:one'));
+            $this->assertSame('compound', StaticCache::get(array('topic', 'one')));
+            StaticCache::clear();
+            $this->assertSame('scalar', PersistentCache::get('topic:one'));
+            $this->assertSame('compound', PersistentCache::get(array('topic', 'one')));
+            $this->assertSame('scalar', PersistentCache::get(array('topic:one')));
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 {
     "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-    "archive_sha256": "9872a97856e41e19b6336083b526832e3c10350adb36633825c5fd0fd4e65ec8",
+    "archive_sha256": "a864206a6d2499d1f472a170631dc9595496729f98303251ac0219d6047ba69d",
     "sources": {
         "low_random/addon.setup.php": {
             "sha256": "1abc1cfdd7ca754fb2f58e546534c6e2ef61c48ab8c18e1bfdf2811dccffcbd1",
@@ -933,9 +933,9 @@
             "functions": []
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/GlobalFieldSettings.php": {
-            "sha256": "8efa5ec3c867c878c907ac6de4e6503933fb5773c911a034bf5d8fc788d267ad",
-            "bytes": 9628,
-            "lines": 260,
+            "sha256": "2bb2a6e1bfefd58357d22b349989e5f4dd5c974a81a632866eaa51bf30e02bed",
+            "bytes": 10609,
+            "lines": 299,
             "functions": [
                 {
                     "name": "__construct",
@@ -947,27 +947,31 @@
                 },
                 {
                     "name": "getSettings",
-                    "line": 42
+                    "line": 46
                 },
                 {
                     "name": "updateSetting",
-                    "line": 65
+                    "line": 69
+                },
+                {
+                    "name": "nativeArrayKey",
+                    "line": 103
                 },
                 {
                     "name": "canWriteStringOffset",
-                    "line": 89
-                },
-                {
-                    "name": "decodeSettings",
-                    "line": 111
-                },
-                {
-                    "name": "{closure}",
                     "line": 128
                 },
                 {
+                    "name": "decodeSettings",
+                    "line": 150
+                },
+                {
+                    "name": "{closure}",
+                    "line": 167
+                },
+                {
                     "name": "normalizeEscapedStrings",
-                    "line": 160
+                    "line": 199
                 }
             ]
         },
@@ -1043,9 +1047,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/PersistentCache.php": {
-            "sha256": "467127cac2bf149dada6d1a2aa990f6bc0ac605e8cd1e57d8d7b3b3a48932b4f",
-            "bytes": 10159,
-            "lines": 293,
+            "sha256": "28864b8ad1f203dbe73ea7abb0f0890803518097bf216ecf3ef67d516c4d6b84",
+            "bytes": 9919,
+            "lines": 285,
             "functions": [
                 {
                     "name": "get",
@@ -1065,38 +1069,42 @@
                 },
                 {
                     "name": "clear",
-                    "line": 121
+                    "line": 124
                 },
                 {
                     "name": "createKey",
-                    "line": 154
+                    "line": 157
                 },
                 {
                     "name": "{closure}",
-                    "line": 160
+                    "line": 163
                 },
                 {
                     "name": "prepCacheData",
-                    "line": 174
+                    "line": 181
                 },
                 {
                     "name": "serveCacheData",
-                    "line": 186
+                    "line": 193
                 },
                 {
                     "name": "checkPath",
-                    "line": 201
+                    "line": 208
                 },
                 {
-                    "name": "canCreatePath",
-                    "line": 256
+                    "name": "createDirectory",
+                    "line": 264
+                },
+                {
+                    "name": "{closure}",
+                    "line": 268
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/StaticCache.php": {
-            "sha256": "4179bd634c9fd93a4a69af10be8f92fd171a88ef64b1c8c5984fbaff7da20b44",
-            "bytes": 4130,
-            "lines": 118,
+            "sha256": "0c93fb634e849478ed4a52440855476fba2dc2bd23f6a95b96bc8b1fadfad1bf",
+            "bytes": 4219,
+            "lines": 122,
             "functions": [
                 {
                     "name": "get",

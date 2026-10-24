@@ -17,7 +17,7 @@ class GlobalFieldSettings
     /**
      * Read native array keys and string offsets while preserving custom ArrayAccess reads.
      *
-     * @param int|string $name Setting key or native string byte offset.
+     * @param int|float|string $name Setting key or native string byte offset.
      * @return mixed
      */
     public function getSetting($name)
@@ -25,6 +25,10 @@ class GlobalFieldSettings
         $ftSettings = $this->getSettings();
         if ($ftSettings instanceof \ArrayAccess) {
             return $ftSettings[$name];
+        }
+
+        if (is_array($ftSettings) && is_float($name)) {
+            $name = self::nativeArrayKey($name);
         }
 
         if (is_array($ftSettings) || is_string($ftSettings)) {
@@ -57,7 +61,7 @@ class GlobalFieldSettings
     /**
      * Update a native array, ArrayAccess key or writable stored-string offset.
      *
-     * @param int|string $key Setting key or native string byte offset.
+     * @param int|float|string $key Setting key or native string byte offset.
      * @param mixed $value Native serializable setting value.
      * @return bool Whether an update was requested for a writable settings value.
      * @throws \Throwable When object hydration or serialization fails.
@@ -67,6 +71,17 @@ class GlobalFieldSettings
         $ftSettings = $this->getSettings();
 
         if (is_array($ftSettings) || $ftSettings instanceof \ArrayAccess || self::canWriteStringOffset($ftSettings, $key)) {
+            if (is_array($ftSettings) && is_float($key)) {
+                $key = self::nativeArrayKey($key);
+            }
+
+            if (is_string($ftSettings)) {
+                $value = (string) $value;
+                if (strlen($value) > 1) {
+                    $value = $value[0];
+                }
+            }
+
             $ftSettings[$key] = $value;
             $settingsForDb = array('settings' => base64_encode(serialize($ftSettings)));
 
@@ -77,6 +92,30 @@ class GlobalFieldSettings
         }
 
         return true;
+    }
+
+    /**
+     * Preserve native signed-word array keys without newer float-cast diagnostics.
+     *
+     * @param float $key
+     * @return int
+     */
+    private static function nativeArrayKey($key)
+    {
+        if (!is_finite($key)) {
+            return 0;
+        }
+
+        $range = 2.0 ** (PHP_INT_SIZE * 8);
+        $key = fmod($key, $range);
+        if ($key >= $range / 2) {
+            $key -= $range;
+        }
+        if ($key < -$range / 2) {
+            $key += $range;
+        }
+
+        return (int) $key;
     }
 
     /**

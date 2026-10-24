@@ -108,10 +108,14 @@ class StaticCache
         }
 
         $pieces = array_filter($key, static function ($piece) {
-            return $piece !== null && $piece !== false && $piece !== '';
+            return $piece || $piece === 0 || $piece === '0';
         });
 
-        // Escape scalar and compound pieces equally to avoid new key collisions.
-        return sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
+        if (count($pieces) < 2) {
+            return sha1(implode(':', $pieces));
+        }
+
+        // Keep compound keys outside the historical scalar SHA1 namespace.
+        return 'compound-' . sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
     }
 }
