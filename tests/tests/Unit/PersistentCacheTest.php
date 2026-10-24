@@ -428,6 +428,19 @@ final class PersistentCacheTest extends TestCase
     }
 
     /**
+     * Preserve native falsey flag inputs while honoring processed-key requests.
+     *
+     * @return void
+     */
+    public function testFalseyProcessedFlagsRetainUnprocessedLookup(): void
+    {
+        $this->assertTrue(PersistentCache::set('flag-values', 'stored'));
+        foreach (array(false, 0, 0.0, null, '', '0', array()) as $flag) {
+            $this->assertTrue(PersistentCache::has('flag-values', $flag));
+        }
+    }
+
+    /**
      * Preserve native accepted persisted values without new parser diagnostics.
      *
      * @param string $serialized

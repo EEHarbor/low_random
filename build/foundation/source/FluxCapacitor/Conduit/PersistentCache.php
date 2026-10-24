@@ -110,7 +110,7 @@ class PersistentCache
      */
     public static function has($key, $key_processed = false)
     {
-        if ($key_processed === false) {
+        if (!$key_processed) {
             $key = self::createKey($key);
         }
 
