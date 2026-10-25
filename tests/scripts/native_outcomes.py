@@ -37,11 +37,13 @@ def validate(directory, root, binary, parent_pid):
             if Path(record['command'][0]).resolve() != Path(binary).resolve():
                 raise ValueError('Native command uses another binary')
             streams = {}
-            for stream in ('stdout', 'stderr'):
+            for stream in ('stdout', 'stderr', 'native_error_log'):
                 raw = Path(record[stream]).read_bytes()
                 if len(raw) != record[stream + '_bytes'] or hashlib.sha256(raw).hexdigest() != record[stream + '_sha256']:
                     raise ValueError('Native stream changed after completion')
                 streams[stream] = raw
+            if streams['native_error_log']:
+                raise ValueError('Unexpected native PHP engine diagnostic')
             diagnostics = decode(record, 'diagnostics_raw_base64')
             events = [json.loads(line) for line in diagnostics.splitlines()]
             identities = [json.loads(line) for line in decode(record, 'runtime_raw_base64').splitlines()]

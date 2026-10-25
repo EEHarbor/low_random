@@ -49,4 +49,29 @@ final class NativeCommandContractTest extends TestCase
         $this->assertSame(array(0, '["--","-r","literal","--run=literal"]', ''),
             $this->native(array($script, '--', '-r', 'literal', '--run=literal')));
     }
+
+    /**
+     * Keep literal diagnostic-looking output distinct from native engine errors.
+     *
+     * @dataProvider literalOutput
+     * @param string $output Literal application output.
+     * @return void
+     */
+    public function testLiteralDiagnosticOutputRemainsData($output): void
+    {
+        $this->assertSame(array(0, $output, ''), $this->native(array('-r', 'echo ' . var_export($output, true) . ';')));
+    }
+
+    /**
+     * Cover plain and HTML text that a program may intentionally print.
+     *
+     * @return array
+     */
+    public function literalOutput(): array
+    {
+        return array(
+            array("PHP Warning: literal output in /private/tmp/literal.php on line 7\n"),
+            array("<br />\n<b>Warning</b>: literal output in <b>/private/tmp/literal.php</b> on line <b>7</b><br />\n"),
+        );
+    }
 }

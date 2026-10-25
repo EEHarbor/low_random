@@ -27,8 +27,11 @@ captures = run / 'native'
 captures.mkdir()
 environment = dict(os.environ, LOW_RANDOM_STRICT_JOURNAL=str(run / 'diagnostics.jsonl'),
                    LOW_RANDOM_STRICT_CAPTURES=str(captures))
+engine_log = run / 'php-errors.log'
+engine_file = engine_log.open('x+b')
+engine_identity = os.fstat(engine_file.fileno())
 command = [binary, '-d', 'error_reporting=-1', '-d', 'display_errors=stderr', '-d',
-           'display_startup_errors=1', '-d', 'log_errors=0', '-d',
+           'display_startup_errors=1', '-d', 'log_errors=1', '-d', 'error_log=' + str(engine_log), '-d',
            'auto_prepend_file=' + str(root / 'tests' / 'strict-diagnostics.php'),
            str(root / 'tests' / '.phpunit' / 'phpunit-9.phar')] + arguments
 with (run / 'stdout.log').open('wb') as stdout, (run / 'stderr.log').open('wb') as stderr:
@@ -66,6 +69,15 @@ except (OSError, ET.ParseError, AttributeError, ValueError) as error:
     issues.append('Invalid or missing fresh JUnit: ' + str(error))
 if stderr:
     issues.append('Nonempty stderr')
+engine_file.seek(0)
+engine_bytes = engine_file.read()
+engine_named = engine_log.lstat()
+if (engine_log.is_symlink() or engine_named.st_nlink != 1
+        or (engine_named.st_dev, engine_named.st_ino) != (engine_identity.st_dev, engine_identity.st_ino)):
+    issues.append('Parent PHP engine log changed identity')
+engine_file.close()
+if engine_bytes:
+    issues.append('Unexpected parent PHP engine diagnostic')
 journal = run / 'diagnostics.jsonl'
 if journal.exists() and journal.stat().st_size:
     issues.append('Unexpected retained diagnostic events')
@@ -83,6 +95,8 @@ for identity in identities:
 native, native_issues = validate(captures, root, binary, parent_pid)
 issues.extend(native_issues)
 receipt = {'command': command, 'php_exit': php_exit, 'counts': counts, 'issues': issues,
+           'native_error_log': str(engine_log), 'native_error_log_bytes': len(engine_bytes),
+           'native_error_log_sha256': hashlib.sha256(engine_bytes).hexdigest(),
            'runtime_receipts': len(identities), 'native_captures': len(native), 'junit': str(junit),
            'junit_sha256': hashlib.sha256(junit.read_bytes()).hexdigest() if junit.exists() else None,
            'exit': php_exit if php_exit else 70 if issues else 0}

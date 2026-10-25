@@ -27,7 +27,7 @@ class NativeOutcomesTest(unittest.TestCase):
                            diagnostics_raw_base64='', runtime_raw_base64=base64.b64encode(json.dumps(dict(
                                pid=101, binary=self.binary, reporting=-1, display_errors='stderr',
                                display_startup_errors='1')).encode()).decode())
-        for stream in ('stdout', 'stderr'):
+        for stream in ('stdout', 'stderr', 'native_error_log'):
             self.stream(stream, b'')
 
     def tearDown(self):
@@ -52,6 +52,22 @@ class NativeOutcomesTest(unittest.TestCase):
 
     def test_ignored_stderr_rejects_parent(self):
         self.stream('stderr', b'warning emitted before bootstrap')
+        self.assertTrue(self.issues())
+
+    def test_native_engine_log_rejects_otherwise_green_child(self):
+        self.stream('native_error_log', b'[native timestamp] PHP Warning: owned native warning\n')
+        self.assertTrue(self.issues())
+
+    def test_literal_diagnostic_stdout_remains_application_data(self):
+        self.stream('stdout', b'PHP Warning: literal output in /tmp/literal.php on line 7\n')
+        self.assertEqual([], self.issues())
+
+    def test_missing_engine_log_cannot_publish_native_success(self):
+        Path(self.record['native_error_log']).unlink()
+        self.assertTrue(self.issues())
+
+    def test_changed_engine_log_cannot_publish_native_success(self):
+        Path(self.record['native_error_log']).write_bytes(b'changed')
         self.assertTrue(self.issues())
 
     def test_caught_timeout_rejects_parent(self):

@@ -11,7 +11,7 @@ final class NativeCommand
      *
      * @param array $arguments Native PHP options, source and script arguments.
      * @param string $strict Process-local strict diagnostic bootstrap.
-     * @return array Native CLI plan, original configuration selectors and owned-prelude index.
+     * @return array Native CLI plan, original configuration selectors and owned option indices.
      */
     public static function guardArguments(array $arguments, string $strict): array
     {
@@ -127,17 +127,19 @@ final class NativeCommand
         // PHP compiles inline programs before their bootstrap can restore diagnostics.
         $required = [
             '-d', 'error_reporting=-1', '-d', 'display_errors=stderr',
-            '-d', 'display_startup_errors=1', '-d', 'log_errors=0',
+            '-d', 'display_startup_errors=1', '-d', 'log_errors=1',
+            '-d', 'error_log=__LOW_RANDOM_OWNED_NATIVE_ERROR_LOG__',
         ];
+        $nativeLogIndex = $boundary + count($required) - 1;
         $prependIndex = null;
         if (!$inlineProgram) {
             $required[] = '-d';
             $required[] = 'auto_prepend_file=__LOW_RANDOM_OWNED_NATIVE_PREPEND__';
-            $prependIndex = $boundary + 9;
+            $prependIndex = $boundary + count($required) - 1;
         }
         array_splice($arguments, $boundary, 0, $required);
 
-        return ['arguments' => $arguments, 'prepend_index' => $prependIndex,
+        return ['arguments' => $arguments, 'prepend_index' => $prependIndex, 'native_log_index' => $nativeLogIndex,
             'configuration_arguments' => $inlineProgram ? null : $configuration];
     }
 

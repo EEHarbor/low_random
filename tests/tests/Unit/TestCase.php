@@ -187,7 +187,7 @@ abstract class TestCase extends BaseTestCase
                 }
                 $plan['arguments'][$plan['prepend_index']] = 'auto_prepend_file=' . $preludePath;
             }
-            $result = $this->executeNative($plan['arguments'], $arguments, $environmentOverrides, $timeout);
+            $result = $this->executeNative($plan['arguments'], $arguments, $environmentOverrides, $timeout, $plan['native_log_index']);
             if ($configuration !== null) {
                 foreach ($configuration['files'] as $file) {
                     if (hash_file('sha256', $file['path']) !== $file['sha256']) {
@@ -221,23 +221,30 @@ abstract class TestCase extends BaseTestCase
      * @param array $originalArguments Original unmodified caller arguments.
      * @param array $environmentOverrides Process-local environment selections.
      * @param float $timeout Owned execution deadline in seconds.
+     * @param int $nativeLogIndex Prepared option reserved for the owned engine log.
      * @return array Native status, complete stdout and complete stderr.
      * @throws \RuntimeException When process ownership, capture or deadlines fail.
+     * @throws \ErrorException When an owned engine log cannot be retained.
      */
-    private function executeNative(array $arguments, array $originalArguments, array $environmentOverrides, $timeout)
+    private function executeNative(array $arguments, array $originalArguments, array $environmentOverrides, $timeout, $nativeLogIndex)
     {
         if ($timeout <= 0) {
             throw new \InvalidArgumentException('Native probe timeout must be positive.');
         }
 
-        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=stderr', '-d', 'display_startup_errors=1', '-d', 'log_errors=0', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
+        $captureDirectory = getenv('LOW_RANDOM_STRICT_CAPTURES');
+        $output = ($captureDirectory ?: $this->temporaryDirectory) . '/native-' . getmypid() . '-' . bin2hex(random_bytes(6));
+        $nativeLog = fopen($output . '.php-errors', 'x+b');
+        if ($nativeLog === false || $arguments[$nativeLogIndex] !== 'error_log=__LOW_RANDOM_OWNED_NATIVE_ERROR_LOG__') {
+            \LowRandomDiagnostics::handle(E_USER_ERROR, 'Cannot prepare the owned native engine log.', __FILE__, __LINE__);
+        }
+        $nativeLogIdentity = fstat($nativeLog);
+        $arguments[$nativeLogIndex] = 'error_log=' . $output . '.php-errors';
+        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=stderr', '-d', 'display_startup_errors=1', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
         $extension = $environmentOverrides['LOW_RANDOM_XDEBUG_EXTENSION'] ?? getenv('LOW_RANDOM_XDEBUG_EXTENSION');
         if ($extension !== false && $extension !== '') {
             array_splice($command, 1, 0, array('-d', 'zend_extension=' . $extension, '-d', 'xdebug.mode=coverage'));
         }
-
-        $captureDirectory = getenv('LOW_RANDOM_STRICT_CAPTURES');
-        $output = ($captureDirectory ?: $this->temporaryDirectory) . '/native-' . getmypid() . '-' . bin2hex(random_bytes(6));
         $journal = $environmentOverrides['LOW_RANDOM_STRICT_JOURNAL'] ?? $output . '.diagnostics';
         $environment = array_merge(getenv(), $environmentOverrides, array('TMPDIR' => $this->temporaryDirectory,
             'LOW_RANDOM_STRICT_JOURNAL' => $journal));
@@ -248,7 +255,7 @@ abstract class TestCase extends BaseTestCase
             'coverage_prefix' => $environmentOverrides['LOW_RANDOM_RAW_COVERAGE'] ?? null,
             'case' => array('class' => get_class($this), 'method' => $this->getName(false),
                 'file' => $definition, 'sha256' => hash_file('sha256', $definition)),
-            'stdout' => $output . '.out', 'stderr' => $output . '.err');
+            'stdout' => $output . '.out', 'stderr' => $output . '.err', 'native_error_log' => $output . '.php-errors');
         $capture['lint_input'] = null;
         if (count($originalArguments) === 2 && $originalArguments[0] === '-l'
             && substr($originalArguments[1], 0, 1) === '/' && is_file($originalArguments[1]) && !is_link($originalArguments[1])) {
@@ -317,7 +324,16 @@ abstract class TestCase extends BaseTestCase
             $capture['cleanup_complete'] = $cleanupComplete;
             $capture['runtime_raw_base64'] = is_file($journal . '.runtime') ? base64_encode(file_get_contents($journal . '.runtime')) : '';
             $capture['diagnostics_raw_base64'] = is_file($journal) ? base64_encode(file_get_contents($journal)) : '';
-            foreach (array('stdout', 'stderr') as $stream) {
+            clearstatcache(true, $capture['native_error_log']);
+            $nativeLogNamed = lstat($capture['native_error_log']);
+            $nativeLogHeld = fstat($nativeLog);
+            fclose($nativeLog);
+            if (is_link($capture['native_error_log']) || $nativeLogNamed['nlink'] !== 1
+                || $nativeLogIdentity['dev'] !== $nativeLogHeld['dev'] || $nativeLogIdentity['ino'] !== $nativeLogHeld['ino']
+                || $nativeLogIdentity['dev'] !== $nativeLogNamed['dev'] || $nativeLogIdentity['ino'] !== $nativeLogNamed['ino']) {
+                \LowRandomDiagnostics::handle(E_USER_ERROR, 'The owned native engine log changed identity.', __FILE__, __LINE__);
+            }
+            foreach (array('stdout', 'stderr', 'native_error_log') as $stream) {
                 $capture[$stream . '_sha256'] = hash_file('sha256', $capture[$stream]);
                 $capture[$stream . '_bytes'] = filesize($capture[$stream]);
             }
@@ -331,8 +347,12 @@ abstract class TestCase extends BaseTestCase
 
         $result = array($exit, file_get_contents($output . '.out'), file_get_contents($output . '.err'));
         if (!$captureDirectory) {
+            if ($capture['native_error_log_bytes']) {
+                \LowRandomDiagnostics::handle(E_USER_ERROR, 'A native PHP engine diagnostic was captured.', __FILE__, __LINE__);
+            }
             unlink($output . '.out');
             unlink($output . '.err');
+            unlink($capture['native_error_log']);
         }
 
         return $result;
