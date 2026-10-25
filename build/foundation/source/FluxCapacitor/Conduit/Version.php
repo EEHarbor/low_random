@@ -161,10 +161,10 @@ class Version
         $payload_raw = json_encode($payload_data);
 
         $public_key = $this->getOpenSSLPublicKey();
-        $key_details = openssl_pkey_get_details($public_key);
+        $key_details = \openssl_pkey_get_details($public_key);
 
         // PKCS#1 v1.5 reserves eleven bytes of each RSA block for padding.
-        if ($payload_raw === false || strlen($payload_raw) > ($key_details['bits'] / 8) - 11) {
+        if ($payload_raw === false || \strlen($payload_raw) > ($key_details['bits'] / 8) - 11) {
             return false;
         }
 

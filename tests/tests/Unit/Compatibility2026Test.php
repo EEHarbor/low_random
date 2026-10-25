@@ -6,6 +6,7 @@ use Low\Random\FluxCapacitor\Conduit\GlobalFieldSettings;
 
 final class SettingsComputedAccessFixture extends \ArrayObject
 {
+    public static $reporting = array();
     /**
      * Supply an object's computed default even when offsetExists is false.
      *
@@ -14,6 +15,7 @@ final class SettingsComputedAccessFixture extends \ArrayObject
      */
     public function offsetGet($key): string
     {
+        self::$reporting[] = error_reporting();
         return parent::offsetExists($key) ? parent::offsetGet($key) : 'computed-default';
     }
 }
@@ -145,6 +147,24 @@ final class Compatibility2026Test extends TestCase
         $this->assertSame('value', $settings->getSetting('saved'));
         $this->assertSame('computed-default', $settings->getSetting('missing'));
     }
+
+    /**
+     * Retain the original native reporting context for custom getter callbacks.
+     *
+     * @return void
+     */
+    public function testArrayAccessGetterReportingContextIsPreserved(): void
+    {
+        $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize(new SettingsComputedAccessFixture(array('saved' => 'value'))))));
+        $expected = @error_reporting();
+        SettingsComputedAccessFixture::$reporting = array();
+        try {
+            $this->assertSame('value', (new GlobalFieldSettings())->getSetting('saved'));
+            $this->assertSame(array($expected), SettingsComputedAccessFixture::$reporting);
+        } finally {
+            SettingsComputedAccessFixture::$reporting = array();
+        }
+    }
     /**
      * Keep native class extensions free to choose their existing data visibility.
      *
@@ -197,7 +217,8 @@ final class Compatibility2026Test extends TestCase
     public function testNegativeOpaquePayloadLengthDoesNotEnterTheLexer(): void
     {
         $serialized = 'C:1:"X":-999:{S:}';
-        $this->assertSame($serialized, GlobalFieldSettings::normalizeEscapedStrings($serialized));
+        $compatibility = require 'phar://' . dirname(__DIR__, 3) . '/low_random/low_random.phar/FluxCapacitor/Conduit/NativeSettings.php';
+        $this->assertSame($serialized, $compatibility['normalize']($serialized));
     }
 
     /**
@@ -295,7 +316,8 @@ final class Compatibility2026Test extends TestCase
     public function testStoredStringOffsetsRemainWritable(): void
     {
         $settings = new GlobalFieldSettings();
-        $cases = array(array(0, 'Zext'), array('0', 'Zext'), array(-1, 'texZ'), array('-1', 'texZ'), array(5, 'text Z'), array('+1', 'tZxt'), array('01', 'tZxt'), array(' 1', 'tZxt'));
+        $cases = array(array(0, 'Zext'), array('0', 'Zext'), array(-1, 'texZ'), array('-1', 'texZ'), array(5, 'text Z'), array('+1', 'tZxt'), array('01', 'tZxt'), array(' 1', 'tZxt'),
+            array(-4, 'Zext'), array('-04', 'Zext'), array('+00', 'Zext'), array('0001', 'tZxt'), array("\t1", 'tZxt'), array("\n1", 'tZxt'));
         if (PHP_VERSION_ID >= 80000) {
             $cases[] = array('1 ', 'tZxt');
         }
@@ -308,13 +330,6 @@ final class Compatibility2026Test extends TestCase
             $this->assertContains(array('update', array('fieldtypes', $data)), $this->ee->db->calls);
         }
 
-        foreach (array(-5, 'missing', true, null, 1.0, PHP_INT_MAX) as $key) {
-            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('text'))));
-            $this->ee->db->calls = array();
-            $this->assertFalse($settings->updateSetting($key, 'Z'));
-            $updates = array_filter($this->ee->db->calls, static function ($call) { return $call[0] === 'update'; });
-            $this->assertSame(array(), $updates);
-        }
     }
 
     /**
@@ -333,6 +348,242 @@ final class Compatibility2026Test extends TestCase
             $this->assertSame(array(), (new GlobalFieldSettings())->getSettings());
             $this->assertSame(1, SettingsDeferredCallbackFixture::$calls);
         }
+    }
+
+    /**
+     * Preserve native null array keys and quiet optional-setting misses.
+     *
+     * @return void
+     */
+    public function testNullArrayKeysAndMissingSettingsRemainNative(): void
+    {
+        $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize(array('' => 'empty', 'nullable' => null)))));
+        $settings = new GlobalFieldSettings();
+        $this->assertSame('empty', $settings->getSetting(null));
+        $this->assertNull($settings->getSetting('missing'));
+        $this->assertNull($settings->getSetting('nullable'));
+        $this->assertTrue($settings->updateSetting(null, 'written'));
+        $this->assertContains(array('update', array('fieldtypes', array('settings' => base64_encode(serialize(array('' => 'written', 'nullable' => null)))))), $this->ee->db->calls);
+    }
+
+    /**
+     * Convert native first-byte replacement values exactly once before assignment.
+     *
+     * @return void
+     */
+    public function testNativeFirstByteConversionsRemainQuiet(): void
+    {
+        $object = new class {
+            public $calls = 0;
+            /** Convert the native replacement once. @return string */
+            public function __toString() { $this->calls++; return 'long'; }
+        };
+        $resource = fopen('php://temp', 'w+');
+        $closed = fopen('php://temp', 'w+');
+        fclose($closed);
+        try {
+            foreach (array(array(NAN, 'aNc'), array(123, 'a1c'), array($object, 'alc'), array($resource, 'aRc'), array($closed, 'aRc')) as $case) {
+                $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode(serialize('abc'))));
+                $this->ee->db->calls = array();
+                $this->assertTrue((new GlobalFieldSettings())->updateSetting(1, $case[0]));
+                $this->assertContains(array('update', array('fieldtypes', array('settings' => base64_encode(serialize($case[1]))))), $this->ee->db->calls);
+            }
+            $this->assertSame(1, $object->calls);
+        } finally {
+            fclose($resource);
+        }
+    }
+
+    /**
+     * Execute legal child declarations and namespace hooks against the shipped members.
+     *
+     * @return void
+     */
+    public function testLegacyMethodAndNativeSymbolSurfacesRemainIntact(): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-api.php'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $this->assertSame(array('read' => 'thousand', 'persisted' => array(0 => 'zero', 1000 => 'written', -23 => 'wrapped'),
+            'escaped' => 'abc', 'normalized' => 's:3:"abc";', 'new_native_dispatches' => 0, 'original_decoder_dispatches' => 4,
+            'original_base64_dispatches' => 3, 'cache_write' => true, 'cache_read' => 'kept', 'legacy_cache_bytes' => serialize('kept'),
+            'optional_update' => true, 'consumer_methods' => array_fill(0, 5, 'consumer')),
+            json_decode($result[1], true));
+    }
+
+    /**
+     * Dispatch raw carrier and decoder hooks in each original caller namespace.
+     *
+     * @return void
+     */
+    public function testOriginalSettingsAndCacheHookInputsRemainUntouched(): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-hooks.php'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $expected = array();
+        foreach (array('GlobalFieldSettings', 'EE2', 'EE3', 'EE4', 'EE5') as $kind) {
+            $scope = $kind === 'GlobalFieldSettings' ? 'conduit' : 'bridge';
+            foreach (array('carrier-text', null) as $carrier) {
+                $expected[] = array('kind' => $kind, 'carrier' => $carrier, 'hook' => $scope,
+                    'calls' => array(array($scope . '-base64', $carrier), array($scope . '-unserialize', 'S:3:"abc";')));
+            }
+        }
+        $expected[] = array('kind' => 'cache', 'hook' => 'conduit', 'calls' => array(array('conduit-unserialize', 'S:3:"abc";')));
+        $this->assertSame($expected, json_decode($result[1], true));
+    }
+
+    /**
+     * Retain the native encoded Stringable carrier and its single conversion.
+     *
+     * @return void
+     */
+    public function testNativeEncodedCarrierConversionRemainsOnceOnly(): void
+    {
+        $carrier = new class {
+            public $calls = 0;
+            /** Supply the native encoded fieldtype row. @return string */
+            public function __toString() { $this->calls++; return base64_encode(serialize(array('value' => 'kept'))); }
+        };
+        $this->ee->db->results['fieldtypes'] = array(array('settings' => $carrier));
+        $this->assertSame(array('value' => 'kept'), (new GlobalFieldSettings())->getSettings());
+        $this->assertSame(1, $carrier->calls);
+    }
+
+    /**
+     * Convert an original base64 hook's decoded Stringable value once.
+     *
+     * @dataProvider decodedCarrierFormats
+     * @param string $format
+     * @return void
+     */
+    public function testNativeDecodedCarrierConversionRemainsOnceOnly($format): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-hooks.php',
+            dirname(__DIR__, 3) . '/low_random/low_random.phar', 'decoded', $format));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $expected = array();
+        foreach (array('GlobalFieldSettings', 'EE2', 'EE3', 'EE4', 'EE5') as $kind) {
+            $scope = $kind === 'GlobalFieldSettings' ? 'conduit' : 'bridge';
+            foreach (array('carrier-text', null) as $carrier) {
+                $expected[] = array('kind' => $kind, 'carrier' => $carrier, 'hook' => 'native',
+                    'calls' => array(array($scope . '-base64', $carrier), array($scope . '-stringify')));
+            }
+        }
+        $this->assertSame($expected, json_decode($result[1], true));
+    }
+
+    /**
+     * Retain native accepted wire formats after the carrier's single conversion.
+     *
+     * @return array
+     */
+    public static function decodedCarrierFormats(): array
+    {
+        return array('canonical' => array('canonical'), 'escaped' => array('escaped'), 'prefix' => array('prefix'));
+    }
+
+    /**
+     * Preserve the original callee selection across callbacks and inherited calls.
+     *
+     * @dataProvider lateHookCallers
+     * @param string $kind
+     * @param string $timing
+     * @return void
+     */
+    public function testNativeCalleeBindingLifetime($kind, $timing): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-late-hooks.php',
+            dirname(__DIR__, 3) . '/low_random/low_random.phar', $kind, $timing));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $expected = array('values' => array(7, 7, 7), 'hook_calls' => 0);
+        if ($timing === 'initial') {
+            $expected = array('values' => array(88, 88, 88), 'hook_calls' => 6);
+        }
+        if ($timing === 'no-row') {
+            $expected = array('values' => array(null, 88, 88), 'hook_calls' => 4);
+        }
+        $this->assertSame($expected, json_decode($result[1], true));
+    }
+
+    /**
+     * Exercise each original lexical reader independently of subclass storage.
+     *
+     * @return array
+     */
+    public static function lateHookCallers(): array
+    {
+        $cases = array();
+        foreach (array('GlobalFieldSettings', 'EE2', 'EE3', 'EE4', 'EE5') as $kind) {
+            foreach (array('row', 'between', 'inherited', 'initial', 'no-row') as $timing) {
+                $cases[$kind . ' ' . $timing] = array($kind, $timing);
+            }
+        }
+        return $cases;
+    }
+
+    /**
+     * Retain the raw cache parser binding across later namespace registration.
+     *
+     * @return void
+     */
+    public function testNativeCacheCalleeBindingLifetime(): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-hooks.php',
+            dirname(__DIR__, 3) . '/low_random/low_random.phar', 'cache-lifetime'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $this->assertSame(array('values' => array(7, 7, 7), 'hook_calls' => 0), json_decode($result[1], true));
+    }
+
+    /**
+     * Release original temporary carriers before native object callbacks run.
+     *
+     * @dataProvider nativeTemporaryCarriers
+     * @param string $kind
+     * @param string $mode
+     * @return void
+     */
+    public function testNativeTemporaryCarrierOwnership($kind, $mode): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-ownership.php',
+            dirname(__DIR__, 3) . '/low_random/low_random.phar', $kind, $mode));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $trace = $mode === 'encoded' ? array('row', 'convert', 'release', 'hydrate') : array('row', 'base64', 'convert', 'release', 'hydrate');
+        $this->assertSame(array('kept' => 7, 'trace' => $trace, 'reporting' => array_fill(0, 3, @error_reporting())), json_decode($result[1], true));
+    }
+
+    /**
+     * Exercise both native carrier temporaries in each original reader.
+     *
+     * @return array
+     */
+    public static function nativeTemporaryCarriers(): array
+    {
+        $cases = array();
+        foreach (array('GlobalFieldSettings', 'EE2', 'EE3', 'EE4', 'EE5') as $kind) {
+            foreach (array('encoded', 'decoded') as $mode) {
+                $cases[$kind . ' ' . $mode] = array($kind, $mode);
+            }
+        }
+        return $cases;
+    }
+
+    /**
+     * Convert a native raw cache reader operand once before using its value.
+     *
+     * @return void
+     */
+    public function testRawCacheCarrierConversionRemainsOnceOnly(): void
+    {
+        $result = $this->native(array(dirname(__DIR__, 2) . '/Support/native-settings-hooks.php',
+            dirname(__DIR__, 3) . '/low_random/low_random.phar', 'cache-carrier'));
+        $this->assertSame(0, $result[0], $result[1] . $result[2]);
+        $this->assertSame('', $result[2]);
+        $this->assertSame(array('wire' => 'native', 'calls' => array(array('cache-stringify'))), json_decode($result[1], true));
     }
 
 }

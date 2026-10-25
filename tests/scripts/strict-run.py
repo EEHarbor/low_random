@@ -8,6 +8,8 @@ import pathlib
 import subprocess
 import sys
 import tempfile
+import signal
+from native_outcomes import validate, configured
 import xml.etree.ElementTree as ET
 
 root = pathlib.Path(__file__).resolve().parents[2]
@@ -30,12 +32,27 @@ command = [binary, '-d', 'error_reporting=-1', '-d', 'display_errors=stderr', '-
            'auto_prepend_file=' + str(root / 'tests' / 'strict-diagnostics.php'),
            str(root / 'tests' / '.phpunit' / 'phpunit-9.phar')] + arguments
 with (run / 'stdout.log').open('wb') as stdout, (run / 'stderr.log').open('wb') as stderr:
-    result = subprocess.run(command, cwd=root, env=environment, stdout=stdout, stderr=stderr)
+    process = subprocess.Popen(command, cwd=root, env=environment, stdout=stdout, stderr=stderr, start_new_session=True)
+    parent_pid = process.pid
+    parent_timeout = False
+    try:
+        process.wait(timeout=150)
+    except subprocess.TimeoutExpired:
+        parent_timeout = True
+        if process.poll() is None:
+            os.killpg(parent_pid, signal.SIGTERM)
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            if process.poll() is None:
+                os.killpg(parent_pid, signal.SIGKILL)
+            process.wait(timeout=2)
+    php_exit = process.returncode
 stdout = (run / 'stdout.log').read_bytes()
 stderr = (run / 'stderr.log').read_bytes()
 sys.stdout.buffer.write(stdout)
 sys.stderr.buffer.write(stderr)
-issues = []
+issues = ['Parent process timed out'] if parent_timeout else []
 counts = {}
 try:
     xml = ET.parse(junit).getroot()
@@ -58,19 +75,17 @@ if runtime.exists():
     identities = [json.loads(line) for line in runtime.read_text().splitlines()]
 if not identities:
     issues.append('No runtime startup receipts')
+if len(identities) != 1 or identities[0].get('pid') != parent_pid:
+    issues.append('Missing, duplicated or unowned main startup receipt')
 for identity in identities:
-    if pathlib.Path(identity['binary']).resolve() != pathlib.Path(binary).resolve() or identity['reporting'] != -1 or identity['display_errors'] not in ('1', 'stderr') or identity['display_startup_errors'] != '1':
+    if not configured(identity, binary):
         issues.append('Incorrect process runtime or strict startup configuration')
-native = []
-for path in captures.glob('*.json'):
-    capture = json.loads(path.read_text())
-    if capture.get('state') != 'complete' or not pathlib.Path(capture['stdout']).is_file() or not pathlib.Path(capture['stderr']).is_file():
-        issues.append('Incomplete native process capture')
-    native.append(capture)
-receipt = {'command': command, 'php_exit': result.returncode, 'counts': counts, 'issues': issues,
+native, native_issues = validate(captures, root, binary, parent_pid)
+issues.extend(native_issues)
+receipt = {'command': command, 'php_exit': php_exit, 'counts': counts, 'issues': issues,
            'runtime_receipts': len(identities), 'native_captures': len(native), 'junit': str(junit),
            'junit_sha256': hashlib.sha256(junit.read_bytes()).hexdigest() if junit.exists() else None,
-           'exit': result.returncode if result.returncode else 70 if issues else 0}
+           'exit': php_exit if php_exit else 70 if issues else 0}
 (run / 'receipt.json').write_text(json.dumps(receipt, indent=2))
 sys.stdout.write('LOW_RANDOM_STRICT_RECEIPT ' + str(run / 'receipt.json') + '\n')
 sys.exit(receipt['exit'])

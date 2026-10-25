@@ -17,21 +17,33 @@ class GlobalFieldSettings
     /**
      * Read native array keys and string offsets while preserving custom ArrayAccess reads.
      *
-     * @param int|float|string $name Setting key or native string byte offset.
+     * @param int|float|string|null $name Setting key or native string byte offset.
      * @return mixed
+     * @throws \Throwable When native hydration or a consumer callback fails.
      */
     public function getSetting($name)
     {
         $ftSettings = $this->getSettings();
         if ($ftSettings instanceof \ArrayAccess) {
-            return $ftSettings[$name];
+            return @$ftSettings[$name];
         }
 
-        if (is_array($ftSettings) && is_float($name)) {
-            $name = self::nativeArrayKey($name);
+        if (\is_array($ftSettings) && $name === null) {
+            $name = '';
+        }
+        if (\is_array($ftSettings) && \is_float($name)) {
+            $range = 2.0 ** (\PHP_INT_SIZE * 8);
+            $name = \is_finite($name) ? \fmod($name, $range) : 0;
+            if ($name >= $range / 2) {
+                $name -= $range;
+            }
+            if ($name < -$range / 2) {
+                $name += $range;
+            }
+            $name = (int) $name;
         }
 
-        if (is_array($ftSettings) || is_string($ftSettings)) {
+        if (\is_array($ftSettings) || \is_string($ftSettings)) {
             return isset($ftSettings[$name]) ? $ftSettings[$name] : null;
         }
         return null;
@@ -50,7 +62,35 @@ class GlobalFieldSettings
             ->get('fieldtypes');
 
         if ((bool) $ftSettingsQuery->num_rows()) {
-            $ftSettings = self::decodeSettings($ftSettingsQuery->row('settings')) ?: array();
+            // Class statics retain the native callsite lifetime across PHP 7.4 subclasses.
+            $bindings = new class {
+                public static bool $parser;
+                public static bool $carrier;
+            };
+            if (!isset($bindings::$parser)) {
+                $bindings::$parser = \function_exists(__NAMESPACE__ . '\\unserialize');
+                $bindings::$carrier = \function_exists(__NAMESPACE__ . '\\base64_decode');
+            }
+            $compatibility = require __DIR__ . '/NativeSettings.php';
+            /**
+             * Preserve original temporary argument release before native hydration.
+             *
+             * @param mixed $carrier
+             * @return mixed
+             * @throws \Throwable When native conversion or a consumer callback fails.
+             */
+            $nativeCarrier = static function ($carrier) {
+                if (\is_float($carrier) && \is_nan($carrier)) {
+                    $carrier = 'NAN';
+                }
+                return $carrier === null ? '' : \base64_decode($carrier);
+            };
+            $decode = $bindings::$parser ? __NAMESPACE__ . '\\unserialize' : $compatibility['decode'];
+            $decodeCarrier = $bindings::$carrier ? __NAMESPACE__ . '\\base64_decode' : $nativeCarrier;
+            $ftSettings = @$decode(@$decodeCarrier($ftSettingsQuery->row('settings')));
+            if (!\is_float($ftSettings) || !\is_nan($ftSettings)) {
+                $ftSettings = $ftSettings ?: array();
+            }
         } else {
             return null;
         }
@@ -61,7 +101,7 @@ class GlobalFieldSettings
     /**
      * Update a native array, ArrayAccess key or writable stored-string offset.
      *
-     * @param int|float|string $key Setting key or native string byte offset.
+     * @param mixed $key Setting key or native string byte offset.
      * @param mixed $value Native serializable setting value.
      * @return bool Whether an update was requested for a writable settings value.
      * @throws \Throwable When object hydration or serialization fails.
@@ -70,19 +110,39 @@ class GlobalFieldSettings
     {
         $ftSettings = $this->getSettings();
 
-        if (is_array($ftSettings) || $ftSettings instanceof \ArrayAccess || self::canWriteStringOffset($ftSettings, $key)) {
-            if (is_array($ftSettings) && is_float($key)) {
-                $key = self::nativeArrayKey($key);
-            }
+        $stringOffset = false;
+        if (\is_string($ftSettings)) {
+            $pattern = \PHP_VERSION_ID < 80000 ? '/^\s*[+-]?[0-9]+$/D' : '/^\s*[+-]?[0-9]+\s*$/D';
+            $integerKey = \is_int($key) || (\is_string($key) && \preg_match($pattern, $key));
+            $stringOffset = $integerKey && $key >= -\strlen($ftSettings) && $key < \PHP_INT_MAX;
+        }
 
-            if (is_string($ftSettings)) {
-                $value = (string) $value;
-                if (strlen($value) > 1) {
-                    $value = $value[0];
+        if (!is_null($ftSettings)) {
+            $offsetKey = null;
+            if (\is_array($ftSettings) && $key === null) {
+                $offsetKey = '';
+            }
+            if (\is_array($ftSettings) && \is_float($key)) {
+                $range = 2.0 ** (\PHP_INT_SIZE * 8);
+                $offsetKey = \is_finite($key) ? \fmod($key, $range) : 0;
+                if ($offsetKey >= $range / 2) {
+                    $offsetKey -= $range;
                 }
+                if ($offsetKey < -$range / 2) {
+                    $offsetKey += $range;
+                }
+                $offsetKey = (int) $offsetKey;
             }
 
-            $ftSettings[$key] = $value;
+            if (\is_string($ftSettings) && $stringOffset) {
+                $replacement = \is_float($value) && \is_nan($value) ? 'NAN' : (string) $value;
+                if (\strlen($replacement) > 1) {
+                    $replacement = $replacement[0];
+                }
+                $ftSettings[$key] = $replacement;
+            } else {
+                $ftSettings[$offsetKey === null ? $key : $offsetKey] = $value;
+            }
             $settingsForDb = array('settings' => base64_encode(serialize($ftSettings)));
 
             ee()->db->where('name', $this->fieldtype_name)
@@ -94,205 +154,4 @@ class GlobalFieldSettings
         return true;
     }
 
-    /**
-     * Preserve native signed-word array keys without newer float-cast diagnostics.
-     *
-     * @param float $key
-     * @return int
-     */
-    private static function nativeArrayKey($key)
-    {
-        if (!is_finite($key)) {
-            return 0;
-        }
-
-        $range = 2.0 ** (PHP_INT_SIZE * 8);
-        $key = fmod($key, $range);
-        if ($key >= $range / 2) {
-            $key -= $range;
-        }
-        if ($key < -$range / 2) {
-            $key += $range;
-        }
-
-        return (int) $key;
-    }
-
-    /**
-     * Recognize native integer offsets without coercing keys or stored values.
-     *
-     * @param mixed $settings Existing native settings value.
-     * @param mixed $key Requested byte offset.
-     * @return bool
-     */
-    private static function canWriteStringOffset($settings, $key)
-    {
-        if (!is_string($settings)) {
-            return false;
-        }
-
-        $pattern = PHP_VERSION_ID < 80000 ? '/^\s*[+-]?[0-9]+$/D' : '/^\s*[+-]?[0-9]+\s*$/D';
-        if (!is_int($key) && !(is_string($key) && preg_match($pattern, $key))) {
-            return false;
-        }
-
-        return $key >= -strlen($settings) && $key < PHP_INT_MAX;
-    }
-
-    /**
-     * Decode native stored values and distinguish malformed serialization.
-     *
-     * @param string|null $encoded Base64-encoded PHP serialization.
-     * @param bool|null $valid Whether native parsing completed without an error.
-     * @return mixed The native value, or null when parsing fails.
-     * @throws \Throwable When object hydration or the prior diagnostic handler fails.
-     */
-    public static function decodeSettings($encoded, &$valid = null)
-    {
-        $valid = false;
-        if (!is_string($encoded) || $encoded === '') {
-            return null;
-        }
-
-        $serialized = base64_decode($encoded);
-        if ($serialized === '') {
-            return null;
-        }
-        if (strpos($serialized, 'S:') !== false) {
-            $serialized = self::normalizeEscapedStrings($serialized);
-        }
-        $valid = true;
-        $parse_line = 0;
-        $previous = null;
-        $previous = set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$parse_line, &$valid) {
-            if ($file === __FILE__ && $line === $parse_line && in_array($severity, array(E_NOTICE, E_WARNING), true)
-                && preg_match('/^(?:unserialize\(\): (?:Error at offset [0-9]+ of [0-9]+ bytes|Unexpected end of serialized data|Maximum depth of [0-9]+ exceeded.*)|Insufficient data for unserializing - -?[0-9]+ required, [0-9]+ present)$/D', $message)) {
-                // Throwing here would bypass deferred object callbacks during native failure cleanup.
-                $valid = false;
-                return true;
-            }
-            if ($file === __FILE__ && $line === $parse_line && in_array($severity, array(E_NOTICE, E_WARNING), true)
-                && preg_match('/^unserialize\(\): (?:Extra data starting at offset [0-9]+ of [0-9]+ bytes|Numerical result out of range)$/D', $message)) {
-                // Preserve native accepted prefixes and clamped integers from historical stored values.
-                return true;
-            }
-
-            return $previous === null ? false : $previous(...func_get_args());
-        });
-
-        try {
-            $parse_line = __LINE__ + 1;
-            $settings = unserialize($serialized);
-
-            return $valid ? $settings : null;
-        } finally {
-            restore_error_handler();
-        }
-    }
-
-    /**
-     * Rewrite escaped tokens and leave unrecognized remainders for native callback cleanup.
-     *
-     * @param string $value Serialized native settings.
-     * @return string Normalized bytes with any unrecognized remainder unchanged.
-     */
-    public static function normalizeEscapedStrings($value)
-    {
-        $length = strlen($value);
-        $position = 0;
-        $result = '';
-        $depth = 0;
-
-        while ($position < $length) {
-            $start = $position;
-            $type = $value[$position];
-            if ($type === '}') {
-                $result .= '}';
-                $position++;
-                $depth--;
-                if ($depth <= 0) {
-                    return $result . substr($value, $position);
-                }
-                continue;
-            }
-            if (preg_match('/\G(?:N;|[bidrR]:[^;]*;|a:[0-9]+:\{)/', $value, $match, 0, $position)) {
-                $result .= $match[0];
-                $position += strlen($match[0]);
-                if (substr($match[0], -1) === '{') {
-                    $depth++;
-                }
-                if ($depth === 0) {
-                    return $result . substr($value, $position);
-                }
-                continue;
-            }
-            if (!preg_match('/\G([sSEOC]):([0-9]+):"/', $value, $match, 0, $position)) {
-                return $result . substr($value, $start);
-            }
-
-            $position += strlen($match[0]);
-            if ($match[2] > $length - $position) {
-                return $result . substr($value, $start);
-            }
-            $size = (int) $match[2];
-            $contents = '';
-            if ($type === 'S') {
-                for ($i = 0; $i < $size; $i++) {
-                    if ($position >= $length) {
-                        return $result . substr($value, $start);
-                    }
-                    $byte = $value[$position++];
-                    if ($byte === '\\') {
-                        $hex = substr($value, $position, 2);
-                        if (strlen($hex) !== 2 || strspn($hex, '0123456789abcdefABCDEF') !== 2) {
-                            return $result . substr($value, $start);
-                        }
-                        $byte = chr(hexdec($hex));
-                        $position += 2;
-                    }
-                    $contents .= $byte;
-                }
-            } else {
-                if ($size > $length - $position) {
-                    return $result . substr($value, $start);
-                }
-                $position += $size;
-            }
-
-            if ($type === 'O' || $type === 'C') {
-                if (!preg_match('/\G":([+-]?[0-9]+):\{/', $value, $tail, 0, $position)) {
-                    return $result . substr($value, $start);
-                }
-                $position += strlen($tail[0]);
-                if ($type === 'C') {
-                    if ($tail[1] < 0 || $tail[1] >= $length - $position) {
-                        return $result . substr($value, $start);
-                    }
-                    $payload_length = (int) $tail[1];
-                    if ($value[$position + $payload_length] !== '}') {
-                        return $result . substr($value, $start);
-                    }
-                    $position += $payload_length + 1;
-                }
-                $result .= substr($value, $start, $position - $start);
-                if ($type === 'O') {
-                    $depth++;
-                }
-                if ($depth === 0) {
-                    return $result . substr($value, $position);
-                }
-                continue;
-            }
-            if (substr($value, $position, 2) !== '";') {
-                return $result . substr($value, $start);
-            }
-            $position += 2;
-            $result .= $type === 'S' ? 's:' . strlen($contents) . ':"' . $contents . '";' : substr($value, $start, $position - $start);
-            if ($depth === 0) {
-                return $result . substr($value, $position);
-            }
-        }
-
-        return $result;
-    }
 }

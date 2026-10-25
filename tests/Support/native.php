@@ -79,7 +79,16 @@ define('PATH_THIRD', $case === 'missing-phar' ? $temporaryDirectory . '/' : $roo
 define('APP_VER', $argv[3] ?? '7.5.0');
 
 if ($case === 'coverage-repeat') {
-    require __DIR__ . '/coverage.php';
+    $reserved = getenv('LOW_RANDOM_RAW_COVERAGE') . '.' . getmypid() . '.json';
+    try {
+        require __DIR__ . '/coverage.php';
+    } catch (RuntimeException $error) {
+        if ($error->getMessage() !== 'Coverage report already exists: ' . $reserved || !is_file($reserved)) {
+            throw $error;
+        }
+        fwrite(STDERR, $error->getMessage() . "\n");
+        exit(255);
+    }
     throw new RuntimeException('A repeated collector should reject the reserved report.');
 }
 

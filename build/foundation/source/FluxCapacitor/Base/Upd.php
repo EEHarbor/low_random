@@ -67,7 +67,7 @@ class Upd
 
         $extension = PATH_THIRD . 'low_random/ext.low_random.php';
 
-        if (!is_file($extension)) {
+        if (!\is_file($extension) || !\is_readable($extension)) {
             return true;
         }
 

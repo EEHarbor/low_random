@@ -1,0 +1,56 @@
+{
+  "profiles": [
+    {
+      "kind": "output",
+      "case_file": "tests/tests/Unit/FixtureContractTest.php",
+      "case_class": "Tests\\FixtureContractTest",
+      "method": "testNativeOutputFilesAvoidPipeDeadlock",
+      "case_sha256": "8901bec3446684ede93ad37d5162dbf9987f4dcb78a1e93e3ce09548c65d3b49",
+      "arguments": [
+        "-r",
+        "fwrite(STDOUT, str_repeat(\"o\", 1048576)); fwrite(STDERR, str_repeat(\"e\", 1048576));"
+      ],
+      "timeout": 20
+    },
+    {
+      "kind": "timeout",
+      "case_file": "tests/tests/Unit/FixtureContractTest.php",
+      "case_class": "Tests\\FixtureContractTest",
+      "method": "testNativeDeadlineIsEnforced",
+      "case_sha256": "8901bec3446684ede93ad37d5162dbf9987f4dcb78a1e93e3ce09548c65d3b49",
+      "arguments": [
+        "-r",
+        "usleep(500000);"
+      ],
+      "timeout": 0.05
+    },
+    {
+      "kind": "diagnostic",
+      "case_file": "tests/tests/Unit/MetadataAndViewTest.php",
+      "case_class": "Tests\\MetadataAndViewTest",
+      "method": "testDiagnosticsCatchSuppressedDeprecation",
+      "case_sha256": "70a41eae0e3a4ae9143f9909a34f7495bacb541f7ab7afa7fe9f925f84996dc5",
+      "arguments": [
+        "-r",
+        "try { @trigger_error(\"diagnostic harness probe\", E_USER_DEPRECATED); } catch (Throwable $error) {}"
+      ],
+      "timeout": 20
+    },
+    {
+      "kind": "coverage",
+      "case_file": "tests/tests/Unit/NativeProcessTest.php",
+      "case_class": "Tests\\NativeProcessTest",
+      "method": "testRawCoverageReportLifecycle",
+      "case_sha256": "3b02353b6b35630f487f84ec0f686c12cf9c167640fe994b2962f9568a65879d",
+      "arguments": [
+        "{ROOT}/tests/Support/native.php",
+        "coverage-repeat",
+        "{TMP}"
+      ],
+      "timeout": 20
+    }
+  ],
+  "fixture_sha256": "505bd3699a43f2d822b76efe4a0297b7e26269a64bda96d03738cbda44c7d044",
+  "collector_sha256": "87cd621116716afaed1394ca545772933d7ecad3517f8f9be60f08c4c110e520",
+  "scope": "Four authored test-tool negative controls only; no production diagnostics, status/stderr/timeout or startup failure has a blanket allowance. Rebinding is an explicit reviewed edit."
+}

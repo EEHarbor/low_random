@@ -104,4 +104,18 @@ final class StaticCacheTest extends TestCase
             }
         }
     }
+
+    /**
+     * Retain NAN key pieces without deprecated native boolean conversion.
+     *
+     * @return void
+     */
+    public function testNanKeyRemainsDistinctFromAnOmittedPiece(): void
+    {
+        StaticCache::put(array('topic', NAN), 'nan-key');
+        StaticCache::put('topic', 'ordinary-key');
+        $this->assertSame('nan-key', StaticCache::get(array('topic', NAN)));
+        $this->assertSame('ordinary-key', StaticCache::get('topic'));
+    }
+
 }

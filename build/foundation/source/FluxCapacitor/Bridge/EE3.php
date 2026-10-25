@@ -4,7 +4,6 @@ namespace Low\Random\FluxCapacitor\Bridge;
 
 use Low\Random\FluxCapacitor\Bridge\AbstractBridge;
 use Low\Random\FluxCapacitor\Conduit\StaticCache;
-use Low\Random\FluxCapacitor\Conduit\GlobalFieldSettings;
 
 /**
  * EEHarbor EE3 version of the foundation
@@ -404,7 +403,7 @@ class EE3 extends AbstractBridge
      */
     public function url_title($text)
     {
-        return  url_title(trim(strtr($text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')));
+        return  url_title(trim(\strtr($text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')));
     }
 
     /**
@@ -525,7 +524,32 @@ class EE3 extends AbstractBridge
             ->get('fieldtypes');
 
         if ((bool) $ftSettingsQuery->num_rows()) {
-            $ftSettings = GlobalFieldSettings::decodeSettings($ftSettingsQuery->row('settings'));
+            // Class statics retain the native callsite lifetime across PHP 7.4 subclasses.
+            $bindings = new class {
+                public static bool $parser;
+                public static bool $carrier;
+            };
+            if (!isset($bindings::$parser)) {
+                $bindings::$parser = \function_exists(__NAMESPACE__ . '\\unserialize');
+                $bindings::$carrier = \function_exists(__NAMESPACE__ . '\\base64_decode');
+            }
+            $compatibility = require \dirname(__DIR__) . '/Conduit/NativeSettings.php';
+            /**
+             * Preserve original temporary argument release before native hydration.
+             *
+             * @param mixed $carrier
+             * @return mixed
+             * @throws \Throwable When native conversion or a consumer callback fails.
+             */
+            $nativeCarrier = static function ($carrier) {
+                if (\is_float($carrier) && \is_nan($carrier)) {
+                    $carrier = 'NAN';
+                }
+                return $carrier === null ? '' : \base64_decode($carrier);
+            };
+            $decode = $bindings::$parser ? __NAMESPACE__ . '\\unserialize' : $compatibility['decode'];
+            $decodeCarrier = $bindings::$carrier ? __NAMESPACE__ . '\\base64_decode' : $nativeCarrier;
+            $ftSettings = @$decode(@$decodeCarrier($ftSettingsQuery->row('settings')));
 
             // It is possible there is actually nothing in the FT settings. So if not, just return an empty array
             if (!$ftSettings) {

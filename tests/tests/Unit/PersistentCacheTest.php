@@ -170,7 +170,7 @@ final class PersistentCacheTest extends TestCase
      */
     public function testCreationObstaclesReturnFalseWithoutChangingTheFilesystem()
     {
-        foreach (array('file', 'dangling-link', 'missing-parent', 'alias-chain', 'alias-cycle') as $shape) {
+        foreach (array('file', 'dangling-link', 'missing-parent', 'alias-chain', 'alias-cycle', 'long-name') as $shape) {
             $path = $this->temporaryDirectory . '/' . $shape;
 
             if ($shape === 'file') {
@@ -189,6 +189,10 @@ final class PersistentCacheTest extends TestCase
 
             if ($shape === 'missing-parent') {
                 $path .= '/cache';
+            }
+
+            if ($shape === 'long-name') {
+                $path = $this->temporaryDirectory . '/' . str_repeat('x', 300);
             }
 
             $paths = \Closure::bind(static function ($path) {
@@ -441,6 +445,19 @@ final class PersistentCacheTest extends TestCase
     }
 
     /**
+     * Retain a legacy truthy NAN flag without PHP 8.5 boolean diagnostics.
+     *
+     * @return void
+     */
+    public function testNanProcessedFlagRetainsTruthyLookupWithoutDiagnostics(): void
+    {
+        $this->assertTrue(PersistentCache::set('nan-flag', 'stored'));
+        $this->assertTrue(PersistentCache::has(sha1('nan-flag'), NAN));
+        $this->assertFalse(PersistentCache::has('nan-flag', NAN));
+        $this->assertTrue(PersistentCache::has('nan-flag', false));
+    }
+
+    /**
      * Preserve native accepted persisted values without new parser diagnostics.
      *
      * @param string $serialized
@@ -507,6 +524,21 @@ final class PersistentCacheTest extends TestCase
             $this->assertSame('compound', PersistentCache::get(array('topic', 'one')));
             $this->assertSame('scalar', PersistentCache::get(array('topic:one')));
         }
+    }
+
+
+    /**
+     * Retain NAN key pieces without deprecated native boolean conversion.
+     *
+     * @return void
+     */
+    public function testNanKeyRemainsDistinctFromAnOmittedPiece(): void
+    {
+        $this->assertTrue(PersistentCache::set(array('topic', NAN), 'nan-key'));
+        $this->assertTrue(PersistentCache::set('topic', 'ordinary-key'));
+        StaticCache::clear();
+        $this->assertSame('nan-key', PersistentCache::get(array('topic', NAN)));
+        $this->assertSame('ordinary-key', PersistentCache::get('topic'));
     }
 
 }

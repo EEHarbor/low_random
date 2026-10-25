@@ -6,7 +6,7 @@ use Low\Random\FluxCapacitor\FluxCapacitor;
 
 $addonNavigation = PATH_THIRD . 'low_random/Conduit/McpNav.php';
 
-if (is_file($addonNavigation)) {
+if (\is_file($addonNavigation) && \is_readable($addonNavigation)) {
     include_once $addonNavigation;
 }
 

@@ -108,7 +108,7 @@ const GZ = 0x1000;
 const BZ2 = 0x2000;
 const MASK = 0x3000;
 const START = 'index.php';
-const LEN = 7894;
+const LEN = 7911;
 
 /**
  * Extract the archive into its temporary directory when PHAR streams are absent.
@@ -312,6 +312,7 @@ static function _removeTmpFiles($temp, $origdir)
 $temp = rtrim($temp, DIRECTORY_SEPARATOR === '\\' ? '/\\' : '/');
 if (is_link($temp)) {
 unlink($temp);
+chdir($origdir);
 return;
 }
 chdir($temp);

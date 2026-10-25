@@ -96,6 +96,7 @@ class StaticCache
      * @param  string|array  $key            Either a string or an array of items
      * @param  boolean       $key_processed  If true, bypasses `create_key`. Used when key has already be SHA1'd.
      * @return string                        SHA1 string
+     * @throws \Throwable When an original namespace cache-key hook fails.
      */
     private static function createKey($key, $key_processed = false)
     {
@@ -107,15 +108,32 @@ class StaticCache
             $key = array($key);
         }
 
-        $pieces = array_filter($key, static function ($piece) {
-            return $piece || $piece === 0 || $piece === '0';
-        });
-
-        if (count($pieces) < 2) {
-            return sha1(implode(':', $pieces));
+        // Preserve the original nested callees before a filter hook can register others.
+        $bindings = new class {
+            public static bool $hash;
+            public static bool $join;
+            public static bool $filter;
+        };
+        if (!isset($bindings::$hash)) {
+            $bindings::$hash = \function_exists(__NAMESPACE__ . '\\sha1');
+            $bindings::$join = \function_exists(__NAMESPACE__ . '\\implode');
+            $bindings::$filter = \function_exists(__NAMESPACE__ . '\\array_filter');
+        }
+        if ($bindings::$hash || $bindings::$join || $bindings::$filter) {
+            return sha1(implode(':', array_filter($key)));
         }
 
-        // Keep compound keys outside the historical scalar SHA1 namespace.
-        return 'compound-' . sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
+        $pieces = \array_filter($key, static function ($piece) {
+            return (\is_float($piece) && \is_nan($piece)) || $piece || $piece === 0 || $piece === '0';
+        });
+        $pieces = \array_map(static function ($piece) {
+            return \is_float($piece) && \is_nan($piece) ? 'NAN' : $piece;
+        }, $pieces);
+        if (\count($pieces) < 2) {
+            return \sha1(\implode(':', $pieces));
+        }
+
+        // Native compound keys cannot alias a scalar SHA1 or another colon grouping.
+        return 'compound-' . \sha1(\implode(':', \str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
     }
 }

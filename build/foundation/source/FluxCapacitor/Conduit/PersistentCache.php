@@ -107,10 +107,13 @@ class PersistentCache
      * @param  string|array  $key            Either a string or an array if items
      * @param  boolean       $key_processed  Whether the key has already be SHA1'd
      * @return boolean                       Whether the key exists in the cache.
+     * @throws \Throwable When cache-key hooks or filesystem diagnostics fail.
      */
     public static function has($key, $key_processed = false)
     {
-        if (!$key_processed) {
+        // NAN was truthy before PHP 8.5 began diagnosing its boolean conversion.
+        $is_nan = \is_float($key_processed) && \is_nan($key_processed);
+        if (!$is_nan && !$key_processed) {
             $key = self::createKey($key);
         }
 
@@ -153,6 +156,7 @@ class PersistentCache
      *
      * @param  string|array  $key  Either a string or an array of items
      * @return string              SHA1 string
+     * @throws \Throwable When an original namespace cache-key hook fails.
      */
     private static function createKey($key)
     {
@@ -160,16 +164,33 @@ class PersistentCache
             $key = array($key);
         }
 
-        $pieces = array_filter($key, static function ($piece) {
-            return $piece || $piece === 0 || $piece === '0';
-        });
-
-        if (count($pieces) < 2) {
-            return sha1(implode(':', $pieces));
+        // Preserve the original nested callees before a filter hook can register others.
+        $bindings = new class {
+            public static bool $hash;
+            public static bool $join;
+            public static bool $filter;
+        };
+        if (!isset($bindings::$hash)) {
+            $bindings::$hash = \function_exists(__NAMESPACE__ . '\\sha1');
+            $bindings::$join = \function_exists(__NAMESPACE__ . '\\implode');
+            $bindings::$filter = \function_exists(__NAMESPACE__ . '\\array_filter');
+        }
+        if ($bindings::$hash || $bindings::$join || $bindings::$filter) {
+            return sha1(implode(':', array_filter($key)));
         }
 
-        // Keep compound keys outside the historical scalar SHA1 namespace.
-        return 'compound-' . sha1(implode(':', str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
+        $pieces = \array_filter($key, static function ($piece) {
+            return (\is_float($piece) && \is_nan($piece)) || $piece || $piece === 0 || $piece === '0';
+        });
+        $pieces = \array_map(static function ($piece) {
+            return \is_float($piece) && \is_nan($piece) ? 'NAN' : $piece;
+        }, $pieces);
+        if (\count($pieces) < 2) {
+            return \sha1(\implode(':', $pieces));
+        }
+
+        // Native compound keys cannot alias a scalar SHA1 or another colon grouping.
+        return 'compound-' . \sha1(\implode(':', \str_replace(array('\\', ':'), array('\\\\', '\\:'), $pieces)));
     }
 
     /**
@@ -192,27 +213,73 @@ class PersistentCache
      */
     private static function serveCacheData($value)
     {
-        if (strpos($value, 'S:') !== false) {
-            $value = GlobalFieldSettings::normalizeEscapedStrings($value);
+        // Class statics retain the native callsite lifetime across PHP 7.4 subclasses.
+        $bindings = new class {
+            public static bool $parser;
+        };
+        if (!isset($bindings::$parser)) {
+            $bindings::$parser = \function_exists(__NAMESPACE__ . '\\unserialize');
+        }
+        if ($bindings::$parser) {
+            return unserialize($value);
         }
 
-        return unserialize($value);
+        if (\is_string($value) && \strpos($value, 'S:') !== false) {
+            $compatibility = require __DIR__ . '/NativeSettings.php';
+            $value = $compatibility['normalize']($value);
+        }
+
+        return \unserialize($value);
     }
 
     /**
      * Make sure the EE global cache folder and our module-specific folders
      * exist and are writable.
      *
-     * @return bool  Whether the folders exist and are writable
+     * @return bool Whether the folders exist and are writable.
+     * @throws \Throwable When an unexpected filesystem diagnostic handler fails.
      */
     private static function checkPath()
     {
+        /**
+         * Preserve native cache aliases and the existing logged directory-failure path.
+         *
+         * @param string $path Original configured directory path.
+         * @param bool $module Whether this is the original module-specific native callsite.
+         * @return bool Whether native directory creation succeeded.
+         * @throws \Throwable When an unexpected diagnostic handler fails.
+         */
+        $createDirectory = static function (&$path, $module)
+        {
+            $mkdirLine = 0;
+            $previous = null;
+            $previous = \set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$mkdirLine) {
+                if ($severity === \E_WARNING && $file === __FILE__ && $line === $mkdirLine
+                    && \preg_match('/^mkdir\\(\\): (?:Permission denied|File exists|Not a directory|No such file or directory|Too many levels of symbolic links|Read-only file system|File name too long)$/D', $message)) {
+                    return true;
+                }
+
+                return $previous === null ? false : $previous(...\func_get_args());
+            });
+
+            try {
+                if ($module) {
+                    $mkdirLine = __LINE__ + 1;
+                    return @mkdir($path, DIR_WRITE_MODE);
+                }
+                $mkdirLine = __LINE__ + 1;
+                return @mkdir($path, DIR_WRITE_MODE);
+            } finally {
+                \restore_error_handler();
+            }
+        };
+
         // Add a trailing slash to the path if needed
         self::$cache_path = preg_replace("/(.+?)\/*$/", "\\1/", self::$cache_path);
 
         // If the generic cache folder doesn't exist, try to create it.
         if (!is_dir(self::$cache_path)) {
-            if (!self::createDirectory(self::$cache_path)) {
+            if (!$createDirectory(self::$cache_path, false)) {
                 ee()->load->library('logger');
                 ee()->logger->developer('Low Random: Write Cache enabled but could not create cache folder: ' . self::$cache_path);
                 return false;
@@ -224,7 +291,9 @@ class PersistentCache
 
         // Make sure the generic cache folder is writable.
         if (!is_writable(self::$cache_path)
-            || (DIRECTORY_SEPARATOR === '/' && !is_executable(self::$cache_path))) {
+            || (\DIRECTORY_SEPARATOR === '/' && \is_string(self::$cache_path)
+                && (!\preg_match('~\\A[a-zA-Z0-9+.-]{2,}://~D', self::$cache_path) || \strncasecmp(self::$cache_path, 'file://', 7) === 0)
+                && !\is_executable(self::$cache_path))) {
             ee()->load->library('logger');
             ee()->logger->developer('Low Random: Write Cache enabled but cache path not writable: ' . self::$cache_path);
             return false;
@@ -232,7 +301,7 @@ class PersistentCache
 
         // If the module-specific cache folder doesn't exist, try to create it.
         if (!is_dir(self::$module_cache_path)) {
-            if (!self::createDirectory(self::$module_cache_path)) {
+            if (!$createDirectory(self::$module_cache_path, true)) {
                 ee()->load->library('logger');
                 ee()->logger->developer('Low Random: Write Cache enabled but could not create module cache folder: ' . self::$module_cache_path);
                 return false;
@@ -244,7 +313,9 @@ class PersistentCache
 
         // Make sure the module-specific cache folder is writable.
         if (!is_writable(self::$module_cache_path)
-            || (DIRECTORY_SEPARATOR === '/' && !is_executable(self::$module_cache_path))) {
+            || (\DIRECTORY_SEPARATOR === '/' && \is_string(self::$module_cache_path)
+                && (!\preg_match('~\\A[a-zA-Z0-9+.-]{2,}://~D', self::$module_cache_path) || \strncasecmp(self::$module_cache_path, 'file://', 7) === 0)
+                && !\is_executable(self::$module_cache_path))) {
             // If the path is wrong we'll turn off caching
             ee()->load->library('logger');
             ee()->logger->developer('Low Random: Write Cache enabled but module cache path not writable: ' . self::$module_cache_path);
@@ -254,31 +325,4 @@ class PersistentCache
         return true;
     }
 
-    /**
-     * Preserve native cache aliases and the existing logged directory-failure path.
-     *
-     * @param string $path Original configured directory path.
-     * @return bool Whether native directory creation succeeded.
-     * @throws \Throwable When an unexpected diagnostic handler fails.
-     */
-    private static function createDirectory($path)
-    {
-        $mkdirLine = 0;
-        $previous = null;
-        $previous = set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$mkdirLine) {
-            if ($severity === E_WARNING && $file === __FILE__ && $line === $mkdirLine
-                && preg_match('/^mkdir\\(\\): (?:Permission denied|File exists|Not a directory|No such file or directory|Too many levels of symbolic links|Read-only file system)$/D', $message)) {
-                return true;
-            }
-
-            return $previous === null ? false : $previous(...func_get_args());
-        });
-
-        try {
-            $mkdirLine = __LINE__ + 1;
-            return mkdir($path, DIR_WRITE_MODE);
-        } finally {
-            restore_error_handler();
-        }
-    }
 }

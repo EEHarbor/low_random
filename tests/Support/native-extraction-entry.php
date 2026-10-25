@@ -35,6 +35,7 @@ try {
             class_exists($class);
         }
         if ($entry !== 'fallback' && $mode === 'cleanup') {
+            chdir($owned);
             Extract_low_random::_removeTmpFiles($link . '/', $original);
         }
         if ($entry !== 'fallback' && $mode !== 'cleanup') {

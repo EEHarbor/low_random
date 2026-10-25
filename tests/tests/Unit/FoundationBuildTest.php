@@ -17,6 +17,7 @@ final class FoundationBuildTest extends TestCase
         $this->copyDirectory($root . '/low_random', $copy . '/low_random');
         mkdir($copy . '/tests/scripts', 0700, true);
         copy($root . '/tests/scripts/inventory.php', $copy . '/tests/scripts/inventory.php');
+        copy($root . '/tests/SOURCE_INVENTORY.json', $copy . '/tests/SOURCE_INVENTORY.json');
         $result = $this->native(array('-d', 'phar.readonly=0', $copy . '/build/foundation/build.php'));
         $this->assertSame(0, $result[0], $result[1] . $result[2]);
         $this->assertSame('', $result[2]);
@@ -31,7 +32,11 @@ final class FoundationBuildTest extends TestCase
             $count++;
         }
 
-        $this->assertSame(22, $count);
+        $provenance = json_decode(file_get_contents($root . '/build/foundation/provenance.json'), true);
+        $this->assertCount(22, $provenance['members']);
+        $this->assertSame(array('FluxCapacitor/Conduit/NativeSettings.php'), array_keys($provenance['added_members']));
+        $this->assertSame(0644, $provenance['added_members']['FluxCapacitor/Conduit/NativeSettings.php']['permissions']);
+        $this->assertSame(23, $count);
         $this->assertSame(hash_file('sha256', $root . '/build/foundation/stub.php'), $inventory['sources']['low_random/low_random.phar!stub']['sha256']);
     }
 
