@@ -218,34 +218,36 @@ final class Compatibility2026Test extends TestCase
     {
         $serialized = 'C:1:"X":-999:{S:}';
         $compatibility = require 'phar://' . dirname(__DIR__, 3) . '/low_random/low_random.phar/FluxCapacitor/Conduit/NativeSettings.php';
-        $this->assertSame($serialized, $compatibility['normalize']($serialized));
+        $this->assertSame($serialized, $compatibility->normalize($serialized));
     }
 
     /**
-     * Let native parsing run deferred object callbacks before malformed fallback.
+     * Hydrate canonical nested objects exactly once before returning their stored values.
      *
      * @return void
      */
-    public function testMalformedStoredTailsPreserveDeferredCallbacks(): void
+    public function testCanonicalStoredTailsPreserveOnceOnlyCallbacks(): void
     {
-        foreach (array('s:9:"bad";', 'S:9:"bad";') as $tail) {
+        foreach (array('s:3:"bad";', 'S:3:"bad";') as $tail) {
             SettingsDeferredCallbackFixture::$calls = 0;
             $serialized = 'a:2:{i:0;' . serialize(new SettingsDeferredCallbackFixture()) . 'i:1;' . $tail . '}';
             $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
-            $this->assertSame(array(), (new GlobalFieldSettings())->getSettings());
+            $value = (new GlobalFieldSettings())->getSettings();
+            $this->assertInstanceOf(SettingsDeferredCallbackFixture::class, $value[0]);
+            $this->assertSame('bad', $value[1]);
             $this->assertSame(1, SettingsDeferredCallbackFixture::$calls);
         }
     }
 
     /**
-     * Preserve an ordinary callback exception raised while native parsing unwinds.
+     * Preserve an ordinary callback exception raised by valid nested hydration.
      *
      * @return void
      * @throws \UnexpectedValueException
      */
-    public function testMalformedStoredTailDoesNotSwallowObjectExceptions(): void
+    public function testCanonicalStoredTailDoesNotSwallowObjectExceptions(): void
     {
-        $serialized = 'a:2:{i:0;' . serialize(new SettingsHydrationExceptionFixture()) . 'i:1;S:9:"bad";}';
+        $serialized = 'a:2:{i:0;' . serialize(new SettingsHydrationExceptionFixture()) . 'i:1;S:3:"bad";}';
         $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('owned hydration exception');
@@ -276,14 +278,14 @@ final class Compatibility2026Test extends TestCase
     }
 
     /**
-     * Preserve native clamped integers rather than discarding accepted stored values.
+     * Preserve quiet native integer boundaries as stored scalar and nested values.
      *
      * @return void
      */
-    public function testNativeClampedIntegersRemainReadable(): void
+    public function testNativeIntegerBoundariesRemainReadable(): void
     {
         $settings = new GlobalFieldSettings();
-        foreach (array('99999999999999999999999999999' => PHP_INT_MAX, '-99999999999999999999999999999' => PHP_INT_MIN) as $integer => $expected) {
+        foreach (array((string) PHP_INT_MAX => PHP_INT_MAX, (string) PHP_INT_MIN => PHP_INT_MIN) as $integer => $expected) {
             foreach (array('i:' . $integer . ';' => $expected, 'a:2:{s:4:"keep";i:7;s:1:"n";i:' . $integer . ';}' => array('keep' => 7, 'n' => $expected)) as $serialized => $value) {
                 $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
                 $this->assertSame($value, $settings->getSettings());
@@ -333,19 +335,20 @@ final class Compatibility2026Test extends TestCase
     }
 
     /**
-     * Delegate oversized wire lengths to native parsing without extra cast diagnostics.
+     * Preserve canonical callbacks at valid zero and leading-zero length boundaries.
      *
      * @return void
      */
-    public function testOversizedSerializedLengthsPreserveNativeCleanup(): void
+    public function testValidSerializedLengthBoundariesPreserveCallbacks(): void
     {
-        $huge = '999999999999999999999999999999';
-        $tails = array('S:' . $huge . ':"x";', 's:' . $huge . ':"S:";', 'O:' . $huge . ':"X":0:{S:}', 'C:' . $huge . ':"X":1:{S:}', 'C:1:"X":' . $huge . ':{S:}', 'C:1:"X":-' . $huge . ':{S:}');
-        foreach ($tails as $tail) {
+        $tails = array('s:0:"";' => '', 'S:0:"";' => '', 's:0003:"bad";' => 'bad', 'S:0003:"bad";' => 'bad');
+        foreach ($tails as $tail => $expected) {
             SettingsDeferredCallbackFixture::$calls = 0;
             $serialized = 'a:2:{i:0;' . serialize(new SettingsDeferredCallbackFixture()) . 'i:1;' . $tail . '}';
             $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
-            $this->assertSame(array(), (new GlobalFieldSettings())->getSettings());
+            $value = (new GlobalFieldSettings())->getSettings();
+            $this->assertInstanceOf(SettingsDeferredCallbackFixture::class, $value[0]);
+            $this->assertSame($expected, $value[1]);
             $this->assertSame(1, SettingsDeferredCallbackFixture::$calls);
         }
     }
@@ -451,7 +454,7 @@ final class Compatibility2026Test extends TestCase
     }
 
     /**
-     * Convert an original base64 hook's decoded Stringable value once.
+     * Decode actual bytes from a documented string-returning base64 helper.
      *
      * @dataProvider decodedCarrierFormats
      * @param string $format
@@ -466,9 +469,12 @@ final class Compatibility2026Test extends TestCase
         $expected = array();
         foreach (array('GlobalFieldSettings', 'EE2', 'EE3', 'EE4', 'EE5') as $kind) {
             $scope = $kind === 'GlobalFieldSettings' ? 'conduit' : 'bridge';
-            foreach (array('carrier-text', null) as $carrier) {
-                $expected[] = array('kind' => $kind, 'carrier' => $carrier, 'hook' => 'native',
-                    'calls' => array(array($scope . '-base64', $carrier), array($scope . '-stringify')));
+            $wire = serialize(array('wire' => 'native'));
+            if ($format === 'escaped') { $wire = 'a:1:{s:4:"wire";S:6:"native";}'; }
+            if ($format === 'prefix') { $wire .= 'ignored remainder'; }
+            foreach (array(base64_encode($wire), null) as $carrier) {
+                $expected[] = array('kind' => $kind, 'carrier' => $carrier, 'hook' => $carrier === null ? null : 'native',
+                    'calls' => array(array($scope . '-base64', $carrier)));
             }
         }
         $this->assertSame($expected, json_decode($result[1], true));

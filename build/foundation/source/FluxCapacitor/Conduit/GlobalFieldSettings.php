@@ -71,23 +71,36 @@ class GlobalFieldSettings
                 $bindings::$parser = \function_exists(__NAMESPACE__ . '\\unserialize');
                 $bindings::$carrier = \function_exists(__NAMESPACE__ . '\\base64_decode');
             }
-            $compatibility = require __DIR__ . '/NativeSettings.php';
+            $normalizer = require __DIR__ . '/NativeSettings.php';
             /**
-             * Preserve original temporary argument release before native hydration.
+             * Retain raw native operands while spelling only null and NaN before decoding.
              *
-             * @param mixed $carrier
-             * @return mixed
+             * @param mixed $carrier Original fieldtype row operand.
+             * @return mixed Original operand or its quiet native null/NaN spelling.
              * @throws \Throwable When native conversion or a consumer callback fails.
              */
             $nativeCarrier = static function ($carrier) {
                 if (\is_float($carrier) && \is_nan($carrier)) {
                     $carrier = 'NAN';
                 }
-                return $carrier === null ? '' : \base64_decode($carrier);
+                return $carrier === null ? '' : $carrier;
             };
-            $decode = $bindings::$parser ? __NAMESPACE__ . '\\unserialize' : $compatibility['decode'];
-            $decodeCarrier = $bindings::$carrier ? __NAMESPACE__ . '\\base64_decode' : $nativeCarrier;
-            $ftSettings = @$decode(@$decodeCarrier($ftSettingsQuery->row('settings')));
+            if ($bindings::$parser) {
+                $decode = __NAMESPACE__ . '\\unserialize';
+                if ($bindings::$carrier) {
+                    $decodeCarrier = __NAMESPACE__ . '\\base64_decode';
+                    $ftSettings = @$decode(@$decodeCarrier($ftSettingsQuery->row('settings')));
+                } else {
+                    $ftSettings = @$decode(@\base64_decode($nativeCarrier($ftSettingsQuery->row('settings'))));
+                }
+            } else {
+                if ($bindings::$carrier) {
+                    $decodeCarrier = __NAMESPACE__ . '\\base64_decode';
+                    $ftSettings = @\unserialize($normalizer->normalize(@$decodeCarrier($ftSettingsQuery->row('settings')), true));
+                } else {
+                    $ftSettings = @\unserialize($normalizer->normalize(@\base64_decode($nativeCarrier($ftSettingsQuery->row('settings'))), true));
+                }
+            }
             if (!\is_float($ftSettings) || !\is_nan($ftSettings)) {
                 $ftSettings = $ftSettings ?: array();
             }

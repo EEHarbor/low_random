@@ -224,12 +224,8 @@ class PersistentCache
             return unserialize($value);
         }
 
-        if (\is_string($value) && \strpos($value, 'S:') !== false) {
-            $compatibility = require __DIR__ . '/NativeSettings.php';
-            $value = $compatibility['normalize']($value);
-        }
-
-        return \unserialize($value);
+        $normalizer = require __DIR__ . '/NativeSettings.php';
+        return \unserialize($normalizer->normalize($value));
     }
 
     /**

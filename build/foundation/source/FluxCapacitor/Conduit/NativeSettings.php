@@ -1,172 +1,154 @@
 <?php
 
-namespace Low\Random\FluxCapacitor\Conduit;
-
 /**
- * Return local callbacks without adding methods to extensible legacy classes.
+ * Create a stateless byte normalizer while leaving hydration to the caller.
  *
- * @return array<string, \Closure>
+ * @return object Native-wire normalizer with no application state.
  */
-return (static function () {
+return new class {
     /**
-     * Rewrite escaped tokens and leave unrecognized remainders for native callback cleanup.
+     * Rewrite recognized legacy strings and retain only a complete first value.
      *
-     * @param string $value Serialized native settings.
-     * @return string Normalized bytes with any unrecognized remainder unchanged.
+     * @param mixed $wire Original native unserialize argument.
+     * @param bool $settings Whether the pinned settings-only invalid-prefix fallback applies.
+     * @return mixed Equivalent native wire or the untouched unsupported argument.
      */
-    $normalizeEscapedStrings = static function ($value)
+    public function normalize($wire, $settings = false)
     {
-        $length = \strlen($value);
-        $position = 0;
-        $result = '';
-        $depth = 0;
-
-        while ($position < $length) {
-            $start = $position;
-            $type = $value[$position];
-            if ($type === '}') {
-                $result .= '}';
-                $position++;
-                $depth--;
-                if ($depth <= 0) {
-                    return $result . \substr($value, $position);
-                }
-                continue;
-            }
-            if (\preg_match('/\G(?:N;|[bidrR]:[^;]*;|a:[0-9]+:\{)/', $value, $match, 0, $position)) {
-                $result .= $match[0];
-                $position += \strlen($match[0]);
-                if (\substr($match[0], -1) === '{') {
-                    $depth++;
-                }
-                if ($depth === 0) {
-                    return $result . \substr($value, $position);
-                }
-                continue;
-            }
-            if (!\preg_match('/\G([sSEOC]):([0-9]+):"/', $value, $match, 0, $position)) {
-                return $result . \substr($value, $start);
-            }
-
-            $position += \strlen($match[0]);
-            if ($match[2] > $length - $position) {
-                return $result . \substr($value, $start);
-            }
-            $size = (int) $match[2];
-            $contents = '';
-            if ($type === 'S') {
-                for ($i = 0; $i < $size; $i++) {
-                    if ($position >= $length) {
-                        return $result . \substr($value, $start);
+        if (!\is_string($wire)) {
+            return $wire;
+        }
+        // An unknown first opcode cannot construct an object or invoke native hydration.
+        if ($settings && $wire !== '' && \strpos('NbidrRsSaOCE', $wire[0]) === false) {
+            return 'b:0;';
+        }
+        $length = \strlen($wire);
+        $offset = 0;
+        $output = '';
+        $frames = array(array(1, false));
+        while ($frames) {
+            $frame = \count($frames) - 1;
+            if ($frames[$frame][0] === 0) {
+                if ($frames[$frame][1]) {
+                    if ($offset >= $length || $wire[$offset] !== '}') {
+                        return $wire;
                     }
-                    $byte = $value[$position++];
-                    if ($byte === '\\') {
-                        $hex = \substr($value, $position, 2);
+                    $output .= '}';
+                    $offset++;
+                }
+                \array_pop($frames);
+                continue;
+            }
+            $frames[$frame][0]--;
+            if ($offset >= $length) {
+                return $wire;
+            }
+            if (\preg_match('/\G(?:N;|b:[01];|i:[+-]?[0-9]+;|[rR]:[0-9]+;|d:(?:NAN|-?INF|[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?);)/', $wire, $match, 0, $offset)) {
+                $output .= $match[0];
+                $offset += \strlen($match[0]);
+                continue;
+            }
+            $start = $offset;
+            $tag = $wire[$offset];
+            if (($tag === 's' || $tag === 'S' || $tag === 'E') && \preg_match('/\G[sSE]:([0-9]+):"/', $wire, $match, 0, $offset)) {
+                $offset += \strlen($match[0]);
+                $bytes = self::bounded($match[1], $length - $offset);
+                if ($bytes === null) {
+                    return $wire;
+                }
+                if ($tag !== 'S') {
+                    $offset += $bytes;
+                    if (\substr($wire, $offset, 2) !== '";') {
+                        return $wire;
+                    }
+                    $offset += 2;
+                    $output .= \substr($wire, $start, $offset - $start);
+                    continue;
+                }
+                $body = '';
+                for ($byte = 0; $byte < $bytes; $byte++) {
+                    if ($offset >= $length) {
+                        return $wire;
+                    }
+                    $character = $wire[$offset++];
+                    if ($character === '\\') {
+                        $hex = \substr($wire, $offset, 2);
                         if (\strlen($hex) !== 2 || \strspn($hex, '0123456789abcdefABCDEF') !== 2) {
-                            return $result . \substr($value, $start);
+                            return $wire;
                         }
-                        $byte = \chr(\hexdec($hex));
-                        $position += 2;
+                        $character = \chr(\hexdec($hex));
+                        $offset += 2;
                     }
-                    $contents .= $byte;
+                    $body .= $character;
                 }
-            } else {
-                if ($size > $length - $position) {
-                    return $result . \substr($value, $start);
+                if (\substr($wire, $offset, 2) !== '";') {
+                    return $wire;
                 }
-                $position += $size;
-            }
-
-            if ($type === 'O' || $type === 'C') {
-                if (!\preg_match('/\G":([+-]?[0-9]+):\{/', $value, $tail, 0, $position)) {
-                    return $result . \substr($value, $start);
-                }
-                $position += \strlen($tail[0]);
-                if ($type === 'C') {
-                    if ($tail[1] < 0 || $tail[1] >= $length - $position) {
-                        return $result . \substr($value, $start);
-                    }
-                    $payload_length = (int) $tail[1];
-                    if ($value[$position + $payload_length] !== '}') {
-                        return $result . \substr($value, $start);
-                    }
-                    $position += $payload_length + 1;
-                }
-                $result .= \substr($value, $start, $position - $start);
-                if ($type === 'O') {
-                    $depth++;
-                }
-                if ($depth === 0) {
-                    return $result . \substr($value, $position);
-                }
+                $offset += 2;
+                $output .= 's:' . $bytes . ':"' . $body . '";';
                 continue;
             }
-            if (\substr($value, $position, 2) !== '";') {
-                return $result . \substr($value, $start);
+            if ($tag === 'a' && \preg_match('/\Ga:([0-9]+):\{/', $wire, $match, 0, $offset)) {
+                $offset += \strlen($match[0]);
+                $count = self::bounded($match[1], \intdiv($length - $offset, 2));
+                if ($count === null) {
+                    return $wire;
+                }
+                $output .= $match[0];
+                $frames[] = array($count * 2, true);
+                continue;
             }
-            $position += 2;
-            $result .= $type === 'S' ? 's:' . \strlen($contents) . ':"' . $contents . '";' : \substr($value, $start, $position - $start);
-            if ($depth === 0) {
-                return $result . \substr($value, $position);
+            if (($tag === 'O' || $tag === 'C') && \preg_match('/\G[OC]:([0-9]+):"/', $wire, $match, 0, $offset)) {
+                $offset += \strlen($match[0]);
+                $classBytes = self::bounded($match[1], $length - $offset);
+                if ($classBytes === null) {
+                    return $wire;
+                }
+                $offset += $classBytes;
+                if (!\preg_match('/\G":([+-]?[0-9]+):\{/', $wire, $match, 0, $offset)) {
+                    return $wire;
+                }
+                $offset += \strlen($match[0]);
+                $count = self::bounded($match[1], $tag === 'C' ? $length - $offset : \intdiv($length - $offset, 2));
+                if ($count === null) {
+                    return $wire;
+                }
+                if ($tag === 'C') {
+                    $offset += $count;
+                    if ($offset >= $length || $wire[$offset] !== '}') {
+                        return $wire;
+                    }
+                    $offset++;
+                    $output .= \substr($wire, $start, $offset - $start);
+                    continue;
+                }
+                $output .= \substr($wire, $start, $offset - $start);
+                $frames[] = array($count * 2, true);
+                continue;
             }
+            return $wire;
         }
-
-        return $result;
-    };
+        return $output;
+    }
 
     /**
-     * Decode native stored values and distinguish malformed serialization.
+     * Bound a header against available bytes before any integer conversion.
      *
-     * @param mixed $serialized Native serialized carrier after caller hook dispatch.
-     * @param bool|null $valid Whether native parsing completed without an error.
-     * @return mixed The native value, or null when parsing fails.
-     * @throws \Throwable When object hydration or the prior diagnostic handler fails.
+     * @param string $number Decimal header text, with signed zero allowed.
+     * @param int $limit Available bytes or tokens.
+     * @return int|null Safe nonnegative header value or unsupported input.
      */
-    $decodeSettings = static function ($serialized, &$valid = null) use ($normalizeEscapedStrings)
+    private static function bounded($number, $limit)
     {
-        $valid = false;
-        if (!\is_string($serialized)) {
-            $valid = true;
-            $arguments = array($serialized === null ? '' : $serialized);
-            unset($serialized);
-            return \unserialize(\array_pop($arguments));
+        $negative = $number[0] === '-';
+        $digits = \ltrim($number, '+-0');
+        if ($negative && $digits !== '') {
+            return null;
         }
-        if ($serialized === '') {
-            $valid = true;
-            return false;
+        $maximum = (string) $limit;
+        if (\strlen($digits) > \strlen($maximum) || (\strlen($digits) === \strlen($maximum) && \strcmp($digits, $maximum) > 0)) {
+            return null;
         }
-        if (\strpos($serialized, 'S:') !== false) {
-            $serialized = $normalizeEscapedStrings($serialized);
-        }
-        $valid = true;
-        $parse_line = 0;
-        $previous = null;
-        $previous = \set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$parse_line, &$valid) {
-            if ($file === __FILE__ && $line === $parse_line && \in_array($severity, array(\E_NOTICE, \E_WARNING), true)
-                && \preg_match('/^(?:unserialize\(\): (?:Error at offset [0-9]+ of [0-9]+ bytes|Unexpected end of serialized data|Maximum depth of [0-9]+ exceeded.*)|Insufficient data for unserializing - -?[0-9]+ required, [0-9]+ present)$/D', $message)) {
-                // Throwing here would bypass deferred object callbacks during native failure cleanup.
-                $valid = false;
-                return true;
-            }
-            if ($file === __FILE__ && $line === $parse_line && \in_array($severity, array(\E_NOTICE, \E_WARNING), true)
-                && \preg_match('/^unserialize\(\): (?:Extra data starting at offset [0-9]+ of [0-9]+ bytes|Numerical result out of range)$/D', $message)) {
-                // Preserve native accepted prefixes and clamped integers from historical stored values.
-                return true;
-            }
-
-            return $previous === null ? false : $previous(...\func_get_args());
-        });
-
-        try {
-            $parse_line = __LINE__ + 1;
-            $settings = \unserialize($serialized);
-
-            return $valid ? $settings : null;
-        } finally {
-            \restore_error_handler();
-        }
-    };
-
-
-    return array('decode' => $decodeSettings, 'normalize' => $normalizeEscapedStrings);
-})();
+        return $digits === '' ? 0 : (int) $digits;
+    }
+};

@@ -62,6 +62,7 @@ final class NativeSettingsV21Test extends TestCase
     {
         return array(
             array('native-frame', 'native'),
+            'encoded-native-frame' => array('encoded-native-frame', 'native'),
             array('nan', true),
             array('snapshot', array(7, 7)),
             array('raw-key', array(null, 1.9)),

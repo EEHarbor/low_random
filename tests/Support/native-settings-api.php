@@ -96,7 +96,7 @@ namespace {
     $persisted = unserialize(base64_decode($database->written['settings']));
     $database->blob = base64_encode(serialize('abc'));
     $compatibility = require 'phar://' . $root . '/low_random/low_random.phar/FluxCapacitor/Conduit/NativeSettings.php';
-    $normalized = $compatibility['normalize']('S:3:"abc";');
+    $normalized = $compatibility->normalize('S:3:"abc";');
     $escaped = $settings->getSettings();
     $cache = (new ReflectionClass(NativeCacheConsumer::class))->newInstanceWithoutConstructor();
     $cacheWrite = NativeCacheConsumer::set('topic:one', 'kept');

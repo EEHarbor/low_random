@@ -2,7 +2,7 @@
 
 namespace Low\Random\FluxCapacitor\Conduit {
     /** Preserve the original carrier callback. @param mixed $value @return string */
-    function base64_decode($value) { $GLOBALS['hook_calls'][] = array('conduit-base64', $value); return ($GLOBALS['argv'][2] ?? '') === 'decoded' ? new \NativeDecodedCarrier('conduit') : 'S:3:"abc";'; }
+    function base64_decode($value) { $GLOBALS['hook_calls'][] = array('conduit-base64', $value); return ($GLOBALS['argv'][2] ?? '') === 'decoded' ? \base64_decode($value === null ? '' : $value) : 'S:3:"abc";'; }
     /** Preserve the original raw decoder callback. @param mixed $value @return array */
     if (!in_array($GLOBALS['argv'][2] ?? '', array('decoded', 'cache-lifetime', 'cache-carrier'), true)) {
         function unserialize($value) { $GLOBALS['hook_calls'][] = array('conduit-unserialize', $value); return array('native_hook' => 'conduit'); }
@@ -10,7 +10,7 @@ namespace Low\Random\FluxCapacitor\Conduit {
 }
 namespace Low\Random\FluxCapacitor\Bridge {
     /** Preserve the original carrier callback. @param mixed $value @return string */
-    function base64_decode($value) { $GLOBALS['hook_calls'][] = array('bridge-base64', $value); return ($GLOBALS['argv'][2] ?? '') === 'decoded' ? new \NativeDecodedCarrier('bridge') : 'S:3:"abc";'; }
+    function base64_decode($value) { $GLOBALS['hook_calls'][] = array('bridge-base64', $value); return ($GLOBALS['argv'][2] ?? '') === 'decoded' ? \base64_decode($value === null ? '' : $value) : 'S:3:"abc";'; }
     /** Preserve the original raw decoder callback. @param mixed $value @return array */
     if (!in_array($GLOBALS['argv'][2] ?? '', array('decoded', 'cache-lifetime', 'cache-carrier'), true)) {
         function unserialize($value) { $GLOBALS['hook_calls'][] = array('bridge-unserialize', $value); return array('native_hook' => 'bridge'); }
@@ -106,7 +106,11 @@ namespace {
         if ($kind !== 'GlobalFieldSettings') {
             require 'phar://' . $archive . '/FluxCapacitor/Bridge/' . $kind . '.php';
         }
-        foreach (array('carrier-text', null) as $carrier) {
+        $wire = serialize(array('wire' => 'native'));
+        if (($argv[3] ?? '') === 'escaped') { $wire = 'a:1:{s:4:"wire";S:6:"native";}'; }
+        if (($argv[3] ?? '') === 'prefix') { $wire .= 'ignored remainder'; }
+        $carriers = ($argv[2] ?? '') === 'decoded' ? array(base64_encode($wire), null) : array('carrier-text', null);
+        foreach ($carriers as $carrier) {
             $GLOBALS['hook_calls'] = array();
             $database->blob = $carrier;
             \Low\Random\FluxCapacitor\Conduit\StaticCache::clear();

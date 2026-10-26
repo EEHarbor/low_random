@@ -140,6 +140,21 @@ final class SettingsV21Decoded
     }
 }
 
+final class SettingsV21Encoded
+{
+    /**
+     * Supply encoded bytes through the native base64 conversion frame.
+     *
+     * @return string Encoded native settings derived from the immediate caller.
+     */
+    public function __toString(): string
+    {
+        $frames = debug_backtrace(0, 3);
+        $native = $frames[1]['function'] === 'base64_decode' && $frames[2]['function'] === 'getSettings';
+        return base64_encode(serialize($native ? 'native' : 'changed'));
+    }
+}
+
 /**
  * Supply the fieldtype database boundary without constructing an application.
  *
@@ -158,6 +173,11 @@ $settings = (new ReflectionClass('Low\\Random\\FluxCapacitor\\Conduit\\GlobalFie
 $settings->fieldtype_name = 'owned';
 $database->blob = base64_encode(serialize('abc'));
 
+if ($mode === 'encoded-native-frame') {
+    $database->blob = new SettingsV21Encoded();
+    echo json_encode($settings->getSettings(), JSON_THROW_ON_ERROR);
+    exit(0);
+}
 if ($mode === 'native-frame') {
     echo json_encode($settings->getSettings(), JSON_THROW_ON_ERROR);
     exit(0);
