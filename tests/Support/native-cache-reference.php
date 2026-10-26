@@ -10,6 +10,9 @@ namespace Low\Random\FluxCapacitor\Conduit {
      */
     function mkdir(&$path, $mode)
     {
+        if ($GLOBALS['reference_handlers']) {
+            \set_error_handler($GLOBALS['reference_calls'] === 0 ? 'referenceFirstHandler' : 'referenceSecondHandler', \E_USER_NOTICE);
+        }
         $target = $GLOBALS['reference_root'] . '/rebound/' . ($GLOBALS['reference_calls']++ ? 'module/' : '');
         $path = $GLOBALS['reference_opaque'] ? new \ReferenceNativePath($target) : $target;
         return \mkdir($path, $mode);
@@ -24,6 +27,7 @@ namespace {
     $reference_calls = 0;
     $reference_opaque = ($argv[2] ?? '') === 'opaque';
     $reference_conversions = 0;
+    $reference_handlers = ($argv[4] ?? '') === 'handlers';
     $artifact = $argv[3] ?? dirname(__DIR__, 2) . '/low_random/low_random.phar';
     require 'phar://' . $artifact . '/FluxCapacitor/Conduit/StaticCache.php';
     require 'phar://' . $artifact . '/FluxCapacitor/Conduit/PersistentCache.php';
@@ -95,10 +99,45 @@ namespace {
     function ee() { return $GLOBALS['reference_app']; }
 
     $reference_app = (object) array('load' => new ReferenceCacheLoader(), 'logger' => new ReferenceCacheLogger());
+    /**
+     * Supply quiet native caller and namespace callback handler identities.
+     *
+     * @return bool Whether this handler consumed a diagnostic.
+     */
+    function referencePriorHandler() { return false; }
+
+    /**
+     * Identify the generic namespace mkdir callback's installed handler.
+     *
+     * @return bool Whether this handler consumed a diagnostic.
+     */
+    function referenceFirstHandler() { return false; }
+
+    /**
+     * Identify the module namespace mkdir callback's installed handler.
+     *
+     * @return bool Whether this handler consumed a diagnostic.
+     */
+    function referenceSecondHandler() { return false; }
+
+    $originalHandler = $reference_handlers ? set_error_handler('referencePriorHandler', E_USER_NOTICE) : null;
     $result = Low\Random\FluxCapacitor\Conduit\PersistentCache::set('entry', 'stored');
     $target = $reference_root . '/rebound/module/' . sha1('entry');
     $observed = array('value' => $result, 'mkdir_calls' => $reference_calls,
         'saved' => is_file($target), 'logs' => $reference_app->logger->messages);
     if ($reference_opaque) { $observed['conversions'] = $reference_conversions; }
+    if ($reference_handlers) {
+        $stack = array();
+        do {
+            $handler = set_error_handler('referencePriorHandler');
+            restore_error_handler();
+            $stack[] = $handler === $originalHandler ? 'original' : (is_string($handler) ? $handler : gettype($handler));
+            if ($handler === $originalHandler) {
+                break;
+            }
+            restore_error_handler();
+        } while (count($stack) < 6);
+        $observed['handler_stack'] = $stack;
+    }
     echo json_encode($observed, JSON_THROW_ON_ERROR);
 }

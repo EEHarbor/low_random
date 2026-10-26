@@ -244,33 +244,51 @@ class PersistentCache
         /**
          * Preserve native cache aliases and the existing logged directory-failure path.
          *
-         * @param string $path Original configured directory path.
+         * @param mixed $path Original configured directory operand, retained by reference.
          * @param bool $module Whether this is the original module-specific native callsite.
          * @return bool Whether native directory creation succeeded.
          * @throws \Throwable When an unexpected diagnostic handler fails.
          */
         $createDirectory = static function (&$path, $module)
         {
+            // Each original opcode resolves independently, only when its directory is missing.
+            $bindings = new class {
+                public static bool $generic;
+                public static bool $module;
+            };
+            if ($module && !isset($bindings::$module)) {
+                $bindings::$module = \function_exists(__NAMESPACE__ . '\\mkdir');
+            }
+            if (!$module && !isset($bindings::$generic)) {
+                $bindings::$generic = \function_exists(__NAMESPACE__ . '\\mkdir');
+            }
+            $hook = $module ? $bindings::$module : $bindings::$generic;
+            $physical = !$hook && \is_string($path)
+                && (!\preg_match('~\\A[a-zA-Z0-9+.-]{2,}://~D', $path) || \strncasecmp($path, 'file://', 7) === 0);
             $mkdirLine = 0;
             $previous = null;
-            $previous = \set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$mkdirLine) {
-                if ($severity === \E_WARNING && $file === __FILE__ && $line === $mkdirLine
-                    && \preg_match('/^mkdir\\(\\): (?:Permission denied|File exists|Not a directory|No such file or directory|Too many levels of symbolic links|Read-only file system|File name too long)$/D', $message)) {
-                    return true;
-                }
+            if ($physical) {
+                $previous = \set_error_handler(static function ($severity, $message, $file, $line) use (&$previous, &$mkdirLine) {
+                    if ($severity === \E_WARNING && $file === __FILE__ && $line === $mkdirLine
+                        && \preg_match('/^mkdir\\(\\): (?:Permission denied|File exists|Not a directory|No such file or directory|Too many levels of symbolic links|Read-only file system|File name too long)$/D', $message)) {
+                        return true;
+                    }
 
-                return $previous === null ? false : $previous(...\func_get_args());
-            });
+                    return $previous === null ? false : $previous(...\func_get_args());
+                });
+            }
 
             try {
                 if ($module) {
                     $mkdirLine = __LINE__ + 1;
-                    return @mkdir($path, DIR_WRITE_MODE);
+                    return @($hook ? mkdir($path, DIR_WRITE_MODE) : \mkdir($path, DIR_WRITE_MODE));
                 }
                 $mkdirLine = __LINE__ + 1;
-                return @mkdir($path, DIR_WRITE_MODE);
+                return @($hook ? mkdir($path, DIR_WRITE_MODE) : \mkdir($path, DIR_WRITE_MODE));
             } finally {
-                \restore_error_handler();
+                if ($physical) {
+                    \restore_error_handler();
+                }
             }
         };
 

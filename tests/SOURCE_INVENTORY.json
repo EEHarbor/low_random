@@ -1,6 +1,6 @@
 {
     "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-    "archive_sha256": "9ed916024d2aa72fe0f3aa9332de0ae0861c688cb28e307ff0ea4bdeb4fb0da4",
+    "archive_sha256": "bf1eb0e0ffd2883ace92f9f852d1ae41648935562cb12db55a29f6fdc6d87e4f",
     "sources": {
         "low_random/addon.setup.php": {
             "sha256": "1abc1cfdd7ca754fb2f58e546534c6e2ef61c48ab8c18e1bfdf2811dccffcbd1",
@@ -1070,9 +1070,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/PersistentCache.php": {
-            "sha256": "655a1dfd78ae8ec52ba7108c014e66673e0135f316ff54662e47ef1b20789bb8",
-            "bytes": 12455,
-            "lines": 329,
+            "sha256": "b50dc18b947e08a5f2f9219c9f71f59723e8ca2c4b2d2e13e3c334dd4074ef38",
+            "bytes": 13475,
+            "lines": 347,
             "functions": [
                 {
                     "name": "get",
@@ -1124,7 +1124,7 @@
                 },
                 {
                     "name": "{closure}",
-                    "line": 256
+                    "line": 271
                 }
             ]
         },
