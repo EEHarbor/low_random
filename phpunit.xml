@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/bootstrap.php" colors="true" failOnRisky="true" failOnWarning="true" failOnEmptyTestSuite="true" convertDeprecationsToExceptions="true" cacheResult="false">
+  <testsuites><testsuite name="Low Random"><directory suffix="Test.php">tests/tests/Unit</directory></testsuite></testsuites>
+  <coverage processUncoveredFiles="true" pathCoverage="true"><include><directory suffix=".php">low_random</directory></include></coverage>
+</phpunit>

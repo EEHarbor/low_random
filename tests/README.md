@@ -1,0 +1,61 @@
+# Low Random tests
+
+Current source scope and strict command: see [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md). The original Foundation PHAR/loader are restored to develop; the only retained production diff is the add-on plugin. The current source inventory has 27 units: four loose PHP files, 22 archive members and the stub. No new shared factory or extracted Foundation build source is shipped.
+
+Every original configured suite, provider and test remains selected. The complete matrix can remain red on the restored shared dependency. Keep strict startup, prethrow journals, native outcome/capture checks and all original failure assertions. Historical matrices and coverage below are preserved history, not current acceptance or a coverage-completion claim.
+
+```sh
+PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c phpunit.xml --do-not-cache-result
+```
+
+Repeat for php80–php85 under the campaign lease. Generic caught/provider/native authority controls now execute this add-on's metadata entry point; deliberately faulty controls earn only harness rejection evidence. The scope-correction review packet records exact inputs, preserved selections, full streams and shared dependency failures. No publication approval is claimed.
+
+## Historical tests-only documentation
+
+These tests use the shipped plugin and its immutable PHAR. They intentionally remain red for confirmed source defects. This is an incomplete campaign checkpoint, not a passing release gate.
+
+Run the pinned local PHPUnit 9.6.38 across every supported Herd runtime:
+
+```sh
+./tests/.phpunit/download.sh
+./tests/scripts/run-matrix.sh
+```
+
+The runner executes PHP 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 and 8.5 by their absolute Herd binaries; it changes no Herd runtime, service or php.ini. PHPUnit 9.6.38 is shared across the matrix to preserve one compatible test/configuration contract. PHPUnit 10.5.66 and 11.5.57 are also locally pinned for skill preflight compatibility. Their PHAR files are ignored, verified against `SHA256SUMS`, and downloaded from exact version URLs.
+
+A focused explicit-runtime command is:
+
+```sh
+PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c phpunit.xml --filter PluginTest
+```
+
+Native child processes use `PHP_BINARY`, inherit strict E_ALL diagnostics and set unique `TMPDIR`/`sys_temp_dir`. Every shipped PHP file, each archive member and the PHAR stub is syntax-checked from a byte-identical, SHA256-verified temporary copy. Behavioral calls execute the original shipped source. The fallback loader executes the original PHAR directly. Test cleanup restores cache paths, globals, diagnostic handlers, include path and added autoloaders. Native probes use unique output files and a monotonic deadline. Licensing crypto runs in children to preserve the caller's OpenSSL error queue; updater method tests initialize valid post-constructor state while a separate native probe exercises its real constructor.
+
+The EE template double follows `EE_Template::fetch_param()` in `/Users/tomjaeger/Sites/ee_repo_2/system/ee/legacy/libraries/Template.php:1901`, including its only ignored parameter (`url_title`), missing/null defaults and native switch comparisons. Numeric template parameter vectors use strings where normal EE tags do; the explicit integer-zero vector records EE's PHP 7.4 loose-comparison normalization. Database query methods match native DB_result empty arrays, SQL NULL, missing-column row fallback, numeric/current-row selection and requested row types; File model filters preserve the shipped `UploadDestination` relationship and builder calls. Form helpers record arguments to assert this view's responsibilities without claiming EE's escaping implementation was tested.
+
+For genuine branch instrumentation, use a new absolute prefix on each run:
+
+```sh
+LOW_RANDOM_RAW_COVERAGE='/absolute/new/report-prefix' \
+LOW_RANDOM_XDEBUG_EXTENSION='/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so' \
+'/Users/tomjaeger/Library/Application Support/Herd/bin/php82' \
+  -d zend_extension=/Applications/Herd.app/Contents/Resources/xdebug/xdebug-82-arm64.so \
+  -d xdebug.mode=coverage tests/.phpunit/phpunit-9.phar -c phpunit.xml
+python3 tests/scripts/summarize-branches.py /absolute/new/report-prefix.PID.json
+```
+
+Each main/native process writes a separate report. Do not merge different runtimes, different conditional class graphs, or extracted/stub and stream-loader graphs. Clover is useful for executable line reporting through the skill helper, but its missing branch metrics never prove branch coverage. `COVERAGE.md` lists all 27 source units and all 262 function/graph rows, including uninstrumented sources.
+
+The current incomplete phase 6 matrix is recorded in `MATRIX_RESULTS.json` (243 cases on every runtime). `STATUS.md` records its review, publication and remaining-scope handoff. Source failures remain red. Run Clover separately from the raw collector because PHPUnit controls Xdebug during Clover generation; the raw collector is the source of branch/basic-block/exit evidence.
+
+Navigation component native probes supply a normal optional add-on navigation extension in a unique installation; all library classes execute from the original PHAR using a component loader, while copied setup/JSON/autoloader bytes are hash verified. These tests cover the conduit API and do not claim package loader integration. Native system/application/installer fieldtype imports verify their compatible parent fixture copies before loading the actual archive code. The phase 3 checkpoint retained eighty raw runtime/context graphs separately; LC_CTYPE is recorded for the qualified PHP7.4 UTF-8 normalization regression.
+
+The current EE `db` service returns a fresh query builder. The fixture shares live backend results and a journal while separating pending calls and schema caches. Settings tests observe the owning builder and preserve an unfinished primary query/cache; no stale cache is inserted into a fresh builder just to cover a guard. This models the current consumed service contract and leaves historical/full SQL integration explicit.
+
+
+Legacy bridge native probes require the original PHAR library entries directly, with isolated APP_VER constants and temporary PATH_THIRD views. They bypass package loading and do not boot historical EE. Their 48 new runtime-specific graphs stay separate from every other graph. Current 34-case legacy tests include the persistent-delete source regression and passing request-tier, URL/session, CP mapping, view, settings and pagination controls. `STATUS.md` records exact matrix counts and remaining integration/outcome gaps.
+
+
+Stub boundary tests use the normal original loader and the actual declared extraction helper. Native children isolate termination and cleanup; the manifest test compares every original member against native Phar. Size-reporting, nonempty-child, hidden-file and dangling-link cleanup diagnostics remain source-red. Hidden-file/link cases are qualified robustness inputs. Eighteen deterministic binary vectors include actual encoded gzip/bzip2 streams crossing 8 KiB; no source or archive is rewritten. The phase 5 raw evidence has 182 separate graphs and never combines runtime/process/compiler contexts. Exact commands, caller FIFO controls and remaining gaps are in `STATUS.md` and `MATRIX_RESULTS.json`.
+
+The loader settings class uses the real original autoloader/PHAR in disposable native interpreters. It sets opcache.enable and opcache.enable_cli explicitly, then checks permission validation, an absent configuration function and a restricted API prefix. The new globally disabled control avoids depending on the host's OPcache defaults. PHP 7.4 has no installed OPcache module and measures its actual fallback; available extensions on PHP 8.0–8.5 are exercised directly. A separate neighboring namespace fixture belongs to the next registered loader. Restricted-API diagnostics and the original prefix guard remain ordinary red source regressions. Full source coverage remains incomplete; no global configuration changes are required.
