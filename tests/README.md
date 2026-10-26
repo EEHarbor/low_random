@@ -1,6 +1,16 @@
 # Low Random tests
 
-Current compatibility branch: see [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md) for the rebuilt production artifact, strict checked runner and current validation. The original tests-only campaign documentation below is retained as history.
+Current source scope and strict command: see [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md). The original Foundation PHAR/loader are restored to develop; the only retained production diff is the add-on plugin. The current source inventory has 27 units: four loose PHP files, 22 archive members and the stub. No new shared factory or extracted Foundation build source is shipped.
+
+Every original configured suite, provider and test remains selected. The complete matrix can remain red on the restored shared dependency. Keep strict startup, prethrow journals, native outcome/capture checks and all original failure assertions. Historical matrices and coverage below are preserved history, not current acceptance or a coverage-completion claim.
+
+```sh
+PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c phpunit.xml --do-not-cache-result
+```
+
+Repeat for php80–php85 under the campaign lease. Generic caught/provider/native authority controls now execute this add-on's metadata entry point; deliberately faulty controls earn only harness rejection evidence. The scope-correction review packet records exact inputs, preserved selections, full streams and shared dependency failures. No publication approval is claimed.
+
+## Historical tests-only documentation
 
 These tests use the shipped plugin and its immutable PHAR. They intentionally remain red for confirmed source defects. This is an incomplete campaign checkpoint, not a passing release gate.
 

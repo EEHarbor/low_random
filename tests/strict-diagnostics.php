@@ -60,6 +60,25 @@ if (!\class_exists(LowRandomDiagnostics::class, false)) {
     set_error_handler(array(LowRandomDiagnostics::class, 'handle'), E_ALL);
     register_shutdown_function(array(LowRandomDiagnostics::class, 'finish'));
 
+    if (\defined('LOW_RANDOM_NATIVE_CAPTURE_AUTHORITY')) {
+        throw new \RuntimeException('Native capture authority was defined before strict startup.');
+    }
+
+    // Bind before discovery/providers can alter the environment selection.
+    \define('LOW_RANDOM_NATIVE_CAPTURE_AUTHORITY', (static function (): ?array {
+        $directory = \getenv('LOW_RANDOM_STRICT_CAPTURES');
+        if ($directory === false || $directory === '') {
+            return null;
+        }
+
+        $identity = \lstat($directory);
+        if ($identity === false || ($identity['mode'] & 0170000) !== 0040000) {
+            throw new \RuntimeException('The checked native capture directory is not an existing directory.');
+        }
+
+        return array('path' => $directory, 'dev' => $identity['dev'], 'ino' => $identity['ino']);
+    })());
+
     $lowRandomJournal = getenv('LOW_RANDOM_STRICT_JOURNAL');
 
     if ($lowRandomJournal) {

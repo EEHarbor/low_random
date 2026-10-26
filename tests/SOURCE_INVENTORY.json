@@ -1,6 +1,6 @@
 {
     "production_baseline": "892b6dae8282b159e580e3c1a6076a39d9902f84",
-    "archive_sha256": "ec3279c69e7151497dfa7aafbe7a32061b079c460eb92504c5965f42867dcc6d",
+    "archive_sha256": "68152e9d7792d2329c84b0dea15cd98a832bd414e4cce732e604e06be7ef1105",
     "sources": {
         "low_random/addon.setup.php": {
             "sha256": "1abc1cfdd7ca754fb2f58e546534c6e2ef61c48ab8c18e1bfdf2811dccffcbd1",
@@ -9,9 +9,9 @@
             "functions": []
         },
         "low_random/autoload.php": {
-            "sha256": "d23dfed58423e753162abc2d849cc2b8353c733bb43913d77a421a4504fb4ea1",
-            "bytes": 3804,
-            "lines": 88,
+            "sha256": "3e65f49e6fdc853c953674d028f20f745526cefdae8ef62ab8e40a0fa8177882",
+            "bytes": 4092,
+            "lines": 94,
             "functions": [
                 {
                     "name": "{closure}",
@@ -20,9 +20,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Base/Ext.php": {
-            "sha256": "66a0e55c9c64af0150b2e4e0352587266fcaae524f983d2ccd96ff18849d45e7",
-            "bytes": 5973,
-            "lines": 218,
+            "sha256": "c068f82197c2e694537de6a035a85f7d9d71ff8f62335a6a1ba49c62ffeac059",
+            "bytes": 5425,
+            "lines": 202,
             "functions": [
                 {
                     "name": "__construct",
@@ -74,22 +74,22 @@
                 },
                 {
                     "name": "register_extension",
-                    "line": 196
+                    "line": 187
                 },
                 {
                     "name": "unregister_extension",
-                    "line": 208
+                    "line": 192
                 },
                 {
                     "name": "cp_custom_menu",
-                    "line": 213
+                    "line": 197
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Base/Ft.php": {
-            "sha256": "255fbe56140e1200a44472432b2311597f7dbbec73077c89db7115b5829f74fc",
-            "bytes": 5384,
-            "lines": 170,
+            "sha256": "a0c015a396e81ad687f127781672fb6e44b137ca043fb35a848d2531ce29c0fa",
+            "bytes": 5076,
+            "lines": 159,
             "functions": [
                 {
                     "name": "__construct",
@@ -101,58 +101,58 @@
                 },
                 {
                     "name": "accepts_content_type",
-                    "line": 71
+                    "line": 65
                 },
                 {
                     "name": "getChannelId",
-                    "line": 81
+                    "line": 70
                 },
                 {
                     "name": "displaySettingsRow",
-                    "line": 113
+                    "line": 102
                 },
                 {
                     "name": "displaySettingsReturn",
-                    "line": 140
+                    "line": 129
                 },
                 {
                     "name": "_display_settings_add_row",
-                    "line": 159
+                    "line": 148
                 },
                 {
                     "name": "_package_display_settings",
-                    "line": 165
+                    "line": 154
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Base/Mcp.php": {
-            "sha256": "a550850ea5ab8a2a17d836c93c58cfcf9642389ec528ebaf479cc7fd4d86ff2f",
-            "bytes": 7587,
-            "lines": 205,
+            "sha256": "fe26f7f5c52cd5adc68e6c63b2f4f31e3c8accf29aaf9865f29ac1b64c1e185b",
+            "bytes": 7334,
+            "lines": 198,
             "functions": [
                 {
                     "name": "__construct",
-                    "line": 29
+                    "line": 27
                 },
                 {
                     "name": "index",
-                    "line": 40
+                    "line": 38
                 },
                 {
                     "name": "license",
-                    "line": 45
+                    "line": 43
                 },
                 {
                     "name": "save_license",
-                    "line": 75
+                    "line": 68
                 },
                 {
                     "name": "paginateModel",
-                    "line": 147
+                    "line": 140
                 },
                 {
                     "name": "canIncludeNav",
-                    "line": 190
+                    "line": 183
                 }
             ]
         },
@@ -172,9 +172,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Base/Pi.php": {
-            "sha256": "96ef4a9826b1197ffa6cfa234d8bbdfcb4c3b7456ba1efd81a14974e53c89a62",
-            "bytes": 1079,
-            "lines": 45,
+            "sha256": "467fd01d943e05b479667ae9ebffa4cee0be7edc6ca5b9b1ba81ee6ee20c8037",
+            "bytes": 943,
+            "lines": 38,
             "functions": [
                 {
                     "name": "__construct",
@@ -182,7 +182,7 @@
                 },
                 {
                     "name": "info",
-                    "line": 32
+                    "line": 27
                 }
             ]
         },
@@ -218,9 +218,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Base/Upd.php": {
-            "sha256": "183ad0458a9aae85659649a2dd95103b031d3717082db2ea0df780dda721637d",
-            "bytes": 4038,
-            "lines": 140,
+            "sha256": "c4220e3cb3866458576e2c8d0542c4a411d67f54c3eca4b7157a10bbb10c2b0d",
+            "bytes": 3805,
+            "lines": 129,
             "functions": [
                 {
                     "name": "__construct",
@@ -232,11 +232,11 @@
                 },
                 {
                     "name": "update",
-                    "line": 62
+                    "line": 56
                 },
                 {
                     "name": "uninstall",
-                    "line": 89
+                    "line": 78
                 }
             ]
         },
@@ -423,9 +423,9 @@
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Bridge/EE2.php": {
-            "sha256": "9c0d51ed427f54d1a72f52cf3a7485f269fc351c7c5ec9bc5a33e19b57b64c61",
-            "bytes": 18743,
-            "lines": 570,
+            "sha256": "bcfc650e45d3fc0451dfdca299b312e465270d06caeccca1c0418c11439d56e6",
+            "bytes": 16037,
+            "lines": 512,
             "functions": [
                 {
                     "name": "__construct",
@@ -437,253 +437,245 @@
                 },
                 {
                     "name": "getBaseURL",
-                    "line": 43
+                    "line": 37
                 },
                 {
                     "name": "getNav",
-                    "line": 84
+                    "line": 78
                 },
                 {
                     "name": "cpURL",
-                    "line": 98
+                    "line": 92
                 },
                 {
                     "name": "moduleURL",
-                    "line": 148
+                    "line": 142
                 },
                 {
                     "name": "view",
-                    "line": 163
+                    "line": 157
                 },
                 {
                     "name": "getCurrentPage",
-                    "line": 179
+                    "line": 173
                 },
                 {
                     "name": "getStartNum",
-                    "line": 192
+                    "line": 186
                 },
                 {
                     "name": "pagination",
-                    "line": 197
+                    "line": 191
                 },
                 {
                     "name": "getSettings",
-                    "line": 209
+                    "line": 203
                 },
                 {
                     "name": "getConfig",
-                    "line": 220
+                    "line": 214
                 },
                 {
                     "name": "setConfig",
-                    "line": 227
+                    "line": 221
                 },
                 {
                     "name": "cache",
-                    "line": 270
+                    "line": 255
                 },
                 {
                     "name": "flashData",
-                    "line": 319
+                    "line": 302
                 },
                 {
                     "name": "getAddonThemesDir",
-                    "line": 328
+                    "line": 311
                 },
                 {
                     "name": "overwriteEEClass",
-                    "line": 341
+                    "line": 324
                 },
                 {
                     "name": "removeEEClass",
-                    "line": 352
+                    "line": 335
                 },
                 {
                     "name": "xss_clean",
-                    "line": 362
+                    "line": 345
+                },
+                {
+                    "name": "url_title",
+                    "line": 355
+                },
+                {
+                    "name": "getCurrentUrlInfo",
+                    "line": 365
+                },
+                {
+                    "name": "getCachePath",
+                    "line": 386
+                },
+                {
+                    "name": "getFooter",
+                    "line": 397
+                },
+                {
+                    "name": "reduce_double_slashes",
+                    "line": 406
+                },
+                {
+                    "name": "initiateSettings",
+                    "line": 420
+                },
+                {
+                    "name": "javascript_to_page",
+                    "line": 480
+                },
+                {
+                    "name": "module_installed",
+                    "line": 485
+                },
+                {
+                    "name": "assign_parameters",
+                    "line": 497
+                },
+                {
+                    "name": "assign_variables",
+                    "line": 507
+                }
+            ]
+        },
+        "low_random/low_random.phar!/FluxCapacitor/Bridge/EE3.php": {
+            "sha256": "072d517e349d9b6749050802b3717d7d990e199ca70575895490f88273680ab1",
+            "bytes": 16932,
+            "lines": 532,
+            "functions": [
+                {
+                    "name": "__construct",
+                    "line": 34
+                },
+                {
+                    "name": "instantiate",
+                    "line": 40
+                },
+                {
+                    "name": "getBaseURL",
+                    "line": 45
+                },
+                {
+                    "name": "getNav",
+                    "line": 62
+                },
+                {
+                    "name": "cpURL",
+                    "line": 106
+                },
+                {
+                    "name": "moduleURL",
+                    "line": 131
+                },
+                {
+                    "name": "view",
+                    "line": 138
+                },
+                {
+                    "name": "getCurrentPage",
+                    "line": 166
+                },
+                {
+                    "name": "getStartNum",
+                    "line": 178
+                },
+                {
+                    "name": "pagination",
+                    "line": 183
+                },
+                {
+                    "name": "getSettings",
+                    "line": 203
+                },
+                {
+                    "name": "getConfig",
+                    "line": 214
+                },
+                {
+                    "name": "setConfig",
+                    "line": 221
+                },
+                {
+                    "name": "cache",
+                    "line": 256
+                },
+                {
+                    "name": "flashData",
+                    "line": 293
+                },
+                {
+                    "name": "getAddonThemesDir",
+                    "line": 329
+                },
+                {
+                    "name": "overwriteEEClass",
+                    "line": 342
+                },
+                {
+                    "name": "removeEEClass",
+                    "line": 353
+                },
+                {
+                    "name": "xss_clean",
+                    "line": 363
                 },
                 {
                     "name": "url_title",
                     "line": 373
                 },
                 {
-                    "name": "getCurrentUrlInfo",
-                    "line": 383
-                },
-                {
-                    "name": "getCachePath",
-                    "line": 404
-                },
-                {
-                    "name": "getFooter",
-                    "line": 415
-                },
-                {
-                    "name": "reduce_double_slashes",
-                    "line": 424
-                },
-                {
-                    "name": "initiateSettings",
-                    "line": 440
-                },
-                {
-                    "name": "{closure}",
-                    "line": 495
-                },
-                {
-                    "name": "javascript_to_page",
-                    "line": 538
-                },
-                {
-                    "name": "module_installed",
-                    "line": 543
-                },
-                {
-                    "name": "assign_parameters",
-                    "line": 555
-                },
-                {
                     "name": "assign_variables",
-                    "line": 565
-                }
-            ]
-        },
-        "low_random/low_random.phar!/FluxCapacitor/Bridge/EE3.php": {
-            "sha256": "3661bc105c9479a1da04a411c1cefaf12048d00bf78927cd61b6a9eb369f180a",
-            "bytes": 19874,
-            "lines": 602,
-            "functions": [
-                {
-                    "name": "__construct",
-                    "line": 34
-                },
-                {
-                    "name": "instantiate",
-                    "line": 40
-                },
-                {
-                    "name": "getBaseURL",
-                    "line": 45
-                },
-                {
-                    "name": "getNav",
-                    "line": 64
-                },
-                {
-                    "name": "cpURL",
-                    "line": 117
-                },
-                {
-                    "name": "moduleURL",
-                    "line": 142
-                },
-                {
-                    "name": "view",
-                    "line": 149
-                },
-                {
-                    "name": "getCurrentPage",
-                    "line": 177
-                },
-                {
-                    "name": "getStartNum",
-                    "line": 189
-                },
-                {
-                    "name": "pagination",
-                    "line": 194
-                },
-                {
-                    "name": "getSettings",
-                    "line": 214
-                },
-                {
-                    "name": "getConfig",
-                    "line": 225
-                },
-                {
-                    "name": "setConfig",
-                    "line": 232
-                },
-                {
-                    "name": "cache",
-                    "line": 276
-                },
-                {
-                    "name": "flashData",
-                    "line": 323
-                },
-                {
-                    "name": "getAddonThemesDir",
-                    "line": 359
-                },
-                {
-                    "name": "overwriteEEClass",
-                    "line": 372
-                },
-                {
-                    "name": "removeEEClass",
                     "line": 383
-                },
-                {
-                    "name": "xss_clean",
-                    "line": 393
-                },
-                {
-                    "name": "url_title",
-                    "line": 404
-                },
-                {
-                    "name": "assign_variables",
-                    "line": 414
                 },
                 {
                     "name": "prep_url",
-                    "line": 424
+                    "line": 393
                 },
                 {
                     "name": "getCurrentUrlInfo",
-                    "line": 435
+                    "line": 403
                 },
                 {
                     "name": "getCachePath",
-                    "line": 456
+                    "line": 426
                 },
                 {
                     "name": "getFooter",
-                    "line": 467
+                    "line": 437
                 },
                 {
                     "name": "reduce_double_slashes",
-                    "line": 476
+                    "line": 446
                 },
                 {
                     "name": "initiateSettings",
-                    "line": 488
-                },
-                {
-                    "name": "{closure}",
-                    "line": 544
+                    "line": 456
                 },
                 {
                     "name": "javascript_to_page",
-                    "line": 587
+                    "line": 517
                 },
                 {
                     "name": "module_installed",
-                    "line": 592
+                    "line": 522
                 },
                 {
                     "name": "assign_parameters",
-                    "line": 597
+                    "line": 527
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Bridge/EE4.php": {
-            "sha256": "11d5047e3cdc861801dcde054f3d1155cffc97f900e6cf515366960db0094be2",
-            "bytes": 19958,
-            "lines": 602,
+            "sha256": "c8c3c60963b536341ec70e00607a05e86606883b2762e422fbde4e1a579049da",
+            "bytes": 17016,
+            "lines": 532,
             "functions": [
                 {
                     "name": "__construct",
@@ -699,122 +691,118 @@
                 },
                 {
                     "name": "getNav",
-                    "line": 64
+                    "line": 62
                 },
                 {
                     "name": "cpURL",
-                    "line": 117
+                    "line": 106
                 },
                 {
                     "name": "moduleURL",
-                    "line": 142
+                    "line": 131
                 },
                 {
                     "name": "view",
-                    "line": 149
+                    "line": 138
                 },
                 {
                     "name": "getCurrentPage",
-                    "line": 177
+                    "line": 166
                 },
                 {
                     "name": "getStartNum",
-                    "line": 189
+                    "line": 178
                 },
                 {
                     "name": "pagination",
-                    "line": 194
+                    "line": 183
                 },
                 {
                     "name": "getSettings",
-                    "line": 214
+                    "line": 203
                 },
                 {
                     "name": "getConfig",
-                    "line": 225
+                    "line": 214
                 },
                 {
                     "name": "setConfig",
-                    "line": 232
+                    "line": 221
                 },
                 {
                     "name": "cache",
-                    "line": 276
+                    "line": 256
                 },
                 {
                     "name": "flashData",
-                    "line": 323
+                    "line": 293
                 },
                 {
                     "name": "getAddonThemesDir",
-                    "line": 359
+                    "line": 329
                 },
                 {
                     "name": "overwriteEEClass",
-                    "line": 372
+                    "line": 342
                 },
                 {
                     "name": "removeEEClass",
-                    "line": 383
+                    "line": 353
                 },
                 {
                     "name": "xss_clean",
-                    "line": 393
+                    "line": 363
                 },
                 {
                     "name": "url_title",
-                    "line": 404
+                    "line": 373
                 },
                 {
                     "name": "assign_variables",
-                    "line": 414
+                    "line": 383
                 },
                 {
                     "name": "prep_url",
-                    "line": 424
+                    "line": 393
                 },
                 {
                     "name": "getCurrentUrlInfo",
-                    "line": 435
+                    "line": 403
                 },
                 {
                     "name": "getCachePath",
-                    "line": 456
+                    "line": 426
                 },
                 {
                     "name": "getFooter",
-                    "line": 467
+                    "line": 437
                 },
                 {
                     "name": "reduce_double_slashes",
-                    "line": 476
+                    "line": 446
                 },
                 {
                     "name": "initiateSettings",
-                    "line": 488
-                },
-                {
-                    "name": "{closure}",
-                    "line": 544
+                    "line": 456
                 },
                 {
                     "name": "javascript_to_page",
-                    "line": 587
+                    "line": 517
                 },
                 {
                     "name": "module_installed",
-                    "line": 592
+                    "line": 522
                 },
                 {
                     "name": "assign_parameters",
-                    "line": 597
+                    "line": 527
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Bridge/EE5.php": {
-            "sha256": "39e5e3b58032e4317bb7bd367d5f1402e3c106688bb6f5b9716004a9597eb41a",
-            "bytes": 19958,
-            "lines": 602,
+            "sha256": "1463c1d206bea5b57daa25c2639af23128d5748e0d8889dded52251c4a2ebfbf",
+            "bytes": 17016,
+            "lines": 532,
             "functions": [
                 {
                     "name": "__construct",
@@ -830,115 +818,111 @@
                 },
                 {
                     "name": "getNav",
-                    "line": 64
+                    "line": 62
                 },
                 {
                     "name": "cpURL",
-                    "line": 117
+                    "line": 106
                 },
                 {
                     "name": "moduleURL",
-                    "line": 142
+                    "line": 131
                 },
                 {
                     "name": "view",
-                    "line": 149
+                    "line": 138
                 },
                 {
                     "name": "getCurrentPage",
-                    "line": 177
+                    "line": 166
                 },
                 {
                     "name": "getStartNum",
-                    "line": 189
+                    "line": 178
                 },
                 {
                     "name": "pagination",
-                    "line": 194
+                    "line": 183
                 },
                 {
                     "name": "getSettings",
-                    "line": 214
+                    "line": 203
                 },
                 {
                     "name": "getConfig",
-                    "line": 225
+                    "line": 214
                 },
                 {
                     "name": "setConfig",
-                    "line": 232
+                    "line": 221
                 },
                 {
                     "name": "cache",
-                    "line": 276
+                    "line": 256
                 },
                 {
                     "name": "flashData",
-                    "line": 323
+                    "line": 293
                 },
                 {
                     "name": "getAddonThemesDir",
-                    "line": 359
+                    "line": 329
                 },
                 {
                     "name": "overwriteEEClass",
-                    "line": 372
+                    "line": 342
                 },
                 {
                     "name": "removeEEClass",
-                    "line": 383
+                    "line": 353
                 },
                 {
                     "name": "xss_clean",
-                    "line": 393
+                    "line": 363
                 },
                 {
                     "name": "url_title",
-                    "line": 404
+                    "line": 373
                 },
                 {
                     "name": "assign_variables",
-                    "line": 414
+                    "line": 383
                 },
                 {
                     "name": "prep_url",
-                    "line": 424
+                    "line": 393
                 },
                 {
                     "name": "getCurrentUrlInfo",
-                    "line": 435
+                    "line": 403
                 },
                 {
                     "name": "getCachePath",
-                    "line": 456
+                    "line": 426
                 },
                 {
                     "name": "getFooter",
-                    "line": 467
+                    "line": 437
                 },
                 {
                     "name": "reduce_double_slashes",
-                    "line": 476
+                    "line": 446
                 },
                 {
                     "name": "initiateSettings",
-                    "line": 488
-                },
-                {
-                    "name": "{closure}",
-                    "line": 544
+                    "line": 456
                 },
                 {
                     "name": "javascript_to_page",
-                    "line": 587
+                    "line": 517
                 },
                 {
                     "name": "module_installed",
-                    "line": 592
+                    "line": 522
                 },
                 {
                     "name": "assign_parameters",
-                    "line": 597
+                    "line": 527
                 }
             ]
         },
@@ -949,9 +933,9 @@
             "functions": []
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/GlobalFieldSettings.php": {
-            "sha256": "6995639fa027aeac632f63bba591b7d763e7d8dbaa2dc45ec5a1baca37d591bf",
-            "bytes": 6544,
-            "lines": 171,
+            "sha256": "4851bb9bef6920d664edddfdc869dd406f14f9e8e416ffed239ab8dabbc7b655",
+            "bytes": 1433,
+            "lines": 58,
             "functions": [
                 {
                     "name": "__construct",
@@ -959,124 +943,105 @@
                 },
                 {
                     "name": "getSetting",
-                    "line": 24
+                    "line": 17
                 },
                 {
                     "name": "getSettings",
-                    "line": 58
-                },
-                {
-                    "name": "{closure}",
-                    "line": 82
+                    "line": 26
                 },
                 {
                     "name": "updateSetting",
-                    "line": 122
+                    "line": 41
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/McpNav.php": {
-            "sha256": "e2396a3a1865d91148957cc59b959f68e90a8b62037dfe85bf3bf009dcf74fc4",
-            "bytes": 7853,
-            "lines": 264,
+            "sha256": "5cd369b8a458b1ad221c0dd237e1761d4a763416fe1225faa4159066b315307d",
+            "bytes": 7742,
+            "lines": 260,
             "functions": [
                 {
                     "name": "__construct",
-                    "line": 35
+                    "line": 31
                 },
                 {
                     "name": "generateNav",
-                    "line": 68
+                    "line": 64
                 },
                 {
                     "name": "formatItems",
-                    "line": 81
+                    "line": 77
                 },
                 {
                     "name": "itemsToNav",
-                    "line": 115
+                    "line": 111
                 },
                 {
                     "name": "buttonsToItems",
-                    "line": 131
+                    "line": 127
                 },
                 {
                     "name": "setActive",
-                    "line": 141
+                    "line": 137
                 },
                 {
                     "name": "setBreadcrumb",
-                    "line": 170
+                    "line": 166
                 },
                 {
                     "name": "getActiveItem",
-                    "line": 178
+                    "line": 174
                 },
                 {
                     "name": "deferGenerate",
-                    "line": 183
+                    "line": 179
                 },
                 {
                     "name": "preGenerateNav",
-                    "line": 188
+                    "line": 184
                 },
                 {
                     "name": "postGenerateNav",
-                    "line": 192
+                    "line": 188
                 },
                 {
                     "name": "getUrl",
-                    "line": 217
+                    "line": 213
                 },
                 {
                     "name": "defaultItems",
-                    "line": 232
+                    "line": 228
                 },
                 {
                     "name": "defaultButtons",
-                    "line": 237
+                    "line": 233
                 },
                 {
                     "name": "defaultActiveMap",
-                    "line": 242
+                    "line": 238
                 },
                 {
                     "name": "setToolbarIcon",
-                    "line": 247
-                }
-            ]
-        },
-        "low_random/low_random.phar!/FluxCapacitor/Conduit/NativeSettings.php": {
-            "sha256": "88eaacaec8c569e7cffb30dedc660d29accde3080e1cf4452c4f55818a77e487",
-            "bytes": 6151,
-            "lines": 155,
-            "functions": [
-                {
-                    "name": "normalize",
-                    "line": 16
-                },
-                {
-                    "name": "bounded",
-                    "line": 141
+                    "line": 243
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/PersistentCache.php": {
-            "sha256": "fc9aa677599767559bf91d161ca237264751058c097320439f126d7ff7f9c8f5",
-            "bytes": 13354,
-            "lines": 343,
+            "sha256": "4d8020960c1b88ec35b2b30bb58f441066a9ee3da28f9372ac78e69cfde311b6",
+            "bytes": 7998,
+            "lines": 236,
             "functions": [
                 {
                     "name": "get",
-                    "line": 19
+                    "line": 18
                 },
                 {
                     "name": "set",
-                    "line": 54
+                    "line": 55
                 },
                 {
                     "name": "delete",
-                    "line": 87
+                    "line": 88
                 },
                 {
                     "name": "has",
@@ -1084,93 +1049,69 @@
                 },
                 {
                     "name": "clear",
-                    "line": 127
+                    "line": 122
                 },
                 {
                     "name": "createKey",
-                    "line": 161
-                },
-                {
-                    "name": "{closure}",
-                    "line": 182
-                },
-                {
-                    "name": "{closure}",
-                    "line": 185
+                    "line": 154
                 },
                 {
                     "name": "prepCacheData",
-                    "line": 202
+                    "line": 169
                 },
                 {
                     "name": "serveCacheData",
-                    "line": 214
+                    "line": 179
                 },
                 {
                     "name": "checkPath",
-                    "line": 238
-                },
-                {
-                    "name": "{closure}",
-                    "line": 248
-                },
-                {
-                    "name": "{closure}",
-                    "line": 267
+                    "line": 189
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/StaticCache.php": {
-            "sha256": "615d4b9b12ce50e7e4a3cd2e4074ad53493be8334811c7d64726a6a95466476c",
-            "bytes": 5184,
-            "lines": 140,
+            "sha256": "ed9a26c6a7277d1f132f92b8c10c5676820368c16c2acb42c1ec30134daf6b97",
+            "bytes": 3820,
+            "lines": 109,
             "functions": [
                 {
                     "name": "get",
-                    "line": 16
+                    "line": 14
                 },
                 {
                     "name": "set",
-                    "line": 30
+                    "line": 28
                 },
                 {
                     "name": "put",
-                    "line": 42
+                    "line": 40
                 },
                 {
                     "name": "delete",
-                    "line": 54
+                    "line": 51
                 },
                 {
                     "name": "has",
-                    "line": 67
+                    "line": 64
                 },
                 {
                     "name": "all",
-                    "line": 76
+                    "line": 73
                 },
                 {
                     "name": "clear",
-                    "line": 85
+                    "line": 82
                 },
                 {
                     "name": "createKey",
-                    "line": 101
-                },
-                {
-                    "name": "{closure}",
-                    "line": 126
-                },
-                {
-                    "name": "{closure}",
-                    "line": 129
+                    "line": 96
                 }
             ]
         },
         "low_random/low_random.phar!/FluxCapacitor/Conduit/Version.php": {
-            "sha256": "254912641185e4a397c1af8b4b49f9fa2ad8cb74c15ba871448a1236a8b1f428",
-            "bytes": 24821,
-            "lines": 248,
+            "sha256": "1119d34c1ec984c1f1281b35f72e36dc7e3e980bef52680493a627a931b7522b",
+            "bytes": 24194,
+            "lines": 229,
             "functions": [
                 {
                     "name": "__construct",
@@ -1194,23 +1135,23 @@
                 },
                 {
                     "name": "check",
-                    "line": 134
+                    "line": 129
                 },
                 {
                     "name": "getLicenseKey",
-                    "line": 204
+                    "line": 185
                 },
                 {
                     "name": "getIgnoreSite",
-                    "line": 219
+                    "line": 200
                 },
                 {
                     "name": "getOpenSSLPublicKey",
-                    "line": 233
+                    "line": 214
                 },
                 {
                     "name": "spiderSafe",
-                    "line": 238
+                    "line": 219
                 }
             ]
         },
@@ -1243,29 +1184,29 @@
             ]
         },
         "low_random/low_random.phar!stub": {
-            "sha256": "8f49ecc3a4f7a20a4337b60e15536df06663d93a0964c8c6582f851d0a289be3",
-            "bytes": 7911,
-            "lines": 341,
+            "sha256": "db6b3fa944b6ac81e36a245fedd729955ccb40abbe61e515eb1c5d56a2ff3414",
+            "bytes": 6717,
+            "lines": 293,
             "functions": [
                 {
                     "name": "go",
-                    "line": 119
+                    "line": 113
                 },
                 {
                     "name": "tmpdir",
-                    "line": 217
+                    "line": 196
                 },
                 {
                     "name": "_unpack",
-                    "line": 234
+                    "line": 213
                 },
                 {
                     "name": "extractFile",
-                    "line": 268
+                    "line": 239
                 },
                 {
                     "name": "_removeTmpFiles",
-                    "line": 310
+                    "line": 272
                 }
             ]
         },

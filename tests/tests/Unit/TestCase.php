@@ -223,6 +223,7 @@ abstract class TestCase extends BaseTestCase
      * @param float $timeout Owned execution deadline in seconds.
      * @param int $nativeLogIndex Prepared option reserved for the owned engine log.
      * @return array Native status, complete stdout and complete stderr.
+     * @throws \InvalidArgumentException When the owned deadline is not positive.
      * @throws \RuntimeException When process ownership, capture or deadlines fail.
      * @throws \ErrorException When an owned engine log cannot be retained.
      */
@@ -232,7 +233,16 @@ abstract class TestCase extends BaseTestCase
             throw new \InvalidArgumentException('Native probe timeout must be positive.');
         }
 
-        $captureDirectory = getenv('LOW_RANDOM_STRICT_CAPTURES');
+        $authority = \LOW_RANDOM_NATIVE_CAPTURE_AUTHORITY;
+        $captureDirectory = $authority['path'] ?? null;
+        if ($authority !== null) {
+            clearstatcache(true, $captureDirectory);
+            $identity = lstat($captureDirectory);
+            if ($identity === false || ($identity['mode'] & 0170000) !== 0040000
+                || $identity['dev'] !== $authority['dev'] || $identity['ino'] !== $authority['ino']) {
+                \LowRandomDiagnostics::handle(E_USER_ERROR, 'The checked native capture directory changed identity.', __FILE__, __LINE__);
+            }
+        }
         $output = ($captureDirectory ?: $this->temporaryDirectory) . '/native-' . getmypid() . '-' . bin2hex(random_bytes(6));
         $nativeLog = fopen($output . '.php-errors', 'x+b');
         if ($nativeLog === false || $arguments[$nativeLogIndex] !== 'error_log=__LOW_RANDOM_OWNED_NATIVE_ERROR_LOG__') {
@@ -247,7 +257,7 @@ abstract class TestCase extends BaseTestCase
         }
         $journal = $environmentOverrides['LOW_RANDOM_STRICT_JOURNAL'] ?? $output . '.diagnostics';
         $environment = array_merge(getenv(), $environmentOverrides, array('TMPDIR' => $this->temporaryDirectory,
-            'LOW_RANDOM_STRICT_JOURNAL' => $journal));
+            'LOW_RANDOM_STRICT_JOURNAL' => $journal, 'LOW_RANDOM_STRICT_CAPTURES' => $captureDirectory ?: ''));
         $definition = (new \ReflectionClass($this))->getFileName();
         $capture = array('state' => 'started', 'owner_pid' => getmypid(), 'command' => $command,
             'arguments' => $originalArguments, 'timeout' => $timeout, 'journal' => $journal,

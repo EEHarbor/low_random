@@ -1,9 +1,8 @@
 <?php
 
-require_once 'phar://' . dirname(__DIR__, 2) . '/low_random/low_random.phar/FluxCapacitor/Conduit/StaticCache.php';
-\Low\Random\FluxCapacitor\Conduit\StaticCache::put('engine-source', 'kept', true);
-if (\Low\Random\FluxCapacitor\Conduit\StaticCache::get('engine-source', true) !== 'kept') {
-    throw new RuntimeException('The distributed source did not execute.');
+$metadata = require dirname(__DIR__, 2) . '/low_random/addon.setup.php';
+if ($metadata['namespace'] !== 'Low\\Random') {
+    throw new RuntimeException('The distributed add-on metadata did not execute.');
 }
 
 $mode = $argv[1];

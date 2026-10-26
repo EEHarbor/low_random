@@ -41,7 +41,7 @@
       "case_file": "tests/tests/Unit/NativeProcessTest.php",
       "case_class": "Tests\\NativeProcessTest",
       "method": "testRawCoverageReportLifecycle",
-      "case_sha256": "3b02353b6b35630f487f84ec0f686c12cf9c167640fe994b2962f9568a65879d",
+      "case_sha256": "2346f47ddfde3884eb48c4590d4c262a42ff52341c705f1edb9f64490fc742b1",
       "arguments": [
         "{ROOT}/tests/Support/native.php",
         "coverage-repeat",

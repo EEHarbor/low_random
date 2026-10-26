@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import signal
+import stat
 from native_outcomes import validate, configured
 import xml.etree.ElementTree as ET
 
@@ -18,13 +19,24 @@ reports.mkdir(exist_ok=True)
 run = pathlib.Path(tempfile.mkdtemp(prefix='compat-strict-', dir=reports))
 binary = os.environ.get('PHP_BIN', '/Users/tomjaeger/Library/Application Support/Herd/bin/php82')
 arguments = sys.argv[1:]
-junit = pathlib.Path(arguments[arguments.index('--log-junit') + 1]).resolve() if '--log-junit' in arguments else run / 'junit.xml'
-if '--log-junit' not in arguments:
+junit_argument = None
+for index, argument in enumerate(arguments):
+    if argument == '--log-junit':
+        if index + 1 == len(arguments) or not arguments[index + 1]:
+            sys.exit('Missing --log-junit destination')
+        junit_argument = arguments[index + 1]
+    if argument.startswith('--log-junit='):
+        junit_argument = argument[len('--log-junit='):]
+        if not junit_argument:
+            sys.exit('Missing --log-junit destination')
+junit = pathlib.Path(junit_argument).resolve() if junit_argument is not None else run / 'junit.xml'
+if junit_argument is None:
     arguments += ['--log-junit', str(junit)]
 if junit.exists():
     sys.exit('Refusing an existing JUnit report: ' + str(junit))
 captures = run / 'native'
 captures.mkdir()
+capture_identity = captures.lstat()
 environment = dict(os.environ, LOW_RANDOM_STRICT_JOURNAL=str(run / 'diagnostics.jsonl'),
                    LOW_RANDOM_STRICT_CAPTURES=str(captures))
 engine_log = run / 'php-errors.log'
@@ -92,11 +104,21 @@ if len(identities) != 1 or identities[0].get('pid') != parent_pid:
 for identity in identities:
     if not configured(identity, binary):
         issues.append('Incorrect process runtime or strict startup configuration')
-native, native_issues = validate(captures, root, binary, parent_pid)
+native = []
+try:
+    capture_named = captures.lstat()
+    if (not stat.S_ISDIR(capture_named.st_mode)
+            or (capture_named.st_dev, capture_named.st_ino) != (capture_identity.st_dev, capture_identity.st_ino)):
+        raise ValueError('Native capture directory changed identity')
+    native, native_issues = validate(captures, root, binary, parent_pid)
+except (OSError, ValueError) as error:
+    native_issues = [str(error)]
 issues.extend(native_issues)
 receipt = {'command': command, 'php_exit': php_exit, 'counts': counts, 'issues': issues,
            'native_error_log': str(engine_log), 'native_error_log_bytes': len(engine_bytes),
            'native_error_log_sha256': hashlib.sha256(engine_bytes).hexdigest(),
+           'native_capture_directory': {'path': str(captures), 'device': capture_identity.st_dev,
+                                        'inode': capture_identity.st_ino},
            'runtime_receipts': len(identities), 'native_captures': len(native), 'junit': str(junit),
            'junit_sha256': hashlib.sha256(junit.read_bytes()).hexdigest() if junit.exists() else None,
            'exit': php_exit if php_exit else 70 if issues else 0}

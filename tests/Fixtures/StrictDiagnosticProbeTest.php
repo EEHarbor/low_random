@@ -84,8 +84,6 @@ final class StrictDiagnosticProbeTest extends TestCase
                 $tail = getenv('LOW_RANDOM_STRICT_PROBE') === 'malformed' ? 'S:9:"bad";' : 's:9:"bad";';
                 $serialized = 'a:2:{i:0;' . $serialized . 'i:1;' . $tail . '}';
             }
-            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode($serialized)));
-
             if (PHP_VERSION_ID < 80000) {
                 set_error_handler(static function ($severity, $message, $file, $line, $context) {
                     \LowRandomDiagnostics::handle($severity, $message, $file, $line);
@@ -93,7 +91,7 @@ final class StrictDiagnosticProbeTest extends TestCase
             }
 
             try {
-                (new \Low\Random\FluxCapacitor\Conduit\GlobalFieldSettings())->getSettings();
+                unserialize($serialized);
             } catch (\Throwable $error) {
             } finally {
                 if (PHP_VERSION_ID < 80000) {
@@ -111,8 +109,7 @@ final class StrictDiagnosticProbeTest extends TestCase
         }
 
         if (getenv('LOW_RANDOM_STRICT_PROBE') === 'after-parser') {
-            $this->ee->db->results['fieldtypes'] = array(array('settings' => base64_encode('malformed')));
-            (new \Low\Random\FluxCapacitor\Conduit\GlobalFieldSettings())->getSettings();
+            unserialize('a:0:{}');
 
             try {
                 @trigger_error('owned restored-handler diagnostic', E_USER_DEPRECATED);
