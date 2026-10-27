@@ -1,0 +1,6 @@
+/tests/reports/*
+!/tests/reports/.gitkeep
+/.phpunit.result.cache
+/tests/.phpunit/.phpunit.result.cache
+/tests/.phpunit/*.phar
+/tests/.phpunit/download.??????

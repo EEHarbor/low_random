@@ -1,0 +1,309 @@
+# Practical suite cleanup — 2026-10-27
+
+The current configured suite and results are described in `README.md`: 17 tests/57 assertions on PHP 7.4 and 8.0–8.5. Shared Foundation/PHAR tests, artificial harness cases and orphaned measurement support were removed. Original add-on source and PHAR bytes were unchanged. All seven runs pass.
+
+Earlier entries below are historical coverage-campaign evidence and may refer to removed tests/scripts.
+
+---
+
+# Low Random PHPUnit campaign status
+
+Status: **incomplete campaign; phase 6 reviewed/published, implementation held for ownership rotation**. The reviewed loader code/evidence checkpoint is published at `fac8a80c2e0f3e9931f981adf6ccf1ee5945d99e`. No production source changed. Current matrix/coverage artifacts describe phase 6; historical summaries below refer to their frozen packets and retained evidence.
+
+## Phase 6 reviewed loader checkpoint
+
+Seven added cases bring the complete configured suite to 243 cases. Disposable native processes load the original unchanged autoloader and PHAR under explicit process-local OPcache enable/CLI/permission settings, an absent configuration function, a restricted API prefix and a neighboring namespace owned by the next registered loader. The prior reviewed/published head is `38905934805327f29499035e8de4831e8469ff25`. Class filename and archive SHA assertions require the original archive, with no replacement production class or rebuilt archive.
+
+The setting vectors explicitly cover disabled CLI, enabled CLI, permission validation, globally disabled OPcache, disabled configuration API and restricted API. PHP 7.4 has no installed OPcache module, so these controls honestly measure absent-module fallback there; PHP 8.0–8.5 use the actual installed extension. No unavailable runtime component is faked. A first trial assumed a loaded extension was enabled; PHP 8.1's host configuration has opcache.enable=0. That trial at tests/reports/phase6-final-grmc4tq7 was rejected. The corrected test sets enable/disable explicitly in the child and reruns into fresh paths. Global Herd/php.ini configuration remains unchanged.
+
+Precise commands, full issue identities and JUnit hashes are in `MATRIX_RESULTS.json`; fresh evidence is `tests/reports/phase6-final-lfzrknhk/`. The local pinned PHPUnit 9.6.38 SHA256 remains 6b5235f282c6ccab3674ac27c5b1ddbd1da838e74bf07002ddcfd030d31298d7.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 243 | 2033 | 7 | 26 | 0/0/0/0 | 2 |
+| 8.0.30 | 243 | 2021 | 7 | 24 | 0/0/0/0 | 2 |
+| 8.1.33 | 243 | 2017 | 9 | 24 | 0/0/0/0 | 2 |
+| 8.2.30 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.3.28 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.4.15 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+| 8.5.0 | 243 | 2010 | 10 | 24 | 0/0/0/0 | 2 |
+
+The new class independently runs seven cases/74 assertions/one source failure on PHP 7.4 and seven/64/two source failures on PHP 8.0–8.5. All prior 236-case source issue identities remain. Randomized full order with seed 20261023 matches default counts/issues on PHP 7.4 and 8.5. All three added PHP files lint across all seven runtimes. Complete suites verify all 27 shipped source hashes and native compilation. External full-suite observers preserve the complete empty and seeded caller OpenSSL FIFO on 7.4/8.5: zero/four and zero/two entries. No test reads or drains its caller's queue.
+
+Two source observations remain ordinary red intended-behavior regressions:
+
+32. Original autoload.php:77 calls suppressed opcache_get_configuration even when the actual API is restricted. Its native warning becomes a strict diagnostic before the loader includes the available class. Absent-function, disabled runtime and unrestricted positive controls pass. This applies only where OPcache is installed; PHP 7.4's absent-module control passes.
+33. Original namespace prefix matching at autoload.php:34 omits the following namespace separator. A valid `Low\Random\FluxCapacitorExtra\Widget` class belongs to a separate fixture loader, but the original loader intercepts it and throws at line 87 before the next loader executes. The test requires that ordinary neighboring class to load through its own loader; the observed exception is not accepted as passing behavior.
+
+Fresh raw coverage retains 196 separate main/native process graphs, 98 per runtime on PHP 7.4 / Xdebug 3.1.6 and PHP 8.2 / Xdebug 3.5.3. Fourteen new native graphs cover the loader settings/neighbor flows; every prior context is freshly rerun. contexts.json preserves every raw SHA and full provenance; every graph has a complete method summary retaining exact out/out_hit and all unknown units. No graphs are merged. The permission control executes original autoload.php:82; reflected filenames are canonical and are not treated as proof of its query string. Separate Clover/JUnit/skill line-only reports are retained. Missing branch data, basic-block 100% or unobserved synthetic terminals never prove full outcome coverage.
+
+Self-review checked original source execution, actual runtime capabilities, process-local flags, independent namespace fixture ownership, strict diagnostics hidden by @, owned temporary paths, caller state and source/report hashes. Independent exact-diff review approved patch `37d1563feda2ce277feff912a1e706fc8ca3e7f117f14821312e918d8065e5a5`. Source defects, unavailable positive OPcache on PHP 7.4, platform/fallback, historical/full EE/SQL/HTTP integration, updater optional extensions and broad per-method outcome closure remain incomplete. Implementation is now held for coordinator ownership rotation; the full Low Random goal remains incomplete.
+
+## Phase 5 reviewed checkpoint
+
+Twenty-nine added cases bring the complete configured suite to 236 cases. They exercise the original PHAR extraction helper, all 22 original manifest entries and byte bodies against native Phar, alias/metadata offsets and unsigned CRC parser inputs, 18 binary/codec/read-boundary vectors, checksum and size termination, Unix temporary selection, and six owned cleanup shapes. The prior published and reviewed head is `5d72289177f2820ecf2cdf31878434ea1392f3a0`.
+
+Native probes use the normal unchanged archive loader to declare Extract_low_random, then call its original methods. No source or archive is rebuilt or rewritten. Deterministic SHA256-derived binary bytes are independent extractor inputs; encoded-size assertions prove the large native gzip/bzip2 fixtures cross the actual 8 KiB read boundary. The manifest oracle checks every original member's native size, timestamp, compressed size, unsigned CRC, offset, body and final stream position. Structured alias/metadata/flag bytes are parser input, not a substitute archive.
+
+All filesystem writes belong to the test's unique temporary root. Each cleanup scenario runs in a disposable native process, captures source CWD/removal results before fixture cleanup, and restores CWD/removes only owned remnants in finally, including links and dotfiles. Unix TMPDIR checks explicit, empty and unset values and restores the child environment. Robustness link targets stay inside the same owned tree. These library contexts do not boot complete EE or prove Windows/HTTP/package-loader integration.
+
+Precise commands, explicit Herd versions, JUnit hashes and issue identities are in `MATRIX_RESULTS.json`. Fresh evidence is `tests/reports/phase5-final-ey7o8wc3/`. The local pinned PHPUnit 9.6.38 SHA256 is retained; no global runtime configuration changed.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 236 | 1959 | 7 | 25 | 0/0/0/0 | 2 |
+| 8.0.30 | 236 | 1957 | 7 | 22 | 0/0/0/0 | 2 |
+| 8.1.33 | 236 | 1953 | 9 | 22 | 0/0/0/0 | 2 |
+| 8.2.30 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.3.28 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.4.15 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+| 8.5.0 | 236 | 1946 | 10 | 22 | 0/0/0/0 | 2 |
+
+The two new classes independently run 29 cases / 315 assertions / 4 source failures on PHP 7.4 and 8.5. Complete randomized order with seed 20261023 on those runtimes preserves counts and every issue identity. All previous 207-case source issues remain unchanged; four new native failures assert intended behavior and retain full source diagnostics. All three new PHP files lint on 7.4 and 8.5. Every complete suite verifies all 27 shipped source hashes and native compilation.
+
+Four additional source observations remain ordinary red regressions:
+
+28. Executable PHAR stub line 262 formats a malformed-size diagnostic using undefined `$stat[7]`. A native declared-size-2/body-size-1 vector requires the declared size in its message; strict execution throws before reporting it. The separate checksum-mismatch termination and all valid extraction controls pass.
+29. Stub line 278 calls suppressed rmdir on a nonempty child directory before its recursion guard. Strict diagnostics stop the promised recursive cleanup; ordinary empty/files/empty-child controls pass.
+30. Stub glob('*') omits an owned dotfile, then suppressed rmdir at line 285 fails because the tree remains nonempty. This is an explicit filesystem robustness shape, not a claim the shipped archive normally contains hidden members.
+31. Stub file_exists returns false for an owned dangling link, leaving it for the final rmdir at line 285 to fail. This is an explicit link robustness shape, not a claim normal extraction creates links. The absent target is confined to the same unique tree.
+
+Fresh raw coverage captures 182 separate process/context graphs (91 per runtime) under PHP 7.4 / Xdebug 3.1.6 and PHP 8.2 / Xdebug 3.5.3. Fifty-four new native graphs cover the helper vectors; all prior contexts are freshly rerun. `contexts.json` preserves each raw SHA and full provenance, and complete per-context summaries retain unknowns and original outgoing exit data. No graphs are merged. Main _unpack observes 20/20 lines, 4/4 basic blocks and 4/4 outgoing exits on PHP 8.2; broader stub methods remain incomplete. `COVERAGE.md` lists all 262 main graph/function rows and 54 separate executed native-stub observations. A separate Clover run, separate JUnit and line-only skill report are retained; missing branch metrics are not 100%.
+
+External full-suite caller probes on PHP 7.4 and 8.5 preserve complete empty and seeded OpenSSL FIFO states: zero entries for empty controls, four seeded entries on 7.4 and two on 8.5. The probe drains only its own terminating observation process at shutdown; no test reads or clears the PHPUnit caller's queue.
+
+Self-review checked original-source execution, native Phar and codec controls, unsigned/binary input fidelity, read boundaries, termination messages, strict diagnostics hidden by @, owned paths/links, CWD/environment/queue isolation, source invariance and report provenance. Independent exact-diff review approved patch `d885246c3fd9d8c4036fd8e8857fadb827334419111cfeafd80d560b12047ce2`. Source diagnostics block size-error formatting and recursive cleanup; broader fallback/platform, full EE/SQL/HTTP integration, updater extension and per-method outcome coverage remain incomplete. This checkpoint does not claim full campaign completion.
+
+## Phase 4 reviewed checkpoint
+
+Thirty-four new cases bring the complete configured suite to 207 cases. They cover original EE2 bridge session/fingerprint/cookie URL handling, preservation of existing S/D directives, eleven legacy CP route mappings, four temporary view modes, pre/post-2.8 cache tier selection, request deletion/clear with another add-on sentinel, legacy settings insert/update and row-per-variable settings, flash/class replacement, request offset/page precedence and pagination delegation. The prior reviewed/published head is `81a81efc571b48588f2c63f06b052a89131d4f68`.
+
+Native library probes directly require byte-unchanged AbstractBridge, StaticCache and EE2 entries from the original PHAR. They bypass package autoloading and do not boot a complete historical EE installation. Historical APP_VER constants and boundary fixtures exercise the shipped version conditions; they are not proof that historical EE itself runs on all seven current interpreters. Native view writes use only each test's owned temporary PATH_THIRD. No product file is copied, rewritten or removed by these views. Existing source-regression contexts for the invalid comparison operator and optional loader failures remain unchanged.
+
+Every settings mutation asserts the owning writer's adjacent trace, exact site predicate before UPDATE and exactly one DML call. The primary builder's calls and table cache remain unchanged. Clone object ids are compared only inside the live writer trace; prior destroyed clone ids may be reused. Structure-style variable rows verify merge precedence and zero/false values. Parser/loader/paginator fixtures observe boundary arguments and their configured returns without claiming to implement EE internals.
+
+Complete commands, explicit Herd versions, fresh JUnit hashes, every issue identity and extra raw/random/focused runs are in `MATRIX_RESULTS.json`; evidence is `tests/reports/phase4-final-qfanmdlw/`. Each command uses the pinned local PHPUnit9.6.38. No runtime/php.ini configuration changed.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 207 | 1644 | 7 | 21 | 0/0/0/0 | 2 |
+| 8.0.30 | 207 | 1642 | 7 | 18 | 0/0/0/0 | 2 |
+| 8.1.33 | 207 | 1638 | 9 | 18 | 0/0/0/0 | 2 |
+| 8.2.30 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.3.28 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.4.15 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+| 8.5.0 | 207 | 1631 | 10 | 18 | 0/0/0/0 | 2 |
+
+The new class independently runs 34 cases/168 assertions with exactly one source failure on PHP74 and PHP85. Complete randomized order with seed20261023 on both runtimes preserves full counts and every issue identity. All previous173-case source issue identities remain; no expectation was changed to accept source defects. The three new PHP files lint on74/85. All 27 source inventory hashes and archive bytes remain unchanged.
+
+27. `Bridge/EE2.php:281–288`: persistent get/set use EE's cache for APP_VER>=2.8, but delete clears only the session tier. The native2.8 test writes numeric zero, verifies the persistent/request boundary, and requires a subsequent persistent read to miss. Actual zero remains, so the intended deletion assertion stays red. Pre2.8 persistent-mode fallback and post2.8 explicit request-mode deletion/clear controls pass; another add-on's zero sentinel survives. This is the separately shipped EE2 implementation of the cache-tier defect.
+
+Fresh raw coverage captures128 separate process/context graphs (64 per runtime) on PHP74/Xdebug3.1.6 and PHP82/Xdebug3.5.3. Forty-eight new graphs cover the historical URL/route/view/cache vectors; all existing native graphs are freshly rerun. Every raw SHA and provenance appears in contexts.json; corresponding summary files preserve all unchanged outgoing exits and unknown methods. The current main graphs are committed as BRANCH_RAW_PHP74/82.json. A separate Clover82 run, separate JUnit and skill line-only report are retained; a trial shared Clover/JUnit path was rejected and rerun correctly. No cross-runtime/context merge or absent-branch100% inference is made. `COVERAGE.md` lists262 main graph/function rows and106 executed legacy-method observations, with full context summaries for unexecuted methods.
+
+Self-review checked actual Session userdata defaults, real bridge source conditions, temporary view ownership, typed zero/false cache controls, live-writer journal scope, cloned query isolation, strict diagnostics and source invariance. Independent exact-diff review approved patch `25d3ab88f7bc33a9a0b8fccc63572f850542d0d756603592788f9e0d78a40edf`. Remaining EE2/historical/full EE/SQL integration, updater optional extensions, loader/platform branches and broad per-method outcome closure are incomplete; this checkpoint is not full coverage or campaign completion.
+
+## Phase 3 reviewed checkpoint
+
+Forty-seven added cases bring this configured checkpoint to 173 cases. New tests exercise modern bridge navigation, legacy/current helper and parser boundaries, loader registry rejection/removal, complete URL information, all three procedural fieldtype parent-import layouts, and ten independent navigation conduit component contexts. Existing modern settings updates now assert the exact fresh site predicate immediately before UPDATE. The previous reviewed/published checkpoint is `ad00485f88283ec0bafbbb4478e182ad84a48670`.
+
+The original installation still retains its missing optional navigation-file warning as a red regression. Positive conduit tests use the normal optional add-on extension point in a unique native installation, execute library class methods directly from the original immutable PHAR, and SHA256-verify copied setup/JSON/autoloader bytes. Their component loader bypasses package autoload resolution for library classes, so they do not claim full installation or loader integration. Default hooks, root/empty aliases, forced/existing licensing links, headings/external URLs, populated/empty button groups, active references, toolbar defaults/overrides, deferred generation and EE2 delegation are asserted. Native header fixtures mirror EE's single button replacement and non-stringable object semantics. Parser and formatter fixtures record service boundaries without claiming to test EE's algorithms.
+
+Command: `./tests/scripts/run-matrix.sh`. Evidence: `tests/reports/matrix.spQrIr/`; precise commands, runtimes, JUnit SHA256 hashes and every source error/failure are retained in `MATRIX_RESULTS.json`.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 173 | 1476 | 7 | 20 | 0/0/0/0 | 2 |
+| 8.0.30 | 173 | 1474 | 7 | 17 | 0/0/0/0 | 2 |
+| 8.1.33 | 173 | 1470 | 9 | 17 | 0/0/0/0 | 2 |
+| 8.2.30 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.3.28 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.4.15 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+| 8.5.0 | 173 | 1463 | 10 | 17 | 0/0/0/0 | 2 |
+
+Random seed `20261023` on PHP 7.4/8.5 reproduces the same counts and issue identities. All six changed/new executable test files run alone on both runtimes without additional issues (`tests/reports/phase3-fixed-standalone-upb38lh0/`). Three imports load the real source's system, application and installer parent-file branches with hash-verified compatible EE_Fieldtype fixture copies; the existing parent-preloaded/predefined-version contexts remain separate.
+
+Genuine raw PHP 7.4/8.2 reports, their per-function summaries, context SHA256 manifest, separate Clover82/skill report and random runs are in `tests/reports/phase3-fixed-x230odmk/`. All 80 main/native graphs remain separate, including twenty navigation component observations and six import-layout observations. Raw provenance now records LC_CTYPE as well as runtime, source root/archive hash, EE/request/native context, PHAR stream and OPcache. `COVERAGE.md` reports every inventory unit, 262 main function/graph rows and individual PHP8.2 conduit-method observations. Synthetic exits and missing metrics are unresolved, not credited.
+
+Independent review of original phase 3 snapshot `2082f80db697894a5761db8e501dbc54dcdb12853031ebb593faf371f9ce408a` found one P2 fixture-contract issue: ee('db') returned the primary builder while current EE app.setup.php:179–181 and Database::newQuery return a fresh query. The repaired fixture creates separate builders/pending-call lists/schema caches over live shared backend responses and an owning-builder journal. The settings tests now seed and preserve an unfinished primary query/cache, observe each actual settings writer, and require its exact count/read/fresh scoped mutation trace. A direct service contract verifies distinct identity, live backend changes, shared queued results, untouched primary state and journal ownership. Affected seam/settings tests pass12cases/143assertions; all refreshed full173-case suites retain exactly the previous source issue identities. Fresh-query stale-cache clear lines are no longer credited, and that honest coverage decrease is retained. Replacement independent review approved exact snapshot `e5c369897386114b5654cd963c46d98c993212f64fbc70bc468a2226f4a90874`.
+
+Two additional compatibility/source regression families remain red:
+
+25. `Bridge/EE3.php:96`, `EE4.php:96`, `EE5.php:96`: an active-map alias assigns a Sidebar Header object as the CP page title instead of its string label. Three independent implementation cases require the text title.
+26. `Bridge/EE2.php:357` and the copied modern URL-title normalizations: on this explicit Herd PHP7.4.33 under LC_CTYPE `C.UTF-8`, `strtolower` converts valid UTF-8 `c3844243` (ÄBC) to invalid UTF-8 `e3846263` before delegation. Four implementation cases require UTF-8 integrity; PHP8.0–8.5 controls pass. This is a qualified runtime/source compatibility boundary, not a claim about every PHP7.4 locale. No expected value is changed to accept corrupted bytes.
+
+Source diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` remains empty. No independent test helper, source loader or graph is treated as full EE/SQL integration. Further EE2 settings/session/dynamic-view, updater extension, loader/platform and actual outcome coverage remain incomplete. This tranche was independently reviewed and published; the publication evidence below identifies its exact tree and commits.
+
+## Phase 2 reviewed checkpoint
+
+The previous published checkpoint is `f28674835bd1f973910e766f64fbce1a59bcfa36`. This test/support/docs delta adds archive extension registration/removal, updater installation/removal, license schema and storage, license crypto/footer generation, controller validation and redirects, fieldtype channel/settings behavior, modern bridge URL/view/cache/alert/pagination delegation, and native EE2/EE7 request/version contexts. `SOURCE_INVENTORY.json` remains unchanged and every complete suite verifies all 27 shipped source hashes and native compilation.
+
+The actual updater constructor and every license encryption check execute in native children. PHP OpenSSL leaves error-queue entries even after successful encryption; isolating those calls preserves the caller's pre-existing queue without consuming or suppressing diagnostics. Updater method tests initialize the valid post-constructor state separately; a native test covers the real constructor. Child output goes to unique files, avoiding a two-pipe deadlock; a monotonic deadline terminates only the child. Harness vectors verify 1 MiB on both outputs, a real timeout, preserved caller crypto errors, fresh raw-report parent creation and repeated-reservation rejection.
+
+Checkpoint full matrix command: `./tests/scripts/run-matrix.sh`. Evidence: `tests/reports/phase2-review-fixed/matrix/`; exact runtime paths, commands, JUnit SHA256 hashes and source issue attribution are retained in `MATRIX_RESULTS.json`.
+
+| Runtime | Cases | Assertions | Errors | Failures | Warnings/risky/skipped/incomplete | Exit |
+|---|---:|---:|---:|---:|---|---:|
+| 7.4.33 | 126 | 969 | 7 | 13 | 0/0/0/0 | 2 |
+| 8.0.30 | 126 | 963 | 7 | 14 | 0/0/0/0 | 2 |
+| 8.1.33 | 126 | 959 | 9 | 14 | 0/0/0/0 | 2 |
+| 8.2.30 | 126 | 952 | 10 | 14 | 0/0/0/0 | 2 |
+| 8.3.28 | 126 | 952 | 10 | 14 | 0/0/0/0 | 2 |
+| 8.4.15 | 126 | 952 | 10 | 14 | 0/0/0/0 | 2 |
+| 8.5.0 | 126 | 952 | 10 | 14 | 0/0/0/0 | 2 |
+
+Random order with seed `20261023` independently reproduces the default counts and source issues on PHP 7.4 and 8.5 (`tests/reports/phase2-review-fixed/evidence/random74.xml` and `random85.xml`). Full raw PHP 7.4 and 8.2 runs reproduce their complete-suite counts. Main native raw reports are committed as `BRANCH_RAW_PHP74.json` and `BRANCH_RAW_PHP82.json`; all 54 independent process/context reports are enumerated with SHA256 hashes in `tests/reports/phase2-review-fixed/contexts.json`. These process/runtime/conditional graphs are kept separate. `COVERAGE.md` contains 262 function/graph rows across all source units, unknown metrics and remaining gaps. The zero-main-coverage combined Clover/raw trial was rejected and replaced with a separate raw run; Clover remains useful only for lines.
+
+Independent phase 2 review found two blocking test issues in original snapshot `59b319d0f8466a92991fac9b4351807ec1720b181103f5832cc6498328913a85`: the crypto contract test consumed a pre-existing caller error, and mutation assertions did not prove fresh site/add-on predicates attached to the UPDATE/DELETE. Both were repaired. Queue-mutating setup and full FIFO comparison now occur only in a disposable native probe using the actual helper; external pre-seeded caller probes pass PHP 7.4/8.5 and preserve all two/one entries. Direct Version UPDATE and controller UPDATE/ignored-key DELETE require exact adjacent mutation predicates. The seven suites, random order and separate raw/Clover runs above were refreshed in a byte-identical private reconstruction containing exactly this checkpoint; independent later navigation tests remain outside this snapshot. Replacement exact-diff review approved SHA256 `16138a8e5f3899f1772f282748dd2dbcf3e74fad78c0b9ba1b8b7cc4dbcf3449` after independently reproducing all seven suites, issue identities, all 54 raw graphs, separate Clover/skill results and both external caller-queue sentinels. All 23 manifest hashes matched; no additional actionable test/harness/report issue remained. Broad source/outcome/live-EE/SQL/integration gaps remain incomplete.
+
+Twelve additional source regressions remain red alongside the original twelve below. All paths are archive members under `FluxCapacitor/`:
+
+13. `Bridge/EE3.php:276-278` (and copied EE4/EE5 implementation): request-cache delete ignores the nonpersistent mode and deletes the persistent tier, leaving the request value.
+14. `Base/Mcp.php:96`: a numeric SQL string site ID and integer configuration ID for the same site compare strictly unequal, rejecting the license as belonging to another MSM site.
+15. `Base/Mcp.php:165`: pagination writes undeclared `$data`, deprecated on PHP 8.2+. Tests do not declare the missing source property.
+16. `Base/Ext.php:189`: the legacy registration adapter discards caller hook, priority and enabled arguments.
+17. `Base/Ext.php:194`: the legacy unregistration adapter discards the custom hook.
+18. `Base/Ft.php:88`: a missing ChannelEntry model row is dereferenced before the create-route fallback.
+19. `Base/Ft.php:67`: boolean true is accepted as the string content-type name through a loose comparison. This is an explicit malformed-input boundary.
+20. `Base/Upd.php:64`: an optional extension include emits a warning because this plugin does not ship the file; the suppressed diagnostic remains visible to strict tests.
+21. `Conduit/Version.php:194`: SQL NULL passed to `preg_replace` emits a PHP 8.1+ deprecation. This is a corrupt/legacy-row boundary, not a claim that the current non-null schema produces SQL NULL.
+22. `Conduit/McpNav.php:7`: an absent optional add-on navigation include emits a hidden warning before the base class can load.
+23. `Bridge/EE2.php:47`: the invalid `=<` comparison operator raises a ValueError on PHP 8+ for the EE2.9 CP context; earlier EE2.5 context remains independently tested.
+24. `Conduit/Version.php:161`: an oversized base URL exceeds the RSA payload capacity; failed encryption yields an empty payload on earlier PHP and a `bin2hex(null)` deprecation on PHP 8.1+.
+
+No warning or source failure is made an expected exception merely to make the suite pass. Native failures assert successful intended behavior and retain full fatal output. Required baseline invariance remains `git diff 892b6dae8282b159e580e3c1a6076a39d9902f84 -- low_random` (empty). This is a reviewable partial checkpoint. More independent bridge/nav/helper/loader branches and vectors remain required; no whole-archive 100% or completion is claimed.
+
+## Baseline and provenance
+
+- Repository: `/Users/tomjaeger/Sites/add-ons/low_random`; origin: `https://github.com/EEHarbor/low_random.git`.
+- Clean checkout had no dirty/untracked files or other worktrees. Fetched origin, switched develop, ran `git pull --ff-only origin develop`, verified clean exact `HEAD == origin/develop`, then created `unit-tests-2026` before edits.
+- Pinned baseline/head: `892b6dae8282b159e580e3c1a6076a39d9902f84`.
+- Source inventory: `SOURCE_INVENTORY.json`; four ordinary PHP files, 22 archive members and executable PHAR stub; 27 source units in total. Nothing is excluded from the inventory. Hashes are recorded for every source unit and the original archive. Each complete matrix suite verifies byte-identical compile-copy hashes, including all previously unloaded archive files.
+- Production invariance command: `git diff 892b6dae8282b159e580e3c1a6076a39d9902f84 -- low_random` (empty).
+- Preflight initially reported no harness. Correct-branch scaffold plus approved exact local PHAR download succeeded. Resolved command: `./tests/.phpunit/run-phpunit.sh -c phpunit.xml`.
+
+## First published checkpoint matrix
+
+Command: `./tests/scripts/run-matrix.sh`. Evidence: `/Users/tomjaeger/Sites/add-ons/low_random/tests/reports/matrix.dUsVe5/` contains seven full logs, native versions, JUnit reports and exit codes. The configured suite includes all tests and native compilation/version/loader probes; no test filters or zero-test runs are counted.
+
+| Herd runtime | PHPUnit | Tests | Assertions | Errors | Failures | Warnings | Risky | Skipped | Incomplete | Exit |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| PHP 7.4.33 | 9.6.38 | 57 | 447 | 5 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.0.30 | 9.6.38 | 57 | 447 | 5 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.1.33 | 9.6.38 | 57 | 446 | 6 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.2.30 | 9.6.38 | 57 | 446 | 6 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.3.28 | 9.6.38 | 57 | 446 | 6 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.4.15 | 9.6.38 | 57 | 446 | 6 | 6 | 0 | 0 | 0 | 0 | 2 |
+| PHP 8.5.0 | 9.6.38 | 57 | 446 | 6 | 6 | 0 | 0 | 0 | 0 | 2 |
+
+`E_ALL` and deprecations are enabled in each parent and native child. The source handler throws even for diagnostics hidden by `@`; an independent suppressed E_USER_DEPRECATED probe verifies it. PHPUnit/harness emitted no separate diagnostics. A randomized PHP 8.2 suite (`--order-by=random --random-order-seed=20261023`) reproduced exactly 57 tests /446 assertions /6 errors /6 failures, without additional order-dependent failures.
+
+## First published checkpoint source regressions retained red
+
+All following paths are shipped source paths inside `low_random/low_random.phar` unless specified:
+
+1. `Conduit/GlobalFieldSettings.php:21`: missing key in a nonempty settings array emits a hidden undefined-index warning.
+2. `Conduit/GlobalFieldSettings.php:33`: malformed stored base64/serialization emits a hidden unserialize warning.
+3. `Base/Pi.php:30`: static `info()` uses `$this`; execution fails on every runtime before later metadata values or a return can execute.
+4. `Bridge/EE5.php:412`: a short CP URI indexes segment 3 under `@`; strict diagnostics expose the warning.
+5. `Conduit/PersistentCache.php:21` → `Conduit/StaticCache.php:18`: documented array keys are passed as already processed keys and fail as illegal offsets.
+6. Ordinary `pi.low_random.php:64`: null tagdata reaches deprecated `trim(null)` on PHP 8.1+ (passes PHP 7.4/8.0). This is an explicit boundary-shape regression, not a claim normal EE tagdata is null.
+7. PHAR stub line 177: the advertised stream-free extraction path calls `@mkdir` on a directory already created earlier in that same extraction. Fresh native strict runs stop with `mkdir(): File exists`; no shared extraction directory is used.
+8. `Conduit/PersistentCache.php:21`: set hashes static keys while get requests raw keys. Removing the disk file after set loses a supposedly cached value.
+9. Ordinary `pi.low_random.php:135-140`: file candidates are appended to the prior method's set, leaking a prior item into current upload-destination selection. Exact candidate-log assertions make the failure deterministic.
+10. `Conduit/StaticCache.php:18`: a stored numeric zero is returned as false.
+11. `Conduit/StaticCache.php:58-60`: delete removes the key, then always reports false despite its documented success return.
+12. `Conduit/StaticCache.php:108`: `array_filter` removes numeric-zero key components, causing distinct composite keys to overwrite each other.
+
+These are source failures, not exceptions expected merely to make the suite green. Invalid user shapes for native string APIs remain explicit rejection tests. Existing helper/model behavior is verified instead of invented to cover lines. No production repair is authorized.
+
+## First published checkpoint coverage and blockers
+
+- Initial skill baseline command was attempted before tests existed and produced no Clover report (missing driver/zero tests); no baseline percentage is invented.
+- Final Clover: `tests/reports/review-fixed-clover.xml`; skill helper used `--source-root low_random --include-magic --coverage-clover <absolute final-clover.xml> --reuse-clover --json`, saved in `tests/reports/review-fixed-methods.json`.
+- The helper reports 8 ordinary plugin methods at 100% executable lines, but branch fields are null. Those are **not** 100% coverage milestones.
+- Genuine native branch run: PHP 8.2.30 /Xdebug 3.5.3 with process-local `-d zend_extension=.../xdebug-82-arm64.so -d xdebug.mode=coverage`; full raw command is in `README.md`. Raw reports use `tests/reports/review-fixed-raw-82.PID.json`; main `91017`, plus independent native children. `tests/reports/review-fixed-branches.json` and `COVERAGE.md` show per-function line/basic-block/outgoing-exit counts, exact uncovered file lines, and unknown uninstrumented sources. No missing branch data is interpreted as 100%.
+- Guaranteed reachability blocker: `Base/Pi.php:30` throws; its later metadata entries/return behavior cannot run through the actual static API without source changes. Native fallback extraction stops at stub line 177; later branches remain blocked behind this diagnostic under required strict execution. Stub Windows-only branches cannot run natively on macOS.
+- Broader archive bridge/control-panel/extension/updater/fieldtype/navigation/licensing methods remain uncovered or partly covered. These are explicitly incomplete work, not claimed impossible merely because scope is large. Native syntax and version-selection checks cover loading risk but do not substitute for behavior/branches.
+- Behavioral coverage currently includes constructor/setup, all plugin APIs and file filters/model chains, both license views, static/disk cache, settings serialization/precedence/persistence, version comparisons, module parameters, tab adapters, all bridge version selection, guard and missing/fallback loader branches.
+
+## Review and publication
+
+Independent reviewer verified every file/hash in the first immutable snapshot (`8462f73fb37a9be36b8e8a1e755740afa77d13c704379b68d1dad8f811197d3e`) and independently reproduced its complete PHP 8.2 suite. Three P2 harness findings were corrected: capture/restore the PHAR-mutated include path in finally; match native DB_result named/default/numeric/current-row/SQL NULL/empty-result contracts; skip dot directories before recursive filename traversal while preserving native readdir order. Four fixture-contract tests (24 assertions) pass independently. All seven complete suites, randomized order and genuine coverage were rerun after repairs; only the same source regressions remain. Follow-up independent review approved replacement snapshot `b86d440d9645697dedca70e6725a4bde30ab5c137462d0931439d1bf6ca519b5` after verifying all 26 file hashes, independently passing the three original regression probes, and reproducing 57 tests /446 assertions /6 errors /6 failures on PHP 8.2. No actionable harness issue remained in the bounded checkpoint review. Self-review also corrected initial autoloader leakage and the template ignore list. No additional actionable harness issue is currently known. Residual risks are the documented source defects, incomplete archive branch coverage, and environment-specific PHAR loader branches.
+
+Reviewer: `/root/review_priority_playa`. Review snapshot and copied evidence: `/private/tmp/low-random-review-fixed-20261023T135445/`. The user authorized publishing reviewed red source-regression commits; no PR was opened and full campaign completion is not claimed.
+
+| Commit | Scope |
+|---|---|
+| `f017d0b` | Pinned strict harness, fixture contracts, source/coverage inventory and documentation |
+| `b600418` | Ordinary plugin APIs and source regressions |
+| `15eb8bc` | Metadata, license views and static info regression |
+| `5ab974f` | Archive base classes and global field settings |
+| `801510b` | Archive bridge settings contracts |
+| `86d4a64` | Persistent cache and source regressions |
+| `251766b` | Static cache and source regressions |
+| `c1780f7` | Native loaders and all shipped PHP source compilation |
+
+Publication evidence: `git push -u origin unit-tests-2026` succeeded. A subsequent fetch and `git ls-remote --heads origin unit-tests-2026` verified code checkpoint HEAD and remote ref both equal `c1780f7f617303e5bfec0bfa25b57803b98f1b30`; `git rev-list --left-right --count HEAD...origin/unit-tests-2026` returned `0 0`. Working tree was clean and production diff against the pinned baseline was empty. This documentation-only ledger update follows that verified code checkpoint; no executable test or source changed after the measured/reviewed run.
+
+The documentation publication commit `f28674835bd1f973910e766f64fbce1a59bcfa36` was subsequently pushed and verified at exact remote parity before phase 2 began. The phase 2 work above is not covered by the first checkpoint approval.
+
+## Phase 2 publication evidence
+
+Independent reviewer: `/root/tests_hits`. Approved snapshot: `/private/tmp/low-random-phase2-review-fixed-ke913r79/`; patch base `f28674835bd1f973910e766f64fbce1a59bcfa36`; approved/final tree `9c4a2e9b9c524318b23446174b3411251a1c421c`. The independent reconstruction was `/private/tmp/low-random-phase2-fixed-review-bzhq10c8`; all seven 126-case results and every error/failure identity matched. All 54 raw graphs matched after PID/root-path normalization, retaining unchanged out/out_hit. The source-red checkpoint was then published through these reviewed scopes:
+
+| Commit | Scope |
+|---|---|
+| `04c2f6f` | Native isolation, realistic EE fixture expansion and harness contracts |
+| `587e39d` | Modern archive bridge control-panel adapters |
+| `9e932e4` | Extension lifecycle and compatibility regressions |
+| `9cbe0da` | Updater installation/removal and mutation scopes |
+| `f8e7515` | Licensing schema and scoped persistence |
+| `85cc7c9` | Controller validation, redirects and exact update/delete predicates |
+| `dd6d919` | Fieldtype channel/settings APIs and regressions |
+| `d9e3a3f` | Runtime matrix, raw coverage and incomplete checkpoint evidence |
+
+A fresh origin fetch showed the previous checkpoint at parity before publication. `git push origin unit-tests-2026` succeeded. A subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` returned exact `d9e3a3f5999267948e2aaf5fbdc7dab0681799b1`; local/tracking parity was `0 0`, and production diff against `892b6dae8282b159e580e3c1a6076a39d9902f84` was empty. Only three independent next-phase helper/navigation files remained untracked outside the reviewed tree; they were not included in these commits or matrix claims. This ledger update changes documentation only. Full archive coverage and the campaign goal remain incomplete.
+
+
+## Phase 3 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact replacement patch `e5c369897386114b5654cd963c46d98c993212f64fbc70bc468a2226f4a90874`, based at `ad00485f88283ec0bafbbb4478e182ad84a48670`, final tree `acbf10246e8e82b2d5c5e61232c9adf78aed0381`. The immutable packet is `/private/tmp/low-random-phase3-review-fixed-vgie7ina/`; independent reconstruction is `/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-independent-v2-qptgo256`. All 19 manifest hashes, 27 source hashes, complete seven-runtime 173-case suites, PHP74/85 randomized runs and all 80 separate main/native raw graphs matched. Their raw hashes and per-method summaries regenerated, with every outgoing-exit observation retained. The fresh database-builder finding was fixed; no remaining actionable bounded finding was identified. Native package-loader/full EE/historical/SQL integration and broad per-method outcome coverage remain incomplete.
+
+| Commit | Scope |
+|---|---|
+| `93a2d88` | Fresh database-service fixtures, direct seam and settings mutation assertions |
+| `da18c42` | Archive bridge helpers and registry contracts |
+| `2bffa76` | Bridge sidebar/navigation contracts and active-map regressions |
+| `9a7447b` | Original archive navigation component flows in native contexts |
+| `b1f5271` | Original fieldtype procedural parent-import layouts |
+| `ca69673` | Native coverage context provenance |
+| `430d7c8` | Seven-runtime and separate raw-coverage evidence |
+
+Before publication, fresh origin tracking parity was `0 0`. The seven commits' combined full-index binary diff exactly matched the approved patch, and the final tree exactly matched the reviewed tree. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `430d7c804d6324b328620a225b7eb66b6d2d8028`, with tracking parity `0 0`. The working tree was clean, and production diff against the pinned baseline was empty. This follow-up ledger changes documentation only; no executable source or test changed after the reviewed replay. Publication is an incomplete source-red checkpoint, not full campaign or coverage completion.
+
+
+## Phase 4 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact patch `25d3ab88f7bc33a9a0b8fccc63572f850542d0d756603592788f9e0d78a40edf`, based at `81a81efc571b48588f2c63f06b052a89131d4f68`, final tree `e3dfde39cc19d1d6963744ab55334d576b021ed2`. The immutable packet is `/private/tmp/low-random-phase4-review-h7zyb7lg/`; the independent reconstruction is `/var/folders/07/g6ql86ns3m75y257j7nb6pv00000gn/T/low-random-phase4-independent-5d58f5g_`. Full seven 207-case results and every issue identity matched, including only the additional intended EE2 persistent-delete failure. Random74/85, focused34/168/1failure, all128 separate raw graphs, all27 source hashes and all9 manifest hashes matched. Every retained raw SHA and per-method summary regenerated. No actionable bounded finding remained; full historical EE/SQL/view rendering/package loading and broad outcome coverage remain incomplete.
+
+Code commit `e3b9235` contains only the legacy fixtures/native entry/test class. Evidence commit `c40db2c` contains the six reviewed report/documentation paths. Before publishing, their combined full-index binary diff and tree exactly matched the approved snapshot. Fresh pre-publication origin parity was `0 0`. `git push origin unit-tests-2026` succeeded; subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `c40db2c22c51d445962943a10454df8892f4f7a4`, with tracking parity `0 0` and an empty production baseline diff.
+
+Three independent next-phase files remain untracked outside this reviewed tree: `tests/Support/native-stub-boundary.php`, `tests/tests/Unit/ArchiveStubBoundaryTest.php` and `tests/tests/Unit/ArchiveStubManifestTest.php`. They are excluded from the207-case/128-graph claims and from both commits above. This publication ledger changes STATUS only; no executable delta is part of it. Full campaign completion is not claimed.
+
+
+## Phase 5 publication evidence
+
+Independent reviewer `/root/tests_low_options` approved exact patch `d885246c3fd9d8c4036fd8e8857fadb827334419111cfeafd80d560b12047ce2`, based at `5d72289177f2820ecf2cdf31878434ea1392f3a0`, final tree `2e1206c5fec2d0341995e79880d1daeec8958a8d`. The immutable packet is `/private/tmp/low-random-phase5-review-em9wiq8r/`; independent reconstruction is `/private/tmp/low-random-phase5-independent-3ggmyjvm`. All seven 236-case counts and every issue identity matched, along with focused 29/315/4 failures, randomized 7.4/8.5, each new class alone, changed PHP lint across all seven runtimes and full caller FIFO controls. All 182 separate graphs, every retained raw hash and complete per-method summary matched after root/PID normalization. All nine manifest files, pinned PHPUnit and 27 source hashes verified. No actionable bounded issue remained. Platform/fallback/full EE/SQL/HTTP integration and broad outcome gaps remain incomplete.
+
+Reviewed test/support commit `43fb015` and evidence commit `0065fef` were published without force. Before pushing, their combined full-index binary diff and tree exactly matched the approved snapshot, and fresh origin tracking parity was `0 0`. Subsequent fetch and live `git ls-remote --heads origin unit-tests-2026` verified exact `0065fefa19bf926363bfbdb8e236083f61769536`, with tracking parity `0 0` and an empty production baseline diff.
+
+Three independent next-phase files remain untracked outside the reviewed tree: `tests/Support/NeighborLibraryFixture.php`, `tests/Support/native-loader-options.php` and `tests/tests/Unit/ArchiveLoaderOptionsTest.php`. They are excluded from the 236-case/182-graph claims and both commits above. This STATUS-only ledger adds no executable change. Full campaign completion is not claimed.
+
+
+## Phase 6 publication and remaining-source handoff
+
+Independent reviewer `/root/tests_low_options` approved exact patch `37d1563feda2ce277feff912a1e706fc8ca3e7f117f14821312e918d8065e5a5` against `38905934805327f29499035e8de4831e8469ff25`, final tree `192f13d3556db47b8c1ba80fcaf8721b333ae0fa`. The immutable packet is `/private/tmp/low-random-phase6-review-agqn640v/`; independent reconstruction is `/private/tmp/low-random-phase6-independent-r__qr7ri`. All seven full 243-case results and every source issue identity matched; focused all seven, standalone/randomized 7.4/8.5, complete caller FIFO probes and changed PHP lint all seven matched. All 196 fresh graphs, original outgoing observations, retained hashes and complete summaries matched. Nine manifest files, paired JUnit hashes, pinned PHPUnit and every source inventory entry verified. Actual OPcache capability and permission-branch probes matched. No actionable bounded finding remained; broader source/outcome/platform/integration gaps remain incomplete.
+
+Published scoped test/support commit `5f762fc` and evidence commit `fac8a80c2e0f3e9931f981adf6ccf1ee5945d99e`. Their combined full-index binary diff exactly matches the approved patch; final tree matches the reviewed tree. Fresh pre-publication origin tracking parity was `0 0`. Push succeeded without force; subsequent fetch and live ls-remote verified exact `fac8a80c2e0f3e9931f981adf6ccf1ee5945d99e`, tracking parity `0 0`, a clean checkout and empty production baseline diff. No future test files are left untracked.
+
+Remaining-source handoff is `/private/tmp/low-random-remaining-gap-handoff-fixed-78n_6iao/HANDOFF.md`, with SHA-pinned metadata, all 27 source units, both complete 262-row main method-gap reports, all 196 exact raw/summary references and feasible follow-up separated from proven source/environment limits. The handoff was prepared against the frozen reviewed tree; separate publication metadata records verified final refs. Future updater extension/unqualified-catch/historical-uninstall ideas are unexecuted plans only; no future source/test patch exists. Implementation stops here under the coordinator's breadth-rotation instruction. This factual documentation ledger changes no executable test or coverage evidence and does not mark the full campaign complete.
