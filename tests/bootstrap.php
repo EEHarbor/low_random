@@ -12,7 +12,6 @@ define('PATH_CACHE', sys_get_temp_dir() . '/low-random-tests-' . getmypid() . '/
 define('DIR_WRITE_MODE', 0700);
 define('FILE_WRITE_MODE', 0600);
 
-require_once __DIR__ . '/Support/coverage.php';
 require_once __DIR__ . '/Support/Environment.php';
 require_once __DIR__ . '/Support/ControlPanelServices.php';
 require_once __DIR__ . '/tests/Unit/TestCase.php';

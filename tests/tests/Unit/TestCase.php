@@ -119,7 +119,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Execute native probes with isolated output files and a bounded lifetime.
+     * Execute a PHP request guard with isolated output and a bounded lifetime.
      *
      * @param array $arguments
      * @param array $environmentOverrides
@@ -133,13 +133,7 @@ abstract class TestCase extends BaseTestCase
             throw new \InvalidArgumentException('Native probe timeout must be positive.');
         }
 
-        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=1', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
-        $extension = $environmentOverrides['LOW_RANDOM_XDEBUG_EXTENSION'] ?? getenv('LOW_RANDOM_XDEBUG_EXTENSION');
-
-        if ($extension !== false && $extension !== '') {
-            array_splice($command, 1, 0, array('-d', 'zend_extension=' . $extension, '-d', 'xdebug.mode=coverage'));
-        }
-
+        $command = array_merge(array(PHP_BINARY, '-d', 'error_reporting=-1', '-d', 'display_errors=1', '-d', 'display_startup_errors=1', '-d', 'sys_temp_dir=' . $this->temporaryDirectory), $arguments);
         $environment = array_merge(getenv(), $environmentOverrides, array('TMPDIR' => $this->temporaryDirectory));
         $output = $this->temporaryDirectory . '/native-' . bin2hex(random_bytes(6));
         $process = proc_open($command, array(0 => array('pipe', 'r'), 1 => array('file', $output . '.out', 'w'), 2 => array('file', $output . '.err', 'w')), $pipes, dirname(__DIR__, 3), $environment);

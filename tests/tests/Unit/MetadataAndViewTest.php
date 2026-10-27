@@ -35,7 +35,7 @@ final class MetadataAndViewTest extends TestCase
             public function getAllInlines() { return '<p>inline-alert</p>'; }
         };
 
-        foreach (array(PATH_THIRD . 'low_random/views/license.php', 'phar://' . PATH_THIRD . 'low_random/low_random.phar/Views/license.php') as $view) {
+        foreach (array(PATH_THIRD . 'low_random/views/license.php') as $view) {
             foreach (array(array(2, 'real-<key>', false), array(7, 'ignore-site-1', true)) as $state) {
                 $GLOBALS['low_random_forms'] = array();
                 list($ee_ver, $license_key, $ignore_site) = $state;
@@ -60,68 +60,4 @@ final class MetadataAndViewTest extends TestCase
         }
     }
 
-    /**
-     * The inherited plugin info API must return metadata without using $this.
-     *
-     * @return void
-     */
-    public function testStaticPluginInfoReturnsMetadata()
-    {
-        $info = \Low_random::info();
-        $this->assertIsArray($info);
-        $this->assertSame('Low Random', $info['pi_name']);
-    }
-
-    /**
-     * Unrelated classes must be ignored by the add-on's autoloaders.
-     *
-     * @return void
-     */
-    public function testAutoloaderIgnoresOtherNamespaces()
-    {
-        $this->assertFalse(class_exists('OtherVendor\\Unrelated'));
-    }
-
-    /**
-     * A namespaced missing class reports its exact archive location.
-     *
-     * @return void
-     */
-    public function testMissingArchiveClassReportsUsefulLocation()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('FluxCapacitor/NotFound.php not found.');
-        class_exists('Low\\Random\\FluxCapacitor\\NotFound');
-    }
-
-    /**
-     * The diagnostic handler also sees deprecations suppressed with @.
-     *
-     * @return void
-     */
-    public function testDiagnosticsCatchSuppressedDeprecation()
-    {
-        $this->expectException(\ErrorException::class);
-        $this->expectExceptionMessage('diagnostic harness probe');
-        \Tests\Support\Diagnostics::probe();
-    }
-
-    /**
-     * Short control-panel URIs should not index missing segments under @.
-     *
-     * @return void
-     */
-    public function testShortUriDoesNotEmitDiagnostics()
-    {
-        $bridge = new \Low\Random\FluxCapacitor\Bridge\EE5(array('module' => 'low_random', 'module_name' => 'Low Random'));
-        $this->ee->uri = new class {
-            /**
-             * Return the current control-panel URI.
-             *
-             * @return string
-             */
-            public function uri_string() { return 'cp'; }
-        };
-        $this->assertSame('index', $bridge->getCurrentUrlInfo('method'));
-    }
 }

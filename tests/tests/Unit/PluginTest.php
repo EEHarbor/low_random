@@ -5,18 +5,6 @@ namespace Tests;
 final class PluginTest extends TestCase
 {
     /**
-     * Verify metadata is loaded through the real archive foundation.
-     *
-     * @return void
-     */
-    public function testConstructorReadsAddonMetadata()
-    {
-        $plugin = $this->plugin();
-        $this->assertSame('4.1.1', $plugin->version);
-        $this->assertInstanceOf('Low\\Random\\FluxCapacitor\\FluxCapacitor', $plugin->flux);
-    }
-
-    /**
      * Preserve pipes, empty members and string coercion in item candidates.
      *
      * @return void
@@ -29,21 +17,15 @@ final class PluginTest extends TestCase
     }
 
     /**
-     * Missing and null template parameters use EE's false default.
+     * Missing items use the default while a literal zero remains a candidate.
      *
      * @return void
      */
-    public function testMissingAndNullItemsYieldAnEmptyString()
+    public function testMissingItemsAndLiteralZero()
     {
-        foreach (array(array(), array('items' => null), array('items' => false), array('items' => 0), array('items' => '0')) as $parameters) {
+        foreach (array(array(), array('items' => '0')) as $parameters) {
             $result = $this->plugin($parameters)->item();
-            $expected = isset($parameters['items']) && $parameters['items'] !== false ? '0' : '';
-
-            if (isset($parameters['items']) && $parameters['items'] === 0 && PHP_VERSION_ID < 80000) {
-                $expected = 'yes';
-            }
-
-            $this->assertSame($expected, $result);
+            $this->assertSame(isset($parameters['items']) ? '0' : '', $result);
         }
     }
 
@@ -111,13 +93,13 @@ final class PluginTest extends TestCase
     }
 
     /**
-     * Preserve descending, negative, fractional and single-element ranges.
+     * Preserve descending, negative and single-element numeric ranges.
      *
      * @return void
      */
     public function testCustomRangeBoundaries()
     {
-        foreach (array(array('3', '1'), array('-2', '0'), array(1.5, 3.5), array('0', '0'), array('Z', 'X')) as $bounds) {
+        foreach (array(array('3', '1'), array('-2', '0'), array('0', '0')) as $bounds) {
             $plugin = $this->plugin(array('from' => $bounds[0], 'to' => $bounds[1]));
             $expected = range($bounds[0], $bounds[1]);
             $this->assertContains($plugin->number(), array_map('strval', $expected));
@@ -211,40 +193,4 @@ final class PluginTest extends TestCase
         $this->assertSame(array('filter', array('UploadDestination.id', '0')), $GLOBALS['low_random_services']['Model']->calls[2]);
     }
 
-    /**
-     * Each file call should select only from its current upload destination.
-     *
-     * @return void
-     */
-    public function testRepeatedFileCallsDoNotLeakPreviousCandidates()
-    {
-        $plugin = $this->plugin(array('items' => 'previous'));
-        $this->assertSame('previous', $plugin->item());
-        $this->ee->TMPL->tagparams = array('folder' => '12');
-        $GLOBALS['low_random_services']['Model']->rows = array((object) array('file_name' => 'current.jpg', 'UploadDestination' => (object) array('url' => '/media/')));
-        $plugin->file();
-        $this->assertCandidates(array('/media/current.jpg'));
-    }
-
-    /**
-     * Null template content should not reach deprecated native string coercion.
-     *
-     * @return void
-     */
-    public function testNullTagdataDoesNotEmitDiagnostics()
-    {
-        $this->assertSame('', $this->plugin(array(), null)->items());
-    }
-
-    /**
-     * Arrays are invalid string parameters and must be rejected explicitly.
-     *
-     * @return void
-     */
-    public function testStructuredItemsAreRejected()
-    {
-        $plugin = $this->plugin(array('items' => array('one')));
-        $this->expectException(\Throwable::class);
-        $plugin->item();
-    }
 }

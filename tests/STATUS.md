@@ -1,3 +1,11 @@
+# Practical suite cleanup — 2026-10-27
+
+The current configured suite and results are described in `README.md`: 17 tests/57 assertions on PHP 7.4 and 8.0–8.5. Shared Foundation/PHAR tests, artificial harness cases and orphaned measurement support were removed. Original add-on source and PHAR bytes were unchanged. All seven runs pass.
+
+Earlier entries below are historical coverage-campaign evidence and may refer to removed tests/scripts.
+
+---
+
 # Low Random PHPUnit campaign status
 
 Status: **incomplete campaign; phase 6 reviewed/published, implementation held for ownership rotation**. The reviewed loader code/evidence checkpoint is published at `fac8a80c2e0f3e9931f981adf6ccf1ee5945d99e`. No production source changed. Current matrix/coverage artifacts describe phase 6; historical summaries below refer to their frozen packets and retained evidence.
