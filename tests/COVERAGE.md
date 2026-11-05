@@ -1,4 +1,6 @@
-# Coverage checkpoint
+# Historical coverage checkpoint
+
+This report predates direct Foundation test removal. Current configured scope is documented in [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md); no new coverage measurement or completion is claimed.
 
 Incomplete phase 6. Main process: PHP 8.2.30 / Xdebug 3.5.3. Pinned source baseline: `892b6dae8282b159e580e3c1a6076a39d9902f84`. Complete 243-case suites verify all 27 shipped source hashes and native compilation. No product source or archive changed.
 

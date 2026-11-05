@@ -4,7 +4,7 @@ Foundation changes are excluded from this candidate. The required distributed PH
 
 The retained add-on source fixes cover: String-compatible item/separator arguments, one-time separator conversion, empty-separator validation, NULL tagdata and per-file invocation state.
 
-All original configured suites, providers and tests remain selected. Only campaign-added Foundation-only tests/probes/build sources and Foundation-specific increments in original test files are removed. The original test files and history remain. Historical pre-cleanup matrices, published checkpoints, native faults and source snapshots are preserved under the campaign evidence and Git history; they do not validate this candidate.
+Configured tests now target add-on behavior and its test tools. Dedicated Foundation suites and direct Foundation methods in mixed suites are removed, including archive-member/stub compilation inputs and the archive license-view iteration. All add-on plugin cases, the loose license view and normal add-on loading through the real PHAR remain selected. Full source inventories and identity checks remain; native lint executes loose add-on PHP only. Test history remains in Git. Historical pre-cleanup matrices, published checkpoints, native faults and source snapshots are preserved under the campaign evidence and Git history; they do not validate this candidate.
 
 Run the complete configured suite with an explicit Herd binary:
 
@@ -16,4 +16,4 @@ Repeat for php80, php81, php82, php83, php84 and php85. The checked runner retai
 
 Strict startup binds the checked native capture directory and its filesystem identity before discovery and providers. Caller environment changes cannot redirect or disable native retention, including inherited child capture selection. The parent verifies that directory before joining issued outcomes. Both `--log-junit /absolute/fresh.xml` and `--log-junit=/absolute/fresh.xml` preserve the caller's fresh report destination.
 
-The retained original Foundation tests can fail against the restored dependency. Those failures must remain visible in the complete matrix and are shared dependency failures; they do not authorize test skips, diagnostic filters, expected-warning product assertions or new Foundation fixes. No complete compatibility or publication approval is claimed. The scope-correction review packet records the exact cleanup tree and final seven-version results. No live EE installation/database/browser or coverage-completion claim is made.
+Failures in retained add-on behavior tests must remain visible in the complete matrix; they do not authorize test skips, diagnostic filters, expected-warning product assertions or Foundation fixes. No complete compatibility or publication approval is claimed. The scope-correction review packet records the exact cleanup tree and final seven-version results. No live EE installation/database/browser or coverage-completion claim is made.

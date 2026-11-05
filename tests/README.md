@@ -2,7 +2,7 @@
 
 Current source scope and strict command: see [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md). The original Foundation PHAR/loader are restored to develop; the only retained production diff is the add-on plugin. The current source inventory has 27 units: four loose PHP files, 22 archive members and the stub. No new shared factory or extracted Foundation build source is shipped.
 
-Every original configured suite, provider and test remains selected. The complete matrix can remain red on the restored shared dependency. Keep strict startup, prethrow journals, native outcome/capture checks and all original failure assertions. Historical matrices and coverage below are preserved history, not current acceptance or a coverage-completion claim.
+Direct shared Foundation tests are removed, including dedicated archive suites and direct Foundation cases in mixed suites. Plugin behavior, the loose add-on license view, normal PHAR-backed construction, complete source identity enforcement, loose-source compilation and generic harness controls remain. Keep strict startup, prethrow journals, native outcome/capture checks and retained add-on failure assertions. Historical matrices and coverage below are preserved history, not current acceptance or a coverage-completion claim.
 
 ```sh
 PHP_BIN='/Users/tomjaeger/Library/Application Support/Herd/bin/php74' ./tests/.phpunit/run-phpunit.sh -c phpunit.xml --do-not-cache-result

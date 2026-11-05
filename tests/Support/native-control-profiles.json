@@ -29,7 +29,7 @@
       "case_file": "tests/tests/Unit/MetadataAndViewTest.php",
       "case_class": "Tests\\MetadataAndViewTest",
       "method": "testDiagnosticsCatchSuppressedDeprecation",
-      "case_sha256": "70a41eae0e3a4ae9143f9909a34f7495bacb541f7ab7afa7fe9f925f84996dc5",
+      "case_sha256": "ef6a5869ce6c754901636b65ac766da8e2bc984ef7bbdb897677fa5d166787b0",
       "arguments": [
         "-r",
         "try { @trigger_error(\"diagnostic harness probe\", E_USER_DEPRECATED); } catch (Throwable $error) {}"
@@ -41,7 +41,7 @@
       "case_file": "tests/tests/Unit/NativeProcessTest.php",
       "case_class": "Tests\\NativeProcessTest",
       "method": "testRawCoverageReportLifecycle",
-      "case_sha256": "2346f47ddfde3884eb48c4590d4c262a42ff52341c705f1edb9f64490fc742b1",
+      "case_sha256": "651c2f19a2077613b52b209b115ff48191bc393fe274290b8f1a67b23713678d",
       "arguments": [
         "{ROOT}/tests/Support/native.php",
         "coverage-repeat",

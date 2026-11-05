@@ -1,3 +1,9 @@
+# Current test scope
+
+The configured suite now covers add-on behavior and generic test tools. Direct Foundation suites, mixed direct Foundation methods, archive-view inputs and archive/stub compilation inputs are removed. See [COMPATIBILITY_2026.md](COMPATIBILITY_2026.md). The checkpoint counts and coverage below are preserved historical observations, not current validation or new coverage claims.
+
+## Preserved historical status
+
 # Low Random PHPUnit campaign status
 
 Status: **incomplete campaign; phase 6 reviewed/published, implementation held for ownership rotation**. The reviewed loader code/evidence checkpoint is published at `fac8a80c2e0f3e9931f981adf6ccf1ee5945d99e`. No production source changed. Current matrix/coverage artifacts describe phase 6; historical summaries below refer to their frozen packets and retained evidence.
